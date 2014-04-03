@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>7AD6E88C-E32F-4773-8B8F-2C1B806A45F2</string>
+	<key>IDESourceControlProjectName</key>
+	<string>RunnerGame</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>316EAEA9-A5B7-4DEB-9BA1-2A5608943B3B</key>
+		<string>https://bitbucket.org/aayven/runnergame.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>RunnerGame/RunnerGame.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>316EAEA9-A5B7-4DEB-9BA1-2A5608943B3B</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://bitbucket.org/aayven/runnergame.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>316EAEA9-A5B7-4DEB-9BA1-2A5608943B3B</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>316EAEA9-A5B7-4DEB-9BA1-2A5608943B3B</string>
+			<key>IDESourceControlWCCName</key>
+			<string>RunnerGame</string>
+		</dict>
+	</array>
+</dict>
+</plist>
