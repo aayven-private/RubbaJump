@@ -23,6 +23,7 @@
         self.physicsBody.affectedByGravity = YES;
         self.physicsBody.mass = 8.0;
         self.physicsBody.restitution = 0.0;
+        self.physicsBody.friction = 0.0;        
     }
     return self;
 }

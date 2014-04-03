@@ -11,6 +11,8 @@
 #import "Barrier.h"
 #import "Ground.h"
 
+static int kMaxJumpCount = 1;
+
 @interface GameScene()
 
 @property (nonatomic) NSTimeInterval lastUpdateTimeInterval;
@@ -20,7 +22,7 @@
 @property (nonatomic) Runner *runner;
 @property (nonatomic) Ground *ground;
 
-@property (nonatomic) BOOL isJumping;
+@property (nonatomic) int jumpCount;
 
 @property (nonatomic) SKEmitterNode *emitter;
 
@@ -38,11 +40,12 @@
         self.physicsBody.friction = 0.0f;
         self.physicsBody.restitution = 0.0f;
         self.scaleMode = SKSceneScaleModeAspectFit;
+        //self.physicsWorld.gravity = CGVectorMake(0, 0);
         
         self.contactManager = [[ContactManager alloc] initWithDelegate:self];
         self.physicsWorld.contactDelegate = self.contactManager;
         
-        self.isJumping = NO;
+        self.jumpCount = 0;
     }
     return self;
 }
@@ -68,7 +71,7 @@
     NSString *emitterPath = [[NSBundle mainBundle] pathForResource:@"SliderEffect" ofType:@"sks"];
     self.emitter = [NSKeyedUnarchiver unarchiveObjectWithFile:emitterPath];
     self.emitter.particleBirthRate = 40;
-    self.emitter.position = CGPointMake(83, 105);
+    self.emitter.position = CGPointMake(83, 104);
     
     [self addChild:self.ground];
     [self addChild:self.runner];
@@ -76,9 +79,10 @@
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    if (!_isJumping) {
+    if (_jumpCount < kMaxJumpCount) {
         [self.runner.physicsBody applyImpulse:CGVectorMake(0, 5000.0)];
-        [self.runner.physicsBody applyAngularImpulse:-0.33];
+        [self.runner.physicsBody applyAngularImpulse:-0.66];
+        _jumpCount++;
     }
 }
 
@@ -95,19 +99,22 @@
 
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)timeSinceLast
 {
-    self.runner.physicsBody.velocity = CGVectorMake(0, self.runner.physicsBody.velocity.dy);
+    [self runAction:[SKAction runBlock:^{
+        //self.runner.zRotation = 0;
+        self.runner.physicsBody.velocity = CGVectorMake(0, self.runner.physicsBody.velocity.dy);
+    }]];
+    
 }
 
 -(void)runnerJumped
 {
-    _isJumping = YES;
     _emitter.particleBirthRate = 0;
 }
 
 -(void)runnerLanded
 {
     NSLog(@"Pos: %@", NSStringFromCGPoint(self.runner.position));
-    _isJumping = NO;
+    _jumpCount = 0;
     _emitter.particleBirthRate = 150;
     [self runAction:[SKAction runBlock:^{
         self.runner.zRotation = 0;

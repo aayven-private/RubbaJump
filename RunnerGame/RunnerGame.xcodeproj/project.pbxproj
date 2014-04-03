@@ -28,7 +28,7 @@
 		B01ED85C18ED4FE70062AB4A /* Ground.m in Sources */ = {isa = PBXBuildFile; fileRef = B01ED85B18ED4FE70062AB4A /* Ground.m */; };
 		B01ED85F18ED4FF90062AB4A /* GameObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B01ED85E18ED4FF90062AB4A /* GameObject.m */; };
 		B01ED86718ED57370062AB4A /* ContactManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B01ED86618ED57370062AB4A /* ContactManager.m */; };
-		B01ED86B18ED5F4D0062AB4A /* square.png in Resources */ = {isa = PBXBuildFile; fileRef = B01ED86A18ED5F4D0062AB4A /* square.png */; };
+		B01ED86B18ED5F4D0062AB4A /* square@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B01ED86A18ED5F4D0062AB4A /* square@2x.png */; };
 		B01ED87618EDB7480062AB4A /* SliderEffect.sks in Resources */ = {isa = PBXBuildFile; fileRef = B01ED87418EDB7480062AB4A /* SliderEffect.sks */; };
 		B01ED87718EDB7480062AB4A /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = B01ED87518EDB7480062AB4A /* spark.png */; };
 /* End PBXBuildFile section */
@@ -78,7 +78,7 @@
 		B01ED86518ED57370062AB4A /* ContactManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactManager.h; sourceTree = "<group>"; };
 		B01ED86618ED57370062AB4A /* ContactManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactManager.m; sourceTree = "<group>"; };
 		B01ED86918ED578A0062AB4A /* ContactManagerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContactManagerDelegate.h; sourceTree = "<group>"; };
-		B01ED86A18ED5F4D0062AB4A /* square.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = square.png; sourceTree = "<group>"; };
+		B01ED86A18ED5F4D0062AB4A /* square@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "square@2x.png"; sourceTree = "<group>"; };
 		B01ED87418EDB7480062AB4A /* SliderEffect.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SliderEffect.sks; sourceTree = "<group>"; };
 		B01ED87518EDB7480062AB4A /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -222,7 +222,7 @@
 		B01ED86018ED50250062AB4A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				B01ED86A18ED5F4D0062AB4A /* square.png */,
+				B01ED86A18ED5F4D0062AB4A /* square@2x.png */,
 				B01ED86118ED50350062AB4A /* Constants.h */,
 				B01ED87418EDB7480062AB4A /* SliderEffect.sks */,
 				B01ED87518EDB7480062AB4A /* spark.png */,
@@ -329,7 +329,7 @@
 				B00DB99D18ED48EF00460930 /* InfoPlist.strings in Resources */,
 				B01ED87718EDB7480062AB4A /* spark.png in Resources */,
 				B00DB9B018ED48EF00460930 /* Images.xcassets in Resources */,
-				B01ED86B18ED5F4D0062AB4A /* square.png in Resources */,
+				B01ED86B18ED5F4D0062AB4A /* square@2x.png in Resources */,
 				B01ED87618EDB7480062AB4A /* SliderEffect.sks in Resources */,
 				B00DB9A618ED48EF00460930 /* Main.storyboard in Resources */,
 			);
@@ -487,7 +487,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RunnerGame/RunnerGame-Prefix.pch";
 				INFOPLIST_FILE = "RunnerGame/RunnerGame-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
 				WRAPPER_EXTENSION = app;
@@ -503,7 +503,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RunnerGame/RunnerGame-Prefix.pch";
 				INFOPLIST_FILE = "RunnerGame/RunnerGame-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
 				WRAPPER_EXTENSION = app;

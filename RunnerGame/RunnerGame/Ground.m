@@ -22,6 +22,7 @@
         self.physicsBody.dynamic = NO;
         self.physicsBody.affectedByGravity = NO;
         self.physicsBody.restitution = 0.0;
+        self.physicsBody.friction = 0.0;
     }
     return self;
 }
