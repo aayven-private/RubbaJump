@@ -1,13 +1,14 @@
 //
-//  MyScene.h
+//  Runner.h
 //  RunnerGame
 //
-
+//  Created by Ivan Borsa on 03/04/14.
 //  Copyright (c) 2014 Weloux. All rights reserved.
 //
 
 #import <SpriteKit/SpriteKit.h>
+#import "GameObject.h"
 
-@interface MyScene : SKScene
+@interface Runner : GameObject
 
 @end

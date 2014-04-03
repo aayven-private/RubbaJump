@@ -8,6 +8,12 @@
 
 #import "AppDelegate.h"
 
+@interface AppDelegate()
+
+@property (nonatomic) UINavigationController *navigationController;
+
+@end
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
