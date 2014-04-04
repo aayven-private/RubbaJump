@@ -14,15 +14,17 @@
 {
     if (self = [super init]) {
         self.type = kObjectTypeGround;
-        self.physicsBody = [SKPhysicsBody bodyWithEdgeFromPoint:CGPointMake(0, 0) toPoint:CGPointMake(size.width, 0)];
+        self.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:size];
         self.physicsBody.categoryBitMask = kObjectCategoryGround;
-        self.physicsBody.contactTestBitMask = kObjectCategoryBarrier | kObjectCategoryRunner;
+        self.physicsBody.contactTestBitMask = kObjectCategoryBarrier;
         self.physicsBody.collisionBitMask = kObjectCategoryBarrier | kObjectCategoryRunner;
         self.physicsBody.usesPreciseCollisionDetection = YES;
-        self.physicsBody.dynamic = NO;
         self.physicsBody.affectedByGravity = NO;
+        self.physicsBody.dynamic = NO;
+        self.isAffectedBySelectiveGravity = NO;
         self.physicsBody.restitution = 0.0;
         self.physicsBody.friction = 0.0;
+        self.hasOwnGravity = NO;
     }
     return self;
 }

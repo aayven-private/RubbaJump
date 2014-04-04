@@ -28,9 +28,13 @@
 		B01ED85C18ED4FE70062AB4A /* Ground.m in Sources */ = {isa = PBXBuildFile; fileRef = B01ED85B18ED4FE70062AB4A /* Ground.m */; };
 		B01ED85F18ED4FF90062AB4A /* GameObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B01ED85E18ED4FF90062AB4A /* GameObject.m */; };
 		B01ED86718ED57370062AB4A /* ContactManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B01ED86618ED57370062AB4A /* ContactManager.m */; };
-		B01ED86B18ED5F4D0062AB4A /* square@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B01ED86A18ED5F4D0062AB4A /* square@2x.png */; };
+		B01ED86B18ED5F4D0062AB4A /* runner@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B01ED86A18ED5F4D0062AB4A /* runner@2x.png */; };
 		B01ED87618EDB7480062AB4A /* SliderEffect.sks in Resources */ = {isa = PBXBuildFile; fileRef = B01ED87418EDB7480062AB4A /* SliderEffect.sks */; };
 		B01ED87718EDB7480062AB4A /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = B01ED87518EDB7480062AB4A /* spark.png */; };
+		B01ED87A18EEAEDC0062AB4A /* ParallaxBG.m in Sources */ = {isa = PBXBuildFile; fileRef = B01ED87918EEAEDC0062AB4A /* ParallaxBG.m */; };
+		B01ED87C18EEB1030062AB4A /* square.png in Resources */ = {isa = PBXBuildFile; fileRef = B01ED87B18EEB1030062AB4A /* square.png */; };
+		B01ED88018EEB6D40062AB4A /* CommonTools.m in Sources */ = {isa = PBXBuildFile; fileRef = B01ED87F18EEB6D40062AB4A /* CommonTools.m */; };
+		B01ED88918EEDDE70062AB4A /* BoomEffect.sks in Resources */ = {isa = PBXBuildFile; fileRef = B01ED88818EEDDE70062AB4A /* BoomEffect.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,9 +82,15 @@
 		B01ED86518ED57370062AB4A /* ContactManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactManager.h; sourceTree = "<group>"; };
 		B01ED86618ED57370062AB4A /* ContactManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactManager.m; sourceTree = "<group>"; };
 		B01ED86918ED578A0062AB4A /* ContactManagerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContactManagerDelegate.h; sourceTree = "<group>"; };
-		B01ED86A18ED5F4D0062AB4A /* square@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "square@2x.png"; sourceTree = "<group>"; };
+		B01ED86A18ED5F4D0062AB4A /* runner@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "runner@2x.png"; sourceTree = "<group>"; };
 		B01ED87418EDB7480062AB4A /* SliderEffect.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SliderEffect.sks; sourceTree = "<group>"; };
 		B01ED87518EDB7480062AB4A /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
+		B01ED87818EEAEDC0062AB4A /* ParallaxBG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParallaxBG.h; sourceTree = "<group>"; };
+		B01ED87918EEAEDC0062AB4A /* ParallaxBG.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParallaxBG.m; sourceTree = "<group>"; };
+		B01ED87B18EEB1030062AB4A /* square.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = square.png; sourceTree = "<group>"; };
+		B01ED87E18EEB6D40062AB4A /* CommonTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonTools.h; sourceTree = "<group>"; };
+		B01ED87F18EEB6D40062AB4A /* CommonTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonTools.m; sourceTree = "<group>"; };
+		B01ED88818EEDDE70062AB4A /* BoomEffect.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = BoomEffect.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +152,7 @@
 		B00DB99818ED48EF00460930 /* RunnerGame */ = {
 			isa = PBXGroup;
 			children = (
+				B01ED87D18EEB6A80062AB4A /* Helpers */,
 				B01ED86818ED57600062AB4A /* Protocols */,
 				B01ED86418ED57240062AB4A /* ContactManagement */,
 				B01ED86018ED50250062AB4A /* Resources */,
@@ -207,6 +218,8 @@
 		B01ED85318ED4F960062AB4A /* GameObjects */ = {
 			isa = PBXGroup;
 			children = (
+				B01ED87818EEAEDC0062AB4A /* ParallaxBG.h */,
+				B01ED87918EEAEDC0062AB4A /* ParallaxBG.m */,
 				B01ED85418ED4FAB0062AB4A /* Runner.h */,
 				B01ED85518ED4FAB0062AB4A /* Runner.m */,
 				B01ED85718ED4FD50062AB4A /* Barrier.h */,
@@ -222,10 +235,12 @@
 		B01ED86018ED50250062AB4A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				B01ED86A18ED5F4D0062AB4A /* square@2x.png */,
+				B01ED87B18EEB1030062AB4A /* square.png */,
+				B01ED86A18ED5F4D0062AB4A /* runner@2x.png */,
 				B01ED86118ED50350062AB4A /* Constants.h */,
 				B01ED87418EDB7480062AB4A /* SliderEffect.sks */,
 				B01ED87518EDB7480062AB4A /* spark.png */,
+				B01ED88818EEDDE70062AB4A /* BoomEffect.sks */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -245,6 +260,15 @@
 				B01ED86918ED578A0062AB4A /* ContactManagerDelegate.h */,
 			);
 			name = Protocols;
+			sourceTree = "<group>";
+		};
+		B01ED87D18EEB6A80062AB4A /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				B01ED87E18EEB6D40062AB4A /* CommonTools.h */,
+				B01ED87F18EEB6D40062AB4A /* CommonTools.m */,
+			);
+			name = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -329,9 +353,11 @@
 				B00DB99D18ED48EF00460930 /* InfoPlist.strings in Resources */,
 				B01ED87718EDB7480062AB4A /* spark.png in Resources */,
 				B00DB9B018ED48EF00460930 /* Images.xcassets in Resources */,
-				B01ED86B18ED5F4D0062AB4A /* square@2x.png in Resources */,
+				B01ED87C18EEB1030062AB4A /* square.png in Resources */,
+				B01ED86B18ED5F4D0062AB4A /* runner@2x.png in Resources */,
 				B01ED87618EDB7480062AB4A /* SliderEffect.sks in Resources */,
 				B00DB9A618ED48EF00460930 /* Main.storyboard in Resources */,
+				B01ED88918EEDDE70062AB4A /* BoomEffect.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,7 +376,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B01ED88018EEB6D40062AB4A /* CommonTools.m in Sources */,
 				B01ED85F18ED4FF90062AB4A /* GameObject.m in Sources */,
+				B01ED87A18EEAEDC0062AB4A /* ParallaxBG.m in Sources */,
 				B00DB9AC18ED48EF00460930 /* GameScene.m in Sources */,
 				B01ED85918ED4FD50062AB4A /* Barrier.m in Sources */,
 				B00DB9A918ED48EF00460930 /* MainScreenController.m in Sources */,

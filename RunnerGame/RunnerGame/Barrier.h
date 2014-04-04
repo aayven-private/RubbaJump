@@ -11,4 +11,8 @@
 
 @interface Barrier : GameObject
 
+@property (nonatomic) BOOL isJumper;
+@property (nonatomic) float impulse;
+@property (nonatomic) float speed;
+
 @end

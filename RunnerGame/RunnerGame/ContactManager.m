@@ -7,6 +7,7 @@
 //
 
 #import "ContactManager.h"
+#import "Constants.h"
 
 @implementation ContactManager
 
@@ -20,12 +21,43 @@
 
 -(void)didBeginContact:(SKPhysicsContact *)contact
 {
-    [_delegate runnerLanded];
+    if (contact.bodyA.categoryBitMask == kObjectCategoryRunner) {
+        if (contact.bodyB.categoryBitMask == kObjectCategoryGround) {
+            [_delegate runnerLanded];
+        }
+        if (contact.bodyB.categoryBitMask == kObjectCategoryBarrier) {
+            [_delegate barrierCollidedWithRunner];
+        }
+    } else if (contact.bodyB.categoryBitMask == kObjectCategoryRunner) {
+        if (contact.bodyA.categoryBitMask == kObjectCategoryGround) {
+            [_delegate runnerLanded];
+        }
+        if (contact.bodyA.categoryBitMask == kObjectCategoryBarrier) {
+            [_delegate barrierCollidedWithRunner];
+        }
+    } else if (contact.bodyA.categoryBitMask == kObjectCategoryBarrier) {
+        if (contact.bodyB.categoryBitMask == kObjectCategoryGround) {
+            [_delegate barrierLanded:(Barrier *)contact.bodyA.node];
+        }
+
+    } else if (contact.bodyB.categoryBitMask == kObjectCategoryBarrier) {
+        if (contact.bodyA.categoryBitMask == kObjectCategoryGround) {
+            [_delegate barrierLanded:(Barrier *)contact.bodyB.node];
+        }
+
+    }
 }
 
 -(void)didEndContact:(SKPhysicsContact *)contact
 {
-    [_delegate runnerJumped];
-}
+    if (contact.bodyA.categoryBitMask == kObjectCategoryRunner) {
+        if (contact.bodyB.categoryBitMask == kObjectCategoryGround) {
+            [_delegate runnerJumped];
+        }
+    } else if (contact.bodyB.categoryBitMask == kObjectCategoryRunner) {
+        if (contact.bodyA.categoryBitMask == kObjectCategoryGround) {
+            [_delegate runnerJumped];
+        }
+    }}
 
 @end

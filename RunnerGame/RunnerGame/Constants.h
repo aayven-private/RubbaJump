@@ -16,3 +16,7 @@ static uint32_t kObjectCategoryFrame = 0x1 << 0;
 static uint32_t kObjectCategoryRunner = 0x1 << 1;
 static uint32_t kObjectCategoryBarrier = 0x1 << 2;
 static uint32_t kObjectCategoryGround = 0x1 << 3;
+
+static float kPpm = 150.0;
+
+static int kMaxJumpCount = 2;

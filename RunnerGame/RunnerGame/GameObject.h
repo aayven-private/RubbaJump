@@ -12,5 +12,9 @@
 @interface GameObject : SKSpriteNode
 
 @property (nonatomic) NSString *type;
+@property (nonatomic) BOOL isAffectedBySelectiveGravity;
+
+@property (nonatomic) CGVector suggestedGravity;
+@property (nonatomic) BOOL hasOwnGravity;
 
 @end

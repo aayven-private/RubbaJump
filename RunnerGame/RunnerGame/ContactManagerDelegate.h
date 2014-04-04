@@ -7,10 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Barrier.h"
 
 @protocol ContactManagerDelegate <NSObject>
 
 -(void)runnerJumped;
 -(void)runnerLanded;
+
+-(void)barrierCollidedWithRunner;
+
+-(void)barrierLanded:(Barrier *)barrier;
 
 @end

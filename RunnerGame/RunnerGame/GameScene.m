@@ -10,8 +10,7 @@
 #import "Runner.h"
 #import "Barrier.h"
 #import "Ground.h"
-
-static int kMaxJumpCount = 1;
+#import "CommonTools.h"
 
 @interface GameScene()
 
@@ -26,6 +25,11 @@ static int kMaxJumpCount = 1;
 
 @property (nonatomic) SKEmitterNode *emitter;
 
+@property (nonatomic) NSTimeInterval lastSpawnTimeInterval;
+@property (nonatomic) NSTimeInterval randomSpawnInterval;
+
+@property (nonatomic) CGVector selectiveGravity;
+
 @end
 
 @implementation GameScene
@@ -34,25 +38,32 @@ static int kMaxJumpCount = 1;
     if (self = [super initWithSize:size]) {
         /* Setup your scene here */
         self.backgroundColor = [SKColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
-        self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
-        self.physicsBody.categoryBitMask = kObjectCategoryFrame;
-        self.physicsBody.collisionBitMask = 0;
-        self.physicsBody.friction = 0.0f;
-        self.physicsBody.restitution = 0.0f;
-        self.scaleMode = SKSceneScaleModeAspectFit;
-        //self.physicsWorld.gravity = CGVectorMake(0, 0);
-        
-        self.contactManager = [[ContactManager alloc] initWithDelegate:self];
-        self.physicsWorld.contactDelegate = self.contactManager;
         
         self.jumpCount = 0;
+        self.randomSpawnInterval = [CommonTools getRandomFloatFromFloat:1.8 toFloat:2.0];
+        
+        self.selectiveGravity = CGVectorMake(0, -9.8 * kPpm);
     }
     return self;
 }
 
 -(void)initEnvironment
 {
-    NSLog(@"SF: %f", self.view.contentScaleFactor);
+    [self removeAllChildren];
+    self.contactManager = [[ContactManager alloc] initWithDelegate:self];
+    self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
+    self.physicsWorld.gravity = CGVectorMake(0, 0);
+    self.physicsWorld.contactDelegate = self.contactManager;
+    self.physicsBody.categoryBitMask = kObjectCategoryFrame;
+    self.physicsBody.contactTestBitMask = 0;
+    self.physicsBody.collisionBitMask = 0;
+    self.physicsBody.friction = 0.0f;
+    self.physicsBody.restitution = 0.0f;
+    self.physicsBody.usesPreciseCollisionDetection = YES;
+    self.scaleMode = SKSceneScaleModeAspectFill;
+    
+    //NSLog(@"Frame: %@", NSStringFromCGRect(self.frame));
+    
     SKShapeNode *groundLine = [SKShapeNode node];
     CGMutablePathRef pathToDraw = CGPathCreateMutable();
     CGPathMoveToPoint(pathToDraw, NULL, 0.0, 100.0);
@@ -62,16 +73,16 @@ static int kMaxJumpCount = 1;
     [self addChild:groundLine];
     CGPathRelease(pathToDraw);
     
-    self.runner = [[Runner alloc] initWithTexture:[SKTexture textureWithImageNamed:@"square"]];
-    self.ground = [[Ground alloc] initWithSize:CGSizeMake(self.size.width * self.view.contentScaleFactor, 100.0 * self.view.contentScaleFactor)];
+    self.runner = [[Runner alloc] initWithTexture:[SKTexture textureWithImageNamed:@"runner"]];
+    self.ground = [[Ground alloc] initWithSize:CGSizeMake(self.size.width * self.view.contentScaleFactor + 50.0, 100.0 * self.view.contentScaleFactor)];
     
-    self.runner.position = CGPointMake(80 + self.runner.size.width / 2.0, 100 + self.runner.size.height / 2.0);
-    self.ground.position = CGPointMake(0, 100.0);
+    self.runner.position = CGPointMake(80 + self.runner.size.width / 2.0, 100 + self.runner.size.height / 2.0 + 3);
+    self.ground.position = CGPointMake(0, 0);
     
     NSString *emitterPath = [[NSBundle mainBundle] pathForResource:@"SliderEffect" ofType:@"sks"];
     self.emitter = [NSKeyedUnarchiver unarchiveObjectWithFile:emitterPath];
     self.emitter.particleBirthRate = 40;
-    self.emitter.position = CGPointMake(83, 104);
+    self.emitter.position = CGPointMake(81, 102);
     
     [self addChild:self.ground];
     [self addChild:self.runner];
@@ -79,30 +90,66 @@ static int kMaxJumpCount = 1;
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    _runner.isJumping = YES;
+    _runner.physicsBody.contactTestBitMask = kObjectCategoryBarrier | kObjectCategoryGround;
     if (_jumpCount < kMaxJumpCount) {
-        [self.runner.physicsBody applyImpulse:CGVectorMake(0, 5000.0)];
-        [self.runner.physicsBody applyAngularImpulse:-0.66];
+        [self.runner.physicsBody applyImpulse:CGVectorMake(0, 8000)];
+        [self.runner.physicsBody applyAngularImpulse:-0.95];
+        
         _jumpCount++;
     }
 }
 
 - (void)update:(NSTimeInterval)currentTime
 {
-    CFTimeInterval timeSinceLast = currentTime - self.lastUpdateTimeInterval;
-    
-    self.lastUpdateTimeInterval = currentTime;
+    for (SKSpriteNode *node in self.children) {
+        if (node.position.x < 0) {
+            [node removeFromParent];
+        } else {
+            if ([node isKindOfClass:[GameObject class]]) {
+                if (((GameObject *)node).hasOwnGravity) {
+                    CGVector ownGravity = ((GameObject *)node).suggestedGravity;
+                    [node.physicsBody applyForce:ownGravity];
+                } else if (((GameObject *)node).isAffectedBySelectiveGravity) {
+                    [node.physicsBody applyForce:CGVectorMake(node.physicsBody.mass * _selectiveGravity.dx, node.physicsBody.mass * _selectiveGravity.dy)];
+                }
+            }
+        }
+    }
+    CFTimeInterval timeSinceLast = currentTime - _lastUpdateTimeInterval;
     if (timeSinceLast > 1) { // more than a second since last update
         timeSinceLast = 1.0 / 60.0;
-        self.lastUpdateTimeInterval = currentTime;
     }
+    _lastUpdateTimeInterval = currentTime;
+    [self updateWithTimeSinceLastUpdate:timeSinceLast];
 }
 
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)timeSinceLast
 {
-    [self runAction:[SKAction runBlock:^{
-        //self.runner.zRotation = 0;
-        self.runner.physicsBody.velocity = CGVectorMake(0, self.runner.physicsBody.velocity.dy);
-    }]];
+    _lastSpawnTimeInterval += timeSinceLast;
+    
+    if (_lastSpawnTimeInterval > _randomSpawnInterval) {
+        _lastSpawnTimeInterval = 0;
+        _randomSpawnInterval = [CommonTools getRandomFloatFromFloat:0.5 toFloat:0.7];
+        //[self addBarrier];
+    }
+    
+}
+
+-(void)addBarrier
+{
+    Barrier *barrier = [[Barrier alloc] initWithTexture:[SKTexture textureWithImageNamed:@"square"]];
+    
+    int boolInt = [CommonTools getRandomNumberFromInt:0 toInt:1];
+    if ((BOOL)boolInt) {
+        barrier.position = CGPointMake(self.size.width, 100.0 + barrier.size.height / 2.0);
+    } else {
+        barrier.position = CGPointMake(self.size.width, 100.0 + _runner.size.height + barrier.size.height / 2.0 + 2);
+    }
+    
+    barrier.physicsBody.velocity = CGVectorMake(barrier.speed, 0);
+    [self addChild:barrier];
+    
     
 }
 
@@ -113,13 +160,38 @@ static int kMaxJumpCount = 1;
 
 -(void)runnerLanded
 {
-    NSLog(@"Pos: %@", NSStringFromCGPoint(self.runner.position));
     _jumpCount = 0;
+    _runner.isJumping = NO;
+    _runner.physicsBody.contactTestBitMask = kObjectCategoryBarrier;
     _emitter.particleBirthRate = 150;
-    [self runAction:[SKAction runBlock:^{
-        self.runner.zRotation = 0;
-        self.runner.position = CGPointMake(80 + self.runner.size.width / 2.0, 100 + self.runner.size.height / 2.0);
-    }]];
+    //self.runner.zRotation = 0;
+    //self.runner.position = CGPointMake(80 + self.runner.size.width / 2.0, 100 + self.runner.size.height / 2.0);
+    //self.runner.position = CGPointMake(80 + self.runner.size.width / 2.0, 100 + self.runner.size.height / 2.0);
+
+}
+
+-(void)barrierLanded:(Barrier *)barrier
+{
+    if (barrier.isJumper) {
+        [barrier.physicsBody applyImpulse:CGVectorMake(0, barrier.impulse)];
+    }
+}
+
+-(void)barrierCollidedWithRunner
+{
+    NSString *boomPath = [[NSBundle mainBundle] pathForResource:@"BoomEffect" ofType:@"sks"];
+    SKEmitterNode *emitter = [NSKeyedUnarchiver unarchiveObjectWithFile:boomPath];
+    emitter.position = _runner.position;
+    [_runner removeFromParent];
+    _emitter.particleBirthRate = 0;
+    SKAction *boom = [SKAction runBlock:^{
+        [_runner removeFromParent];
+        [self addChild:emitter];
+    }];
+    
+    [self runAction:[SKAction sequence:@[boom, [SKAction waitForDuration:2.0], [SKAction runBlock:^{
+        [self initEnvironment];
+    }]]]];
 }
 
 @end
