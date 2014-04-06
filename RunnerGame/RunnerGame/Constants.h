@@ -20,3 +20,8 @@ static uint32_t kObjectCategoryGround = 0x1 << 3;
 static float kPpm = 150.0;
 
 static int kMaxJumpCount = 2;
+
+static float kGroundHeight = 60;
+
+static int kTopLimit = 100;
+static int kBottomLimit = 4;

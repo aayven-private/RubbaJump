@@ -57,7 +57,7 @@
                     break;
             }
         } else {
-            self.speed = [CommonTools getRandomFloatFromFloat:-600 toFloat:-620];
+            self.speed = [CommonTools getRandomFloatFromFloat:-600 toFloat:-650];
         }
         
         self.hasOwnGravity = self.isJumper;
