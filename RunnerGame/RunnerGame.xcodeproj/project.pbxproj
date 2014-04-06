@@ -35,6 +35,11 @@
 		B01ED87C18EEB1030062AB4A /* square.png in Resources */ = {isa = PBXBuildFile; fileRef = B01ED87B18EEB1030062AB4A /* square.png */; };
 		B01ED88018EEB6D40062AB4A /* CommonTools.m in Sources */ = {isa = PBXBuildFile; fileRef = B01ED87F18EEB6D40062AB4A /* CommonTools.m */; };
 		B01ED88918EEDDE70062AB4A /* BoomEffect.sks in Resources */ = {isa = PBXBuildFile; fileRef = B01ED88818EEDDE70062AB4A /* BoomEffect.sks */; };
+		B0FF194518F1DB8900560E5E /* HighScoreManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FF194418F1DB8900560E5E /* HighScoreManager.m */; };
+		B0FF194918F1DBAB00560E5E /* HighScoreHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FF194818F1DBAB00560E5E /* HighScoreHelper.m */; };
+		B0FF194D18F1DBD000560E5E /* HighScores.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FF194C18F1DBD000560E5E /* HighScores.m */; };
+		B0FF195018F1DBDA00560E5E /* DBAccessLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FF194F18F1DBDA00560E5E /* DBAccessLayer.m */; };
+		B0FF195218F1DBF700560E5E /* RunnerDataModel.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = B0FF195118F1DBF700560E5E /* RunnerDataModel.xcdatamodel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +96,15 @@
 		B01ED87E18EEB6D40062AB4A /* CommonTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonTools.h; sourceTree = "<group>"; };
 		B01ED87F18EEB6D40062AB4A /* CommonTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonTools.m; sourceTree = "<group>"; };
 		B01ED88818EEDDE70062AB4A /* BoomEffect.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = BoomEffect.sks; sourceTree = "<group>"; };
+		B0FF194318F1DB8900560E5E /* HighScoreManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighScoreManager.h; sourceTree = "<group>"; };
+		B0FF194418F1DB8900560E5E /* HighScoreManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HighScoreManager.m; sourceTree = "<group>"; };
+		B0FF194718F1DBAB00560E5E /* HighScoreHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighScoreHelper.h; sourceTree = "<group>"; };
+		B0FF194818F1DBAB00560E5E /* HighScoreHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HighScoreHelper.m; sourceTree = "<group>"; };
+		B0FF194B18F1DBD000560E5E /* HighScores.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighScores.h; sourceTree = "<group>"; };
+		B0FF194C18F1DBD000560E5E /* HighScores.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HighScores.m; sourceTree = "<group>"; };
+		B0FF194E18F1DBDA00560E5E /* DBAccessLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBAccessLayer.h; sourceTree = "<group>"; };
+		B0FF194F18F1DBDA00560E5E /* DBAccessLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBAccessLayer.m; sourceTree = "<group>"; };
+		B0FF195118F1DBF700560E5E /* RunnerDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RunnerDataModel.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,6 +166,7 @@
 		B00DB99818ED48EF00460930 /* RunnerGame */ = {
 			isa = PBXGroup;
 			children = (
+				B0FF194118F1DB5200560E5E /* DBAccessLayer */,
 				B01ED87D18EEB6A80062AB4A /* Helpers */,
 				B01ED86818ED57600062AB4A /* Protocols */,
 				B01ED86418ED57240062AB4A /* ContactManagement */,
@@ -271,6 +286,46 @@
 			name = Helpers;
 			sourceTree = "<group>";
 		};
+		B0FF194118F1DB5200560E5E /* DBAccessLayer */ = {
+			isa = PBXGroup;
+			children = (
+				B0FF195118F1DBF700560E5E /* RunnerDataModel.xcdatamodel */,
+				B0FF194E18F1DBDA00560E5E /* DBAccessLayer.h */,
+				B0FF194F18F1DBDA00560E5E /* DBAccessLayer.m */,
+				B0FF194A18F1DBBF00560E5E /* Entities */,
+				B0FF194618F1DB9900560E5E /* EntityHelpers */,
+				B0FF194218F1DB6B00560E5E /* Managers */,
+			);
+			name = DBAccessLayer;
+			sourceTree = "<group>";
+		};
+		B0FF194218F1DB6B00560E5E /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				B0FF194318F1DB8900560E5E /* HighScoreManager.h */,
+				B0FF194418F1DB8900560E5E /* HighScoreManager.m */,
+			);
+			name = Managers;
+			sourceTree = "<group>";
+		};
+		B0FF194618F1DB9900560E5E /* EntityHelpers */ = {
+			isa = PBXGroup;
+			children = (
+				B0FF194718F1DBAB00560E5E /* HighScoreHelper.h */,
+				B0FF194818F1DBAB00560E5E /* HighScoreHelper.m */,
+			);
+			name = EntityHelpers;
+			sourceTree = "<group>";
+		};
+		B0FF194A18F1DBBF00560E5E /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				B0FF194B18F1DBD000560E5E /* HighScores.h */,
+				B0FF194C18F1DBD000560E5E /* HighScores.m */,
+			);
+			name = Entities;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -379,13 +434,18 @@
 				B01ED88018EEB6D40062AB4A /* CommonTools.m in Sources */,
 				B01ED85F18ED4FF90062AB4A /* GameObject.m in Sources */,
 				B01ED87A18EEAEDC0062AB4A /* ParallaxBG.m in Sources */,
+				B0FF195218F1DBF700560E5E /* RunnerDataModel.xcdatamodel in Sources */,
 				B00DB9AC18ED48EF00460930 /* GameScene.m in Sources */,
+				B0FF194518F1DB8900560E5E /* HighScoreManager.m in Sources */,
 				B01ED85918ED4FD50062AB4A /* Barrier.m in Sources */,
 				B00DB9A918ED48EF00460930 /* MainScreenController.m in Sources */,
+				B0FF195018F1DBDA00560E5E /* DBAccessLayer.m in Sources */,
 				B01ED86718ED57370062AB4A /* ContactManager.m in Sources */,
 				B00DB9A318ED48EF00460930 /* AppDelegate.m in Sources */,
 				B00DB99F18ED48EF00460930 /* main.m in Sources */,
 				B01ED85618ED4FAB0062AB4A /* Runner.m in Sources */,
+				B0FF194918F1DBAB00560E5E /* HighScoreHelper.m in Sources */,
+				B0FF194D18F1DBD000560E5E /* HighScores.m in Sources */,
 				B01ED85C18ED4FE70062AB4A /* Ground.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

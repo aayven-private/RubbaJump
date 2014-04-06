@@ -11,6 +11,8 @@
 #import "Barrier.h"
 #import "Ground.h"
 #import "CommonTools.h"
+#import "HighScoreHelper.h"
+#import "HighScoreManager.h"
 
 @interface GameScene()
 
@@ -341,6 +343,13 @@
         [_runner removeFromParent];
         [self addChild:emitter];
     }];
+    
+    HighScoreHelper *scoreHelper = [[HighScoreHelper alloc] init];
+    scoreHelper.score = [NSNumber numberWithInt:_score];
+    scoreHelper.scoreDate = [NSDate date];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        [[HighScoreManager sharedManager] addHighScore:scoreHelper];
+    });
     
     [self runAction:[SKAction sequence:@[boom, [SKAction waitForDuration:2.0], [SKAction runBlock:^{
         [self initEnvironment];
