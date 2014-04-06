@@ -48,6 +48,8 @@
 @property (nonatomic) int topCount;
 @property (nonatomic) int bottomCount;
 
+@property (nonatomic) BOOL isRunning;
+
 @end
 
 @implementation GameScene
@@ -59,7 +61,7 @@
         
         self.jumpCount = 0;
         self.doubleJumpCount = 0;
-        self.randomSpawnInterval = [CommonTools getRandomFloatFromFloat:1.8 toFloat:2.0];
+        //self.randomSpawnInterval = [CommonTools getRandomFloatFromFloat:1.8 toFloat:2.0];
         
         self.selectiveGravity = CGVectorMake(0, -9.8 * kPpm);
     }
@@ -81,6 +83,8 @@
     self.physicsBody.usesPreciseCollisionDetection = YES;
     self.scaleMode = SKSceneScaleModeAspectFill;
     self.isDead = NO;
+    
+    self.isRunning = NO;
     
     self.screenDiff = 960.0 / (self.size.width * self.view.contentScaleFactor);
     //NSLog(@"W: %f", self.size.width * self.view.contentScaleFactor);
@@ -135,6 +139,41 @@
     self.scoreLabel.fontColor = [UIColor blackColor];
     self.scoreLabel.text = @"0";
     [self addChild:self.scoreLabel];
+    
+    SKLabelNode *countDownLabel = [SKLabelNode labelNodeWithFontNamed:@"Verdana-Bold"];
+    countDownLabel.fontColor = [UIColor blackColor];
+    countDownLabel.fontSize = 25;
+    countDownLabel.text = @"3";
+    
+    SKAction *ct1 = [SKAction group:@[[SKAction fadeInWithDuration:0.0], [SKAction scaleTo:1.0 duration:0.0], [SKAction runBlock:^{
+        countDownLabel.text = @"2";
+    }]]];
+    
+    SKAction *ct2 = [SKAction group:@[[SKAction fadeInWithDuration:0.0], [SKAction scaleTo:1.0 duration:0.0], [SKAction runBlock:^{
+        countDownLabel.text = @"1";
+    }]]];
+    
+    SKAction *ctGo = [SKAction group:@[[SKAction fadeInWithDuration:0.0], [SKAction scaleTo:1.0 duration:0.0], [SKAction runBlock:^{
+        countDownLabel.text = @"GO!";
+    }]]];
+    
+    SKAction *growAndFade = [SKAction group:@[[SKAction fadeOutWithDuration:1.0], [SKAction scaleTo:6.0 duration:1.0]]];
+    
+    /*SKAction *g1 = [SKAction group:@[changeText2, growAndFade]];
+    SKAction *g2 = [SKAction group:@[changeText1, growAndFade]];
+    SKAction *ggo = [SKAction group:@[changeTextStart, growAndFade]];*/
+    
+    SKAction *countDown = [SKAction sequence:@[growAndFade, ct1, growAndFade, ct2, growAndFade, ctGo, growAndFade]];
+    
+    countDownLabel.position = CGPointMake(self.size.width / 2.0, self.size.height / 2.0);
+    countDownLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
+    countDownLabel.verticalAlignmentMode = SKLabelVerticalAlignmentModeCenter;
+    [countDownLabel runAction:countDown completion:^{
+        self.isRunning = YES;
+        self.randomSpawnInterval = 0.2;
+    }];
+    
+    [self addChild:countDownLabel];
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -172,34 +211,36 @@
 
 - (void)update:(NSTimeInterval)currentTime
 {
-    for (SKSpriteNode *node in self.children) {
-        if (node.position.x < 0) {
-            [node removeFromParent];
-            if (!_isDead) {
-                self.score++;
-                self.scoreLabel.text = [NSString stringWithFormat:@"%d", self.score];
-                if (_score % 10 == 0) {
-                    _difficulty++;
+    if (_isRunning) {
+        for (SKSpriteNode *node in self.children) {
+            if (node.position.x < 0) {
+                [node removeFromParent];
+                if (!_isDead) {
+                    self.score++;
+                    self.scoreLabel.text = [NSString stringWithFormat:@"%d", self.score];
+                    if (_score % 10 == 0) {
+                        _difficulty++;
+                    }
                 }
-            }
-        } else {
-            if ([node isKindOfClass:[GameObject class]]) {
-                if (((GameObject *)node).hasOwnGravity) {
-                    CGVector ownGravity = ((GameObject *)node).suggestedGravity;
-                    [node.physicsBody applyForce:ownGravity];
-                } else if (((GameObject *)node).isAffectedBySelectiveGravity) {
-                    [node.physicsBody applyForce:CGVectorMake(node.physicsBody.mass * _selectiveGravity.dx, node.physicsBody.mass * _selectiveGravity.dy)];
+            } else {
+                if ([node isKindOfClass:[GameObject class]]) {
+                    if (((GameObject *)node).hasOwnGravity) {
+                        CGVector ownGravity = ((GameObject *)node).suggestedGravity;
+                        [node.physicsBody applyForce:ownGravity];
+                    } else if (((GameObject *)node).isAffectedBySelectiveGravity) {
+                        [node.physicsBody applyForce:CGVectorMake(node.physicsBody.mass * _selectiveGravity.dx, node.physicsBody.mass * _selectiveGravity.dy)];
+                    }
                 }
             }
         }
+        
+        CFTimeInterval timeSinceLast = currentTime - _lastUpdateTimeInterval;
+        if (timeSinceLast > 1) { // more than a second since last update
+            timeSinceLast = 1.0 / 60.0;
+        }
+        _lastUpdateTimeInterval = currentTime;
+        [self updateWithTimeSinceLastUpdate:timeSinceLast];
     }
-    
-    CFTimeInterval timeSinceLast = currentTime - _lastUpdateTimeInterval;
-    if (timeSinceLast > 1) { // more than a second since last update
-        timeSinceLast = 1.0 / 60.0;
-    }
-    _lastUpdateTimeInterval = currentTime;
-    [self updateWithTimeSinceLastUpdate:timeSinceLast];
 }
 
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)timeSinceLast
@@ -227,20 +268,18 @@
     
     Barrier *barrier = [[Barrier alloc] initWithTexture:[SKTexture textureWithImageNamed:@"square"]];
     
-    int boolInt = [CommonTools getRandomNumberFromInt:0 toInt:1];
-    
-    NSLog(@"Bottom in a row: %d", _bottomCount);
+    BOOL isBottom = (BOOL)[CommonTools getRandomNumberFromInt:0 toInt:1];
     
     if (_bottomCount == kBottomLimit) {
         _bottomCount = 0;
-        boolInt = 0;
+        isBottom = NO;
     }
     if (_topCount == kTopLimit) {
         _topCount = 0;
-        boolInt = 1;
+        isBottom = YES;
     }
     
-    if ((BOOL)boolInt) {
+    if (isBottom) {
         _bottomCount++;
         _topCount = 0;
         barrier.position = CGPointMake(self.size.width, kGroundHeight + barrier.size.height / 2.0);
@@ -248,11 +287,11 @@
         _topCount++;
         _bottomCount = 0;
         barrier.position = CGPointMake(self.size.width, kGroundHeight + _runner.size.height + barrier.size.height / 2.0 + 2.0);
+        //barrier.position = CGPointMake(self.size.width, self.size.height - 60.0 - barrier.size.height / 2.0);
     }
     
-    //barrier.speed = barrier.speed
-    
     barrier.physicsBody.velocity = CGVectorMake(barrier.speed, 0);
+    
     [self addChild:barrier];
     
     
@@ -273,7 +312,7 @@
     
     _jumpCount = 0;
     _runner.isJumping = NO;
-    _runner.physicsBody.contactTestBitMask = kObjectCategoryBarrier;
+    //_runner.physicsBody.contactTestBitMask = kObjectCategoryBarrier;
     _emitter.particleBirthRate = 150;
     _rotationUnitPerSecond = 0.0;
     _secondJumpHeight = 0.0;

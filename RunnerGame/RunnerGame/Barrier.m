@@ -28,41 +28,13 @@
         int boolInt = [CommonTools getRandomNumberFromInt:0 toInt:1];
         //self.isJumper = (BOOL)boolInt;
         self.isJumper = NO;
-        self.physicsBody.contactTestBitMask = self.isJumper ? 0 : 0;
+        //self.isAffectedBySelectiveGravity = NO;
+        self.physicsBody.contactTestBitMask = self.isJumper ? kObjectCategoryRunner : 0;
         
-        if (self.isJumper) {
-            int rnd = [CommonTools getRandomNumberFromInt:1 toInt:2];
-            switch (rnd) {
-                case 1: {
-
-                }
-                    break;
-                case 2: {
-
-                }
-                    break;
-                case 3: {
-
-                }
-                    break;
-                case 4: {
-
-                }
-                    break;
-                case 5: {
-
-                }
-                    break;
-                default:
-                    break;
-            }
-        } else {
-            self.speed = [CommonTools getRandomFloatFromFloat:-600 toFloat:-650];
-        }
-        
-        self.hasOwnGravity = self.isJumper;
+        self.speed = [CommonTools getRandomFloatFromFloat:-600 toFloat:-650];
+        self.hasOwnGravity = NO;
         self.suggestedGravity = CGVectorMake(0, -15 * kPpm * self.physicsBody.mass);
-        
+        //self.impulse = 15 * kPpm * self.physicsBody.mass;
         
     }
     return self;
