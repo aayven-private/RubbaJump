@@ -213,36 +213,34 @@
 
 - (void)update:(NSTimeInterval)currentTime
 {
-    if (_isRunning) {
-        for (SKSpriteNode *node in self.children) {
-            if (node.position.x < 0) {
-                [node removeFromParent];
-                if (!_isDead) {
-                    self.score++;
-                    self.scoreLabel.text = [NSString stringWithFormat:@"%d", self.score];
-                    if (_score % 10 == 0) {
-                        _difficulty++;
-                    }
+    for (SKSpriteNode *node in self.children) {
+        if (node.position.x < 0) {
+            [node removeFromParent];
+            if (!_isDead) {
+                self.score++;
+                self.scoreLabel.text = [NSString stringWithFormat:@"%d", self.score];
+                if (_score % 10 == 0) {
+                    _difficulty++;
                 }
-            } else {
-                if ([node isKindOfClass:[GameObject class]]) {
-                    if (((GameObject *)node).hasOwnGravity) {
-                        CGVector ownGravity = ((GameObject *)node).suggestedGravity;
-                        [node.physicsBody applyForce:ownGravity];
-                    } else if (((GameObject *)node).isAffectedBySelectiveGravity) {
-                        [node.physicsBody applyForce:CGVectorMake(node.physicsBody.mass * _selectiveGravity.dx, node.physicsBody.mass * _selectiveGravity.dy)];
-                    }
+            }
+        } else {
+            if ([node isKindOfClass:[GameObject class]]) {
+                if (((GameObject *)node).hasOwnGravity) {
+                    CGVector ownGravity = ((GameObject *)node).suggestedGravity;
+                    [node.physicsBody applyForce:ownGravity];
+                } else if (((GameObject *)node).isAffectedBySelectiveGravity) {
+                    [node.physicsBody applyForce:CGVectorMake(node.physicsBody.mass * _selectiveGravity.dx, node.physicsBody.mass * _selectiveGravity.dy)];
                 }
             }
         }
-        
-        CFTimeInterval timeSinceLast = currentTime - _lastUpdateTimeInterval;
-        if (timeSinceLast > 1) { // more than a second since last update
-            timeSinceLast = 1.0 / 60.0;
-        }
-        _lastUpdateTimeInterval = currentTime;
-        [self updateWithTimeSinceLastUpdate:timeSinceLast];
     }
+    
+    CFTimeInterval timeSinceLast = currentTime - _lastUpdateTimeInterval;
+    if (timeSinceLast > 1) { // more than a second since last update
+        timeSinceLast = 1.0 / 60.0;
+    }
+    _lastUpdateTimeInterval = currentTime;
+    [self updateWithTimeSinceLastUpdate:timeSinceLast];
 }
 
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)timeSinceLast
@@ -257,7 +255,7 @@
         self.runner.zRotation -= timeSinceLast * _rotationUnitPerSecond;
     }
     
-    if (_lastSpawnTimeInterval > _randomSpawnInterval) {
+    if (_lastSpawnTimeInterval > _randomSpawnInterval && _isRunning) {
         _lastSpawnTimeInterval = 0;
         _randomSpawnInterval = [CommonTools getRandomFloatFromFloat:0.5 * _screenDiff toFloat:0.7 * _screenDiff];
         [self addBarrier];
