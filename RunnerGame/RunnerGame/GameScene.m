@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Weloux. All rights reserved.
 //
 
+@import AVFoundation;
 #import "GameScene.h"
 #import "Runner.h"
 #import "Barrier.h"
@@ -51,6 +52,8 @@
 @property (nonatomic) int bottomCount;
 
 @property (nonatomic) BOOL isRunning;
+
+@property (nonatomic) AVAudioPlayer * backgroundMusicPlayer;
 
 @end
 
@@ -176,6 +179,13 @@
     }];
     
     [self addChild:countDownLabel];
+    
+    NSError *error;
+    NSURL * backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"RJ_MusicLoop_A_v01-41328" withExtension:@"mp3"];
+    self.backgroundMusicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:backgroundMusicURL error:&error];
+    self.backgroundMusicPlayer.numberOfLoops = -1;
+    [self.backgroundMusicPlayer prepareToPlay];
+    [self.backgroundMusicPlayer play];
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -195,8 +205,10 @@
         }
         
         if (_jumpCount == 1) {
+            [self runAction:[SKAction playSoundFileNamed:@"Blop_A_01.wav" waitForCompletion:NO]];
             _rotationUnitPerSecond = 0.0;
         } else {
+            [self runAction:[SKAction playSoundFileNamed:@"Blop_D_01.wav" waitForCompletion:NO]];
             _secondJumpHeight = self.runner.position.y - 5.0;
             
             _expectedLandingTime = 2.0 * (self.runner.physicsBody.velocity.dy / fabs(self.runner.suggestedGravity.dy));
