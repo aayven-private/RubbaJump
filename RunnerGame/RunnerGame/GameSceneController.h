@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import <SpriteKit/SpriteKit.h>
+#import "GameSceneHandlerDelegate.h"
 
-@interface GameSceneController : UIViewController
+@interface GameSceneController : UIViewController <GameSceneHandlerDelegate>
 
 @end

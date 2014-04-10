@@ -7,10 +7,16 @@
 //
 
 #import "HighScoresController.h"
+#import "HighScoreManager.h"
+#import "HighScoreCell.h"
 
 @interface HighScoresController ()
 
 @property (nonatomic, weak) IBOutlet UIButton *okButton;
+
+@property (nonatomic, weak) IBOutlet UITableView *highScoresTable;
+
+@property (nonatomic) NSArray *scores;
 
 @end
 
@@ -29,12 +35,43 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.scores = [[HighScoreManager sharedManager] getHighScores];
+    [_highScoresTable reloadData];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *cellIdentifier = @"highScoreCell";
+    
+    HighScoreCell *cell = (HighScoreCell *)[_highScoresTable dequeueReusableCellWithIdentifier:cellIdentifier];
+    if (cell == nil) {
+        NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"HighScoreCell" owner:nil options:nil];
+        
+        for (id currentObject in topLevelObjects) {
+            if ([currentObject isKindOfClass:[HighScoreCell class]]) {
+                cell = (HighScoreCell *) currentObject;
+                break;
+            }
+        }
+    }
+    
+    HighScoreHelper *cellData = [_scores objectAtIndex:indexPath.row];
+    
+    cell.indexLabel.text = [NSString stringWithFormat:@"%d", indexPath.row + 1];
+    cell.scoreLabel.text = [NSString stringWithFormat:@"%d", cellData.score.intValue];
+    
+    return cell;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return _scores.count;
 }
 
 -(IBAction)okClicked:(id)sender

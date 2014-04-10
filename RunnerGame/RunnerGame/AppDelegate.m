@@ -23,12 +23,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    NSArray *hs = [[HighScoreManager sharedManager] getHighScores];
-    //NSLog(@"High Scores: %@", hs);
-    for (HighScoreHelper *hscr in hs) {
-        NSLog(@" %d", hscr.score.intValue);
-    }
-    
     // Override point for customization after application launch.
     return YES;
 }
