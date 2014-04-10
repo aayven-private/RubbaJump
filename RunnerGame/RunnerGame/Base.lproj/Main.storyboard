@@ -8,30 +8,88 @@
         <scene sceneID="CtS-rA-C9T">
             <objects>
                 <viewController id="LVB-YS-i5n" customClass="MainScreenController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="bdc-N1-crn" customClass="SKView">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <view key="view" contentMode="scaleToFill" id="bdc-N1-crn">
+                        <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="eVb-Ra-0zU">
+                                <rect key="frame" x="224" y="126" width="120" height="30"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <state key="normal" title="Play">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="ZJe-6X-zaf" kind="push" id="upc-2g-t4u"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="36H-9K-taY">
+                                <rect key="frame" x="224" y="164" width="120" height="30"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <state key="normal" title="High Scores">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="fLJ-uv-iBN" kind="push" id="tp0-IE-A9z"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <navigationItem key="navigationItem" id="rJC-su-Gf6"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="btX-cZ-eVz" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="528" y="229"/>
         </scene>
-        <!--View Controller-->
+        <!--Game Scene Controller-->
         <scene sceneID="Jhd-34-L0H">
             <objects>
-                <viewController id="ZJe-6X-zaf" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="rzh-NH-bbm">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                <viewController id="ZJe-6X-zaf" customClass="GameSceneController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="rzh-NH-bbm" customClass="SKView">
+                        <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
+                    <navigationItem key="navigationItem" id="ik0-a1-vts"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a0N-Vg-7j1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="918" y="229"/>
+            <point key="canvasLocation" x="1304" y="134"/>
+        </scene>
+        <!--High Scores Controller-->
+        <scene sceneID="ccR-sT-Ufn">
+            <objects>
+                <viewController id="fLJ-uv-iBN" customClass="HighScoresController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="fWA-GE-ddZ">
+                        <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="fWF-0S-njH">
+                                <rect key="frame" x="269" y="270" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="OK">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="okClicked:" destination="fLJ-uv-iBN" eventType="touchUpInside" id="Yuc-Ha-pfF"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Rd0-z9-hxh"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <connections>
+                        <outlet property="okButton" destination="fWF-0S-njH" id="fJV-ci-NCL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MS7-eE-7UZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1157" y="655"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="j9m-AZ-hyK">
@@ -46,7 +104,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8wX-Sg-FPU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="117" y="229"/>
+            <point key="canvasLocation" x="42" y="105"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

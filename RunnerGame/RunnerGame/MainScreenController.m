@@ -11,8 +11,6 @@
 
 @interface MainScreenController()
 
-@property (nonatomic) GameScene *gameScene;
-
 @end
 
 @implementation MainScreenController
@@ -27,7 +25,6 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [_gameScene initEnvironment];
 }
 
 - (BOOL)shouldAutorotate
@@ -48,26 +45,6 @@
 {
     [super didReceiveMemoryWarning];
     // Release any cached data, images, etc that aren't in use.
-}
-
-- (void)viewWillLayoutSubviews
-{
-    [super viewWillLayoutSubviews];
-    
-    // Configure the view.
-    SKView * skView = (SKView *)self.view;
-    if (!skView.scene) {
-        skView.showsFPS = NO;
-        skView.showsNodeCount = NO;
-        //skView.showsPhysics = NO;
-        
-        // Create and configure the scene.
-        _gameScene = [GameScene sceneWithSize:skView.bounds.size];
-        _gameScene.scaleMode = SKSceneScaleModeAspectFill;
-        
-        // Present the scene.
-        [skView presentScene:_gameScene];
-    }
 }
 
 @end

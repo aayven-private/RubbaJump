@@ -35,6 +35,8 @@
 		B01ED87C18EEB1030062AB4A /* square.png in Resources */ = {isa = PBXBuildFile; fileRef = B01ED87B18EEB1030062AB4A /* square.png */; };
 		B01ED88018EEB6D40062AB4A /* CommonTools.m in Sources */ = {isa = PBXBuildFile; fileRef = B01ED87F18EEB6D40062AB4A /* CommonTools.m */; };
 		B01ED88918EEDDE70062AB4A /* BoomEffect.sks in Resources */ = {isa = PBXBuildFile; fileRef = B01ED88818EEDDE70062AB4A /* BoomEffect.sks */; };
+		B06802A518F7164E00DAE740 /* GameSceneController.m in Sources */ = {isa = PBXBuildFile; fileRef = B06802A418F7164E00DAE740 /* GameSceneController.m */; };
+		B06802A818F7184200DAE740 /* HighScoresController.m in Sources */ = {isa = PBXBuildFile; fileRef = B06802A718F7184200DAE740 /* HighScoresController.m */; };
 		B0FF194518F1DB8900560E5E /* HighScoreManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FF194418F1DB8900560E5E /* HighScoreManager.m */; };
 		B0FF194918F1DBAB00560E5E /* HighScoreHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FF194818F1DBAB00560E5E /* HighScoreHelper.m */; };
 		B0FF194D18F1DBD000560E5E /* HighScores.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FF194C18F1DBD000560E5E /* HighScores.m */; };
@@ -100,6 +102,10 @@
 		B01ED87E18EEB6D40062AB4A /* CommonTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonTools.h; sourceTree = "<group>"; };
 		B01ED87F18EEB6D40062AB4A /* CommonTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonTools.m; sourceTree = "<group>"; };
 		B01ED88818EEDDE70062AB4A /* BoomEffect.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = BoomEffect.sks; sourceTree = "<group>"; };
+		B06802A318F7164E00DAE740 /* GameSceneController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameSceneController.h; sourceTree = "<group>"; };
+		B06802A418F7164E00DAE740 /* GameSceneController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameSceneController.m; sourceTree = "<group>"; };
+		B06802A618F7184200DAE740 /* HighScoresController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighScoresController.h; sourceTree = "<group>"; };
+		B06802A718F7184200DAE740 /* HighScoresController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HighScoresController.m; sourceTree = "<group>"; };
 		B0FF194318F1DB8900560E5E /* HighScoreManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighScoreManager.h; sourceTree = "<group>"; };
 		B0FF194418F1DB8900560E5E /* HighScoreManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HighScoreManager.m; sourceTree = "<group>"; };
 		B0FF194718F1DBAB00560E5E /* HighScoreHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighScoreHelper.h; sourceTree = "<group>"; };
@@ -225,6 +231,10 @@
 			children = (
 				B00DB9A718ED48EF00460930 /* MainScreenController.h */,
 				B00DB9A818ED48EF00460930 /* MainScreenController.m */,
+				B06802A318F7164E00DAE740 /* GameSceneController.h */,
+				B06802A418F7164E00DAE740 /* GameSceneController.m */,
+				B06802A618F7184200DAE740 /* HighScoresController.h */,
+				B06802A718F7184200DAE740 /* HighScoresController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -448,10 +458,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				B01ED88018EEB6D40062AB4A /* CommonTools.m in Sources */,
+				B06802A518F7164E00DAE740 /* GameSceneController.m in Sources */,
 				B01ED85F18ED4FF90062AB4A /* GameObject.m in Sources */,
 				B01ED87A18EEAEDC0062AB4A /* ParallaxBG.m in Sources */,
 				B0FF195218F1DBF700560E5E /* RunnerDataModel.xcdatamodel in Sources */,
 				B00DB9AC18ED48EF00460930 /* GameScene.m in Sources */,
+				B06802A818F7184200DAE740 /* HighScoresController.m in Sources */,
 				B0FF194518F1DB8900560E5E /* HighScoreManager.m in Sources */,
 				B01ED85918ED4FD50062AB4A /* Barrier.m in Sources */,
 				B00DB9A918ED48EF00460930 /* MainScreenController.m in Sources */,
@@ -588,11 +600,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RunnerGame/RunnerGame-Prefix.pch";
 				INFOPLIST_FILE = "RunnerGame/RunnerGame-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
 				WRAPPER_EXTENSION = app;
 			};
@@ -604,11 +618,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RunnerGame/RunnerGame-Prefix.pch";
 				INFOPLIST_FILE = "RunnerGame/RunnerGame-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
 				WRAPPER_EXTENSION = app;
 			};
