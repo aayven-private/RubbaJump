@@ -50,6 +50,7 @@
 
 @property (nonatomic) int topCount;
 @property (nonatomic) int bottomCount;
+@property (nonatomic) int movingCount;
 
 @property (nonatomic) BOOL isRunning;
 
@@ -102,6 +103,7 @@
     
     self.topCount = 0;
     self.bottomCount = 0;
+    self.movingCount = 0;
     
     //NSLog(@"Frame: %@", NSStringFromCGRect(self.frame));
     
@@ -299,17 +301,20 @@
         _topCount++;
         _bottomCount = 0;
         
-        if (barrier.isJumper) {
+        if (barrier.isJumper && _movingCount <= kMovingLimit) {
+            _movingCount++;
+            
             float randomHeight = [CommonTools getRandomFloatFromFloat:30.0 toFloat:65.0];
             BOOL isStartingTop = (BOOL)[CommonTools getRandomNumberFromInt:0 toInt:1];
             
             barrier.position = CGPointMake(self.size.width, isStartingTop ? kGroundHeight + _runner.size.height + barrier.size.height / 2.0 + 2.0 + randomHeight : kGroundHeight - barrier.size.height / 2.0 - randomHeight);
             
-            SKAction *stomp = [SKAction sequence:@[[SKAction moveToY:isStartingTop ? kGroundHeight - barrier.size.height / 2.0 - randomHeight : kGroundHeight + _runner.size.height + barrier.size.height / 2.0 + 2.0 + randomHeight duration:.6], [SKAction moveToY:isStartingTop ? kGroundHeight + _runner.size.height + barrier.size.height / 2.0 + 2.0 + randomHeight : kGroundHeight - barrier.size.height / 2.0 - randomHeight duration:.6]/*, [SKAction waitForDuration:0.5]*/]];
+            SKAction *stomp = [SKAction sequence:@[[SKAction moveToY:isStartingTop ? kGroundHeight - barrier.size.height / 2.0 - randomHeight : kGroundHeight + _runner.size.height + barrier.size.height / 2.0 + 2.0 + randomHeight duration:.6], [SKAction waitForDuration:0.15], [SKAction moveToY:isStartingTop ? kGroundHeight + _runner.size.height + barrier.size.height / 2.0 + 2.0 + randomHeight : kGroundHeight - barrier.size.height / 2.0 - randomHeight duration:.6], [SKAction waitForDuration:0.15]]];
             SKAction *moveAction = [SKAction repeatActionForever:stomp];
-            barrier.barrierSpeed += 150;
+            //barrier.barrierSpeed += 150;
             [barrier runAction:moveAction];
         } else {
+            _movingCount = 0;
             barrier.position = CGPointMake(self.size.width, kGroundHeight + _runner.size.height + barrier.size.height / 2.0 + 2.0);
         }
         //barrier.position = CGPointMake(self.size.width, self.size.height - 60.0 - barrier.size.height / 2.0);
