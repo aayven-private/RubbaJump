@@ -300,9 +300,14 @@
         _bottomCount = 0;
         
         if (barrier.isJumper) {
-            barrier.position = CGPointMake(self.size.width, kGroundHeight + _runner.size.height + barrier.size.height / 2.0 + 2.0 + 30);
-            SKAction *stomp = [SKAction sequence:@[[SKAction moveToY:kGroundHeight + barrier.size.height / 2.0 duration:.08], [SKAction moveToY:kGroundHeight + _runner.size.height + barrier.size.height / 2.0 + 2.0 + 30 duration:.1], [SKAction waitForDuration:0.5]]];
+            float randomHeight = [CommonTools getRandomFloatFromFloat:30.0 toFloat:65.0];
+            BOOL isStartingTop = (BOOL)[CommonTools getRandomNumberFromInt:0 toInt:1];
+            
+            barrier.position = CGPointMake(self.size.width, isStartingTop ? kGroundHeight + _runner.size.height + barrier.size.height / 2.0 + 2.0 + randomHeight : kGroundHeight - barrier.size.height / 2.0 - randomHeight);
+            
+            SKAction *stomp = [SKAction sequence:@[[SKAction moveToY:isStartingTop ? kGroundHeight - barrier.size.height / 2.0 - randomHeight : kGroundHeight + _runner.size.height + barrier.size.height / 2.0 + 2.0 + randomHeight duration:.6], [SKAction moveToY:isStartingTop ? kGroundHeight + _runner.size.height + barrier.size.height / 2.0 + 2.0 + randomHeight : kGroundHeight - barrier.size.height / 2.0 - randomHeight duration:.6]/*, [SKAction waitForDuration:0.5]*/]];
             SKAction *moveAction = [SKAction repeatActionForever:stomp];
+            barrier.barrierSpeed += 150;
             [barrier runAction:moveAction];
         } else {
             barrier.position = CGPointMake(self.size.width, kGroundHeight + _runner.size.height + barrier.size.height / 2.0 + 2.0);
