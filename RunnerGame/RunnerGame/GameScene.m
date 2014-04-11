@@ -298,15 +298,21 @@
     } else {
         _topCount++;
         _bottomCount = 0;
-        barrier.position = CGPointMake(self.size.width, kGroundHeight + _runner.size.height + barrier.size.height / 2.0 + 2.0);
+        
+        if (barrier.isJumper) {
+            barrier.position = CGPointMake(self.size.width, kGroundHeight + _runner.size.height + barrier.size.height / 2.0 + 2.0 + 30);
+            SKAction *stomp = [SKAction sequence:@[[SKAction moveToY:kGroundHeight + barrier.size.height / 2.0 duration:.08], [SKAction moveToY:kGroundHeight + _runner.size.height + barrier.size.height / 2.0 + 2.0 + 30 duration:.1], [SKAction waitForDuration:0.5]]];
+            SKAction *moveAction = [SKAction repeatActionForever:stomp];
+            [barrier runAction:moveAction];
+        } else {
+            barrier.position = CGPointMake(self.size.width, kGroundHeight + _runner.size.height + barrier.size.height / 2.0 + 2.0);
+        }
         //barrier.position = CGPointMake(self.size.width, self.size.height - 60.0 - barrier.size.height / 2.0);
     }
     
-    barrier.physicsBody.velocity = CGVectorMake(barrier.speed, 0);
+    barrier.physicsBody.velocity = CGVectorMake(barrier.barrierSpeed, 0);
     
     [self addChild:barrier];
-    
-    
 }
 
 -(void)runnerJumped
@@ -324,13 +330,10 @@
     
     _jumpCount = 0;
     _runner.isJumping = NO;
-    //_runner.physicsBody.contactTestBitMask = kObjectCategoryBarrier;
     _emitter.particleBirthRate = 150;
     _rotationUnitPerSecond = 0.0;
     _secondJumpHeight = 0.0;
     self.runner.zRotation = 0;
-    //self.runner.position = CGPointMake(80 + self.runner.size.width / 2.0, 100 + self.runner.size.height / 2.0);
-    //self.runner.position = CGPointMake(80 + self.runner.size.width / 2.0, 100 + self.runner.size.height / 2.0);
 
 }
 
