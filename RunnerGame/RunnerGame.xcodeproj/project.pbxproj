@@ -39,6 +39,7 @@
 		B06802A818F7184200DAE740 /* HighScoresController.m in Sources */ = {isa = PBXBuildFile; fileRef = B06802A718F7184200DAE740 /* HighScoresController.m */; };
 		B06802AD18F71C7000DAE740 /* HighScoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B06802AB18F71C7000DAE740 /* HighScoreCell.m */; };
 		B06802AE18F71C7000DAE740 /* HighScoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B06802AC18F71C7000DAE740 /* HighScoreCell.xib */; };
+		B084644518F8AB2E00892252 /* RJ_MusicLoop_A_v02-85195.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B084644418F8AB2E00892252 /* RJ_MusicLoop_A_v02-85195.mp3 */; };
 		B0FF194518F1DB8900560E5E /* HighScoreManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FF194418F1DB8900560E5E /* HighScoreManager.m */; };
 		B0FF194918F1DBAB00560E5E /* HighScoreHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FF194818F1DBAB00560E5E /* HighScoreHelper.m */; };
 		B0FF194D18F1DBD000560E5E /* HighScores.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FF194C18F1DBD000560E5E /* HighScores.m */; };
@@ -112,6 +113,7 @@
 		B06802AB18F71C7000DAE740 /* HighScoreCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HighScoreCell.m; sourceTree = "<group>"; };
 		B06802AC18F71C7000DAE740 /* HighScoreCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HighScoreCell.xib; sourceTree = "<group>"; };
 		B06802AF18F7211800DAE740 /* GameSceneHandlerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameSceneHandlerDelegate.h; sourceTree = "<group>"; };
+		B084644418F8AB2E00892252 /* RJ_MusicLoop_A_v02-85195.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "RJ_MusicLoop_A_v02-85195.mp3"; sourceTree = "<group>"; };
 		B0FF194318F1DB8900560E5E /* HighScoreManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighScoreManager.h; sourceTree = "<group>"; };
 		B0FF194418F1DB8900560E5E /* HighScoreManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HighScoreManager.m; sourceTree = "<group>"; };
 		B0FF194718F1DBAB00560E5E /* HighScoreHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighScoreHelper.h; sourceTree = "<group>"; };
@@ -275,6 +277,7 @@
 		B01ED86018ED50250062AB4A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B084644418F8AB2E00892252 /* RJ_MusicLoop_A_v02-85195.mp3 */,
 				B0FF197118F524EA00560E5E /* Blop_D_01.wav */,
 				B0FF196D18F5242200560E5E /* Blop_A_01.wav */,
 				B0FF196E18F5242200560E5E /* Blop_B_01.wav */,
@@ -457,6 +460,7 @@
 				B01ED87618EDB7480062AB4A /* SliderEffect.sks in Resources */,
 				B0FF197218F524EA00560E5E /* Blop_D_01.wav in Resources */,
 				B00DB9A618ED48EF00460930 /* Main.storyboard in Resources */,
+				B084644518F8AB2E00892252 /* RJ_MusicLoop_A_v02-85195.mp3 in Resources */,
 				B01ED88918EEDDE70062AB4A /* BoomEffect.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

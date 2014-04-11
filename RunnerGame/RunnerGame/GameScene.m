@@ -65,8 +65,6 @@
         /* Setup your scene here */
         self.backgroundColor = [SKColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
         
-        self.jumpCount = 0;
-        self.doubleJumpCount = 0;
         //self.randomSpawnInterval = [CommonTools getRandomFloatFromFloat:1.8 toFloat:2.0];
         
         self.selectiveGravity = CGVectorMake(0, -9.8 * kPpm);
@@ -91,6 +89,9 @@
     self.isDead = NO;
     
     self.isRunning = NO;
+    
+    self.jumpCount = 0;
+    self.doubleJumpCount = 0;
     
     self.screenDiff = 960.0 / (self.size.width * self.view.contentScaleFactor);
     //NSLog(@"W: %f", self.size.width * self.view.contentScaleFactor);
@@ -183,7 +184,7 @@
     [self addChild:countDownLabel];
     
     NSError *error;
-    NSURL * backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"RJ_MusicLoop_A_v01-41328" withExtension:@"mp3"];
+    NSURL * backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"RJ_MusicLoop_A_v02-85195" withExtension:@"mp3"];
     self.backgroundMusicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:backgroundMusicURL error:&error];
     self.backgroundMusicPlayer.numberOfLoops = -1;
     [self.backgroundMusicPlayer prepareToPlay];
