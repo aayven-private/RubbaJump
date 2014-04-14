@@ -165,7 +165,7 @@
         countDownLabel.text = @"GO!";
     }]]];
     
-    SKAction *growAndFade = [SKAction group:@[[SKAction fadeOutWithDuration:1.0], [SKAction scaleTo:6.0 duration:1.0]]];
+    SKAction *growAndFade = [SKAction group:@[[SKAction fadeOutWithDuration:.3], [SKAction scaleTo:6.0 duration:.3]]];
     
     /*SKAction *g1 = [SKAction group:@[changeText2, growAndFade]];
     SKAction *g2 = [SKAction group:@[changeText1, growAndFade]];
