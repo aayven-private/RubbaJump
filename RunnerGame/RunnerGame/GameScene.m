@@ -28,6 +28,9 @@
 
 @property (nonatomic) SKEmitterNode *emitter;
 
+//@property (nonatomic) SKEmitterNode *rainEmitter;
+//@property (nonatomic) SKEmitterNode *rainDropEmitter;
+
 @property (nonatomic) NSTimeInterval lastSpawnTimeInterval;
 @property (nonatomic) NSTimeInterval randomSpawnInterval;
 
@@ -132,12 +135,12 @@
     self.runner.position = CGPointMake(80 + self.runner.size.width / 2.0, kGroundHeight + self.runner.size.height / 2.0);
     self.ground.position = CGPointMake(0, 0);
     
+    
     NSString *emitterPath = [[NSBundle mainBundle] pathForResource:@"SliderEffect" ofType:@"sks"];
     self.emitter = [NSKeyedUnarchiver unarchiveObjectWithFile:emitterPath];
     self.emitter.particleBirthRate = 40;
     self.emitter.position = CGPointMake(81, kGroundHeight + 2.0);
     
-    [self addChild:self.ground];
     [self addChild:self.runner];
     [self addChild:self.emitter];
     
@@ -148,40 +151,12 @@
     self.scoreLabel.text = @"0";
     [self addChild:self.scoreLabel];
     
-    SKLabelNode *countDownLabel = [SKLabelNode labelNodeWithFontNamed:@"Verdana-Bold"];
-    countDownLabel.fontColor = [UIColor blackColor];
-    countDownLabel.fontSize = 25;
-    countDownLabel.text = @"3";
+    __weak GameScene *weakSelf = self;
     
-    SKAction *ct1 = [SKAction group:@[[SKAction fadeInWithDuration:0.0], [SKAction scaleTo:1.0 duration:0.0], [SKAction runBlock:^{
-        countDownLabel.text = @"2";
-    }]]];
-    
-    SKAction *ct2 = [SKAction group:@[[SKAction fadeInWithDuration:0.0], [SKAction scaleTo:1.0 duration:0.0], [SKAction runBlock:^{
-        countDownLabel.text = @"1";
-    }]]];
-    
-    SKAction *ctGo = [SKAction group:@[[SKAction fadeInWithDuration:0.0], [SKAction scaleTo:1.0 duration:0.0], [SKAction runBlock:^{
-        countDownLabel.text = @"GO!";
-    }]]];
-    
-    SKAction *growAndFade = [SKAction group:@[[SKAction fadeOutWithDuration:.3], [SKAction scaleTo:6.0 duration:.3]]];
-    
-    /*SKAction *g1 = [SKAction group:@[changeText2, growAndFade]];
-    SKAction *g2 = [SKAction group:@[changeText1, growAndFade]];
-    SKAction *ggo = [SKAction group:@[changeTextStart, growAndFade]];*/
-    
-    SKAction *countDown = [SKAction sequence:@[growAndFade, ct1, growAndFade, ct2, growAndFade, ctGo, growAndFade]];
-    
-    countDownLabel.position = CGPointMake(self.size.width / 2.0, self.size.height / 2.0);
-    countDownLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
-    countDownLabel.verticalAlignmentMode = SKLabelVerticalAlignmentModeCenter;
-    [countDownLabel runAction:countDown completion:^{
-        self.isRunning = YES;
-        self.randomSpawnInterval = 0.2;
+    [self addTextArray:@[@"3", @"2", @"1", @"GO!"] completion:^{
+        weakSelf.isRunning = YES;
+        weakSelf.randomSpawnInterval = 0.2;
     }];
-    
-    [self addChild:countDownLabel];
     
     NSError *error;
     NSURL * backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"RJ_MusicLoop_A_v02-85195" withExtension:@"mp3"];
@@ -189,6 +164,21 @@
     self.backgroundMusicPlayer.numberOfLoops = -1;
     [self.backgroundMusicPlayer prepareToPlay];
     [self.backgroundMusicPlayer play];
+    
+    /*NSString *rainPath = [[NSBundle mainBundle] pathForResource:@"RainEffect" ofType:@"sks"];
+    self.rainEmitter = [NSKeyedUnarchiver unarchiveObjectWithFile:rainPath];
+    self.rainEmitter.particlePositionRange = CGVectorMake(self.size.width, 5);
+    self.rainEmitter.position = CGPointMake(self.size.width / 2.0, self.size.height - 60.0);
+    
+    NSString *rainDropPath = [[NSBundle mainBundle] pathForResource:@"RainDropEffect" ofType:@"sks"];
+    self.rainDropEmitter = [NSKeyedUnarchiver unarchiveObjectWithFile:rainDropPath];
+    self.rainDropEmitter.particlePositionRange = CGVectorMake(self.size.width, 5);
+    self.rainDropEmitter.position = CGPointMake(self.size.width / 2.0, kGroundHeight - 3);
+    
+    [self addChild:self.rainEmitter];
+    [self addChild:self.rainDropEmitter];*/
+    
+    [self addChild:self.ground];
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -219,6 +209,12 @@
             if (_doubleJumpCount == 2) {
                 _doubleJumpCount = -1;
                 _rotationUnitPerSecond =  -M_PI / (_expectedLandingTime * 4.0);
+                SKAction *blend = [SKAction colorizeWithColor:[SKColor whiteColor] colorBlendFactor:1.0 duration:.1];
+                SKAction *bblend = [SKAction colorizeWithColorBlendFactor:0.0 duration:.1];
+                SKAction *blendAction = [SKAction sequence:@[blend, bblend]];
+                SKAction *scaleAction = [SKAction sequence:@[[SKAction scaleTo:.6 duration:.1], [SKAction scaleTo:1.0 duration:.1]]];
+                SKAction *blendScale = [SKAction group:@[blendAction, scaleAction]];
+                [self.runner runAction:blendScale];
             } else {
                 _rotationUnitPerSecond =  M_PI / (_expectedLandingTime * 4.0);
             }
@@ -371,6 +367,39 @@
     [self runAction:[SKAction sequence:@[boom, [SKAction waitForDuration:2.0], [SKAction runBlock:^{
         [_delegate gameOverWithScore:_score];
     }]]]];
+}
+
+-(void)addTextArray:(NSArray *)textArray completion:(void(^)())completion
+{
+    SKLabelNode *textLabel = [SKLabelNode labelNodeWithFontNamed:@"Verdana-Bold"];
+    textLabel.fontColor = [UIColor blackColor];
+    textLabel.fontSize = 25;
+    
+    NSMutableArray *textActions = [NSMutableArray array];
+    
+    SKAction *growAndFade = [SKAction group:@[[SKAction fadeOutWithDuration:.3], [SKAction scaleTo:6.0 duration:.3]]];
+    
+    for (NSString *text in textArray) {
+        SKAction *ta = [SKAction group:@[[SKAction fadeInWithDuration:0.0], [SKAction scaleTo:1.0 duration:0.0], [SKAction runBlock:^{
+            textLabel.text = text;
+        }]]];
+        
+        SKAction *tas = [SKAction sequence:@[growAndFade, ta]];
+        
+        [textActions addObject:tas];
+    }
+    
+    [textActions addObject:growAndFade];
+    [textActions addObject:[SKAction removeFromParent]];
+    
+    SKAction *countDown = [SKAction sequence:textActions];
+    
+    textLabel.position = CGPointMake(self.size.width / 2.0, self.size.height / 2.0);
+    textLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
+    textLabel.verticalAlignmentMode = SKLabelVerticalAlignmentModeCenter;
+    [textLabel runAction:countDown completion:completion];
+    
+    [self addChild:textLabel];
 }
 
 @end

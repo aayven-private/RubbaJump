@@ -35,6 +35,8 @@
 		B01ED87C18EEB1030062AB4A /* square.png in Resources */ = {isa = PBXBuildFile; fileRef = B01ED87B18EEB1030062AB4A /* square.png */; };
 		B01ED88018EEB6D40062AB4A /* CommonTools.m in Sources */ = {isa = PBXBuildFile; fileRef = B01ED87F18EEB6D40062AB4A /* CommonTools.m */; };
 		B01ED88918EEDDE70062AB4A /* BoomEffect.sks in Resources */ = {isa = PBXBuildFile; fileRef = B01ED88818EEDDE70062AB4A /* BoomEffect.sks */; };
+		B02C695F18FC57DA00FF7F33 /* RainEffect.sks in Resources */ = {isa = PBXBuildFile; fileRef = B02C695E18FC57DA00FF7F33 /* RainEffect.sks */; };
+		B02C696118FC5CE500FF7F33 /* RainDropEffect.sks in Resources */ = {isa = PBXBuildFile; fileRef = B02C696018FC5CE500FF7F33 /* RainDropEffect.sks */; };
 		B06802A518F7164E00DAE740 /* GameSceneController.m in Sources */ = {isa = PBXBuildFile; fileRef = B06802A418F7164E00DAE740 /* GameSceneController.m */; };
 		B06802A818F7184200DAE740 /* HighScoresController.m in Sources */ = {isa = PBXBuildFile; fileRef = B06802A718F7184200DAE740 /* HighScoresController.m */; };
 		B06802AD18F71C7000DAE740 /* HighScoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B06802AB18F71C7000DAE740 /* HighScoreCell.m */; };
@@ -105,6 +107,8 @@
 		B01ED87E18EEB6D40062AB4A /* CommonTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonTools.h; sourceTree = "<group>"; };
 		B01ED87F18EEB6D40062AB4A /* CommonTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonTools.m; sourceTree = "<group>"; };
 		B01ED88818EEDDE70062AB4A /* BoomEffect.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = BoomEffect.sks; sourceTree = "<group>"; };
+		B02C695E18FC57DA00FF7F33 /* RainEffect.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = RainEffect.sks; sourceTree = "<group>"; };
+		B02C696018FC5CE500FF7F33 /* RainDropEffect.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = RainDropEffect.sks; sourceTree = "<group>"; };
 		B06802A318F7164E00DAE740 /* GameSceneController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameSceneController.h; sourceTree = "<group>"; };
 		B06802A418F7164E00DAE740 /* GameSceneController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameSceneController.m; sourceTree = "<group>"; };
 		B06802A618F7184200DAE740 /* HighScoresController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighScoresController.h; sourceTree = "<group>"; };
@@ -288,6 +292,8 @@
 				B01ED87418EDB7480062AB4A /* SliderEffect.sks */,
 				B01ED87518EDB7480062AB4A /* spark.png */,
 				B01ED88818EEDDE70062AB4A /* BoomEffect.sks */,
+				B02C695E18FC57DA00FF7F33 /* RainEffect.sks */,
+				B02C696018FC5CE500FF7F33 /* RainDropEffect.sks */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -450,6 +456,7 @@
 			files = (
 				B00DB99D18ED48EF00460930 /* InfoPlist.strings in Resources */,
 				B01ED87718EDB7480062AB4A /* spark.png in Resources */,
+				B02C695F18FC57DA00FF7F33 /* RainEffect.sks in Resources */,
 				B06802AE18F71C7000DAE740 /* HighScoreCell.xib in Resources */,
 				B0FF196F18F5242200560E5E /* Blop_A_01.wav in Resources */,
 				B0FF197018F5242200560E5E /* Blop_B_01.wav in Resources */,
@@ -460,6 +467,7 @@
 				B01ED87618EDB7480062AB4A /* SliderEffect.sks in Resources */,
 				B0FF197218F524EA00560E5E /* Blop_D_01.wav in Resources */,
 				B00DB9A618ED48EF00460930 /* Main.storyboard in Resources */,
+				B02C696118FC5CE500FF7F33 /* RainDropEffect.sks in Resources */,
 				B084644518F8AB2E00892252 /* RJ_MusicLoop_A_v02-85195.mp3 in Resources */,
 				B01ED88918EEDDE70062AB4A /* BoomEffect.sks in Resources */,
 			);

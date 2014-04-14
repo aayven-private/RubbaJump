@@ -12,7 +12,7 @@
 
 -(id)initWithSize:(CGSize)size
 {
-    if (self = [super init]) {
+    if (self = [super initWithColor:[UIColor clearColor] size:size]) {
         self.type = kObjectTypeGround;
         self.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:size];
         self.physicsBody.categoryBitMask = kObjectCategoryGround;
