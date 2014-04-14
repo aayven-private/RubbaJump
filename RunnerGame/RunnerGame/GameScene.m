@@ -156,7 +156,7 @@
     [self addTextArray:@[@"3", @"2", @"1", @"GO!"] completion:^{
         weakSelf.isRunning = YES;
         weakSelf.randomSpawnInterval = 0.2;
-    }];
+    } andInterval:.3];
     
     NSError *error;
     NSURL * backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"RJ_MusicLoop_A_v02-85195" withExtension:@"mp3"];
@@ -233,6 +233,22 @@
                 if (_score % 10 == 0) {
                     _difficulty++;
                 }
+                if (_score == 500) {
+                    self.isRunning = NO;
+                    __weak GameScene *weakSelf = self;
+                    [self addTextArray:@[@"YOU", @"ARE", @"DOING", @"EXCELLENT!", @"KEEP", @"ON", @"GOING!!!"] completion:^{
+                        weakSelf.isRunning = YES;
+                        weakSelf.randomSpawnInterval = 0.2;
+                    } andInterval:.6];
+                }
+                if (_score == 1000) {
+                    self.isRunning = NO;
+                    __weak GameScene *weakSelf = self;
+                    [self addTextArray:@[@"GO", @"GET", @"A", @"LIFE!:)", @"YOU", @"NEED", @"A", @"BREAK!"] completion:^{
+                        weakSelf.isRunning = YES;
+                        weakSelf.randomSpawnInterval = 0.2;
+                    } andInterval:.5];
+                }
             }
         } else {
             if ([node isKindOfClass:[GameObject class]]) {
@@ -276,7 +292,6 @@
 
 -(void)addBarrier
 {
-    
     Barrier *barrier = [[Barrier alloc] initWithTexture:[SKTexture textureWithImageNamed:@"square"]];
     
     BOOL isBottom = (BOOL)[CommonTools getRandomNumberFromInt:0 toInt:1];
@@ -369,7 +384,7 @@
     }]]]];
 }
 
--(void)addTextArray:(NSArray *)textArray completion:(void(^)())completion
+-(void)addTextArray:(NSArray *)textArray completion:(void(^)())completion andInterval:(float)interval
 {
     SKLabelNode *textLabel = [SKLabelNode labelNodeWithFontNamed:@"Verdana-Bold"];
     textLabel.fontColor = [UIColor blackColor];
@@ -377,7 +392,7 @@
     
     NSMutableArray *textActions = [NSMutableArray array];
     
-    SKAction *growAndFade = [SKAction group:@[[SKAction fadeOutWithDuration:.3], [SKAction scaleTo:6.0 duration:.3]]];
+    SKAction *growAndFade = [SKAction group:@[[SKAction fadeOutWithDuration:interval], [SKAction scaleTo:6.0 duration:interval]]];
     
     for (NSString *text in textArray) {
         SKAction *ta = [SKAction group:@[[SKAction fadeInWithDuration:0.0], [SKAction scaleTo:1.0 duration:0.0], [SKAction runBlock:^{
