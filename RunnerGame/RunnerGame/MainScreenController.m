@@ -11,6 +11,9 @@
 
 @interface MainScreenController()
 
+@property (nonatomic, weak) IBOutlet UIButton *playButton;
+@property (nonatomic, weak) IBOutlet UIButton *highScoreButton;
+
 @end
 
 @implementation MainScreenController
@@ -20,6 +23,9 @@
     [super viewDidLoad];
     
     self.navigationController.navigationBarHidden = YES;
+    
+    self.playButton.titleLabel.font = [UIFont fontWithName:@"ExpletusSans-Bold" size:20.0];
+    self.highScoreButton.titleLabel.font = [UIFont fontWithName:@"ExpletusSans-Bold" size:20.0];
 }
 
 -(void)viewDidAppear:(BOOL)animated

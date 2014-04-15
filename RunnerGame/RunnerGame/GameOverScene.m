@@ -22,7 +22,7 @@
     if (self = [super initWithSize:size]) {
         self.backgroundColor = [UIColor whiteColor];
         
-        SKLabelNode *gameOverLabel = [SKLabelNode labelNodeWithFontNamed:@"BanglaSangamMN-Bold"];
+        SKLabelNode *gameOverLabel = [SKLabelNode labelNodeWithFontNamed:@"ExpletusSans-Bold"];
         gameOverLabel.position = CGPointMake(size.width / 2.0, size.height / 2.0 + 50.0);
         gameOverLabel.fontSize = 30.0;
         gameOverLabel.fontColor = [UIColor blackColor];
@@ -34,7 +34,7 @@
         self.exitButton.name = @"exit";
         [self addChild:self.exitButton];
         
-        SKLabelNode *exitLabel = [SKLabelNode labelNodeWithFontNamed:@"BanglaSangamMN"];
+        SKLabelNode *exitLabel = [SKLabelNode labelNodeWithFontNamed:@"ExpletusSans-Regular"];
         exitLabel.text = @"Menu";
         exitLabel.fontColor = [UIColor blackColor];
         exitLabel.fontSize = 20.0;
@@ -48,7 +48,7 @@
         self.retryButton.name = @"retry";
         [self addChild:self.retryButton];
         
-        SKLabelNode *retryLabel = [SKLabelNode labelNodeWithFontNamed:@"BanglaSangamMN"];
+        SKLabelNode *retryLabel = [SKLabelNode labelNodeWithFontNamed:@"ExpletusSans-Regular"];
         retryLabel.text = @"Retry";
         retryLabel.fontColor = [UIColor blackColor];
         retryLabel.fontSize = 20.0;

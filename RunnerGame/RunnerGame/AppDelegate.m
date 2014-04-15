@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 #import "HighScoreManager.h"
+#import "GameScene.h"
+#import "GameOverScene.h"
 
 @interface AppDelegate()
 
@@ -23,6 +25,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        //GameScene *gs = [[GameScene alloc] initWithSize:CGSizeZero];
+        GameOverScene *gos = [[GameOverScene alloc] initWithSize:CGSizeZero];
+    });
+    
     // Override point for customization after application launch.
     return YES;
 }

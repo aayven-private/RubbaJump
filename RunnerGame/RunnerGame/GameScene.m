@@ -386,7 +386,7 @@
 
 -(void)addTextArray:(NSArray *)textArray completion:(void(^)())completion andInterval:(float)interval
 {
-    SKLabelNode *textLabel = [SKLabelNode labelNodeWithFontNamed:@"Verdana-Bold"];
+    SKLabelNode *textLabel = [SKLabelNode labelNodeWithFontNamed:@"ExpletusSans-Bold"];
     textLabel.fontColor = [UIColor blackColor];
     textLabel.fontSize = 25;
     
