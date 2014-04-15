@@ -50,6 +50,7 @@
 		B05632F018FD5D5C001348A0 /* DeathB1_05.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B05632EF18FD5D5C001348A0 /* DeathB1_05.mp3 */; };
 		B05632F218FD6769001348A0 /* button.png in Resources */ = {isa = PBXBuildFile; fileRef = B05632F118FD6769001348A0 /* button.png */; };
 		B05632F418FD77FF001348A0 /* runner_mad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B05632F318FD77FF001348A0 /* runner_mad@2x.png */; };
+		B05632F618FD83D8001348A0 /* runner_verymad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B05632F518FD83D8001348A0 /* runner_verymad@2x.png */; };
 		B06802A518F7164E00DAE740 /* GameSceneController.m in Sources */ = {isa = PBXBuildFile; fileRef = B06802A418F7164E00DAE740 /* GameSceneController.m */; };
 		B06802A818F7184200DAE740 /* HighScoresController.m in Sources */ = {isa = PBXBuildFile; fileRef = B06802A718F7184200DAE740 /* HighScoresController.m */; };
 		B06802AD18F71C7000DAE740 /* HighScoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B06802AB18F71C7000DAE740 /* HighScoreCell.m */; };
@@ -137,6 +138,7 @@
 		B05632EF18FD5D5C001348A0 /* DeathB1_05.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = DeathB1_05.mp3; sourceTree = "<group>"; };
 		B05632F118FD6769001348A0 /* button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button.png; sourceTree = "<group>"; };
 		B05632F318FD77FF001348A0 /* runner_mad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "runner_mad@2x.png"; sourceTree = "<group>"; };
+		B05632F518FD83D8001348A0 /* runner_verymad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "runner_verymad@2x.png"; sourceTree = "<group>"; };
 		B06802A318F7164E00DAE740 /* GameSceneController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameSceneController.h; sourceTree = "<group>"; };
 		B06802A418F7164E00DAE740 /* GameSceneController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameSceneController.m; sourceTree = "<group>"; };
 		B06802A618F7184200DAE740 /* HighScoresController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighScoresController.h; sourceTree = "<group>"; };
@@ -311,6 +313,7 @@
 		B01ED86018ED50250062AB4A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B05632F518FD83D8001348A0 /* runner_verymad@2x.png */,
 				B05632F318FD77FF001348A0 /* runner_mad@2x.png */,
 				B05632F118FD6769001348A0 /* button.png */,
 				B05632EF18FD5D5C001348A0 /* DeathB1_05.mp3 */,
@@ -513,6 +516,7 @@
 				B05632ED18FD2285001348A0 /* ExpletusSans-SemiBoldItalic.ttf in Resources */,
 				B06802AE18F71C7000DAE740 /* HighScoreCell.xib in Resources */,
 				B05632F218FD6769001348A0 /* button.png in Resources */,
+				B05632F618FD83D8001348A0 /* runner_verymad@2x.png in Resources */,
 				B0FF196F18F5242200560E5E /* Blop_A_01.wav in Resources */,
 				B0FF197018F5242200560E5E /* Blop_B_01.wav in Resources */,
 				B00DB9B018ED48EF00460930 /* Images.xcassets in Resources */,

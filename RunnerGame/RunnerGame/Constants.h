@@ -28,3 +28,7 @@ static int kBottomLimit = 4;
 static int kMovingLimit = 2;
 
 static float kRunnerSpeed = 600.0;
+
+static NSString *kRunnerMoodNormal = @"normal";
+static NSString *kRunnerMoodMad = @"mad";
+static NSString *kRunnerMoodVeryMad = @"verymad";

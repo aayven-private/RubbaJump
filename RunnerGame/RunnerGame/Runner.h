@@ -13,5 +13,6 @@
 
 @property (nonatomic) BOOL isJumping;
 @property (nonatomic) BOOL isHitable;
+@property (nonatomic) NSString *mood;
 
 @end

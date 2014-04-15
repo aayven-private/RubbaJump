@@ -52,11 +52,11 @@
 {
     if (contact.bodyA.categoryBitMask == kObjectCategoryRunner) {
         if (contact.bodyB.categoryBitMask == kObjectCategoryGround) {
-            [_delegate runnerJumped];
+            //[_delegate runnerJumped];
         }
     } else if (contact.bodyB.categoryBitMask == kObjectCategoryRunner) {
         if (contact.bodyA.categoryBitMask == kObjectCategoryGround) {
-            [_delegate runnerJumped];
+            //[_delegate runnerJumped];
         }
     }}
 

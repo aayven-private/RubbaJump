@@ -51,6 +51,7 @@
 @property (nonatomic) float screenDiff;
 @property (nonatomic) int doubleJumpCount;
 @property (nonatomic) int madJumpCount;
+@property (nonatomic) int veryMadJumpCount;
 
 @property (nonatomic) int topCount;
 @property (nonatomic) int bottomCount;
@@ -59,6 +60,11 @@
 @property (nonatomic) BOOL isRunning;
 
 @property (nonatomic) AVAudioPlayer * backgroundMusicPlayer;
+
+@property (nonatomic) float particleBirthRate;
+
+@property (nonatomic) NSString *runnerMood;
+@property (nonatomic) BOOL needABreak;
 
 @end
 
@@ -93,10 +99,12 @@
     self.isDead = NO;
     
     self.isRunning = NO;
+    self.needABreak = NO;
     
     self.jumpCount = 0;
     self.doubleJumpCount = 0;
     self.madJumpCount = 0;
+    self.veryMadJumpCount = 0;
     
     self.screenDiff = 960.0 / (self.size.width * self.view.contentScaleFactor);
     //NSLog(@"W: %f", self.size.width * self.view.contentScaleFactor);
@@ -110,6 +118,8 @@
     self.topCount = 0;
     self.bottomCount = 0;
     self.movingCount = 0;
+    
+    self.particleBirthRate = 150;
     
     //NSLog(@"Frame: %@", NSStringFromCGRect(self.frame));
     
@@ -140,7 +150,7 @@
     
     NSString *emitterPath = [[NSBundle mainBundle] pathForResource:@"SliderEffect" ofType:@"sks"];
     self.emitter = [NSKeyedUnarchiver unarchiveObjectWithFile:emitterPath];
-    self.emitter.particleBirthRate = 40;
+    self.emitter.particleBirthRate = self.particleBirthRate;
     self.emitter.position = CGPointMake(81, kGroundHeight + 2.0);
     
     [self addChild:self.runner];
@@ -207,20 +217,51 @@
             _secondJumpHeight = self.runner.position.y - 5.0;
             
             _expectedLandingTime = 2.0 * (self.runner.physicsBody.velocity.dy / fabs(self.runner.suggestedGravity.dy));
-            
-            if (_madJumpCount == 3) {
+            if (_veryMadJumpCount == 8) {
+                [_runner removeAllActions];
+                [self addTextArray:@[@"INSANE!!!"] completion:nil andInterval:.4];
+                _runner.mood = kRunnerMoodVeryMad;
+                _particleBirthRate = 1000;
+                _rotationUnitPerSecond =  -M_PI / (_expectedLandingTime * 2.0);
+                SKAction *makeMad = [SKAction group:@[[SKAction scaleTo:2.0 duration:.1], [SKAction runBlock:^{
+                    _runner.texture = [SKTexture textureWithImageNamed:@"runner_verymad"];
+                    _runner.isHitable = NO;
+                }]]];
+                SKAction *setMood = [SKAction runBlock:^{
+                    _runner.mood = kRunnerMoodNormal;
+                }];
+                SKAction *madAction = [SKAction sequence:@[makeMad, [SKAction scaleTo:1.0 duration:3.5], setMood, [SKAction waitForDuration:.7], [SKAction runBlock:^{
+                    _runner.texture = [SKTexture textureWithImageNamed:@"runner"];
+                    _runner.isHitable = YES;
+                    _particleBirthRate = 150;
+                    if (_emitter.particleBirthRate != 0.0) {
+                        _emitter.particleBirthRate = _particleBirthRate;
+                    }
+                }]]];
+                
+                [_runner runAction:madAction];
+                _madJumpCount = -1;
+                _doubleJumpCount = -1;
+                _veryMadJumpCount = -1;
+            } else if (_madJumpCount == 5) {
+                [self addTextArray:@[@"MADMAN!"] completion:nil andInterval:.4];
+                _runner.mood = kRunnerMoodMad;
                 _rotationUnitPerSecond =  -M_PI / (_expectedLandingTime * 4.0);
                 SKAction *makeMad = [SKAction group:@[[SKAction scaleTo:1.5 duration:.1], [SKAction runBlock:^{
                     _runner.texture = [SKTexture textureWithImageNamed:@"runner_mad"];
                     _runner.isHitable = NO;
                 }]]];
-                SKAction *madAction = [SKAction sequence:@[makeMad, [SKAction scaleTo:1.0 duration:2.5], [SKAction runBlock:^{
+                SKAction *setMood = [SKAction runBlock:^{
+                    _runner.mood = kRunnerMoodNormal;
+                }];
+                SKAction *madAction = [SKAction sequence:@[makeMad, [SKAction scaleTo:1.0 duration:2.5], setMood, [SKAction waitForDuration:.7], [SKAction runBlock:^{
                     _runner.texture = [SKTexture textureWithImageNamed:@"runner"];
-                    _runner.isHitable =YES;
+                    _runner.isHitable = YES;
                 }]]];
                 
                 [_runner runAction:madAction];
                 _doubleJumpCount = -1;
+                _madJumpCount = -1;
             } else {
                 if (_doubleJumpCount == 2) {
                     _doubleJumpCount = -1;
@@ -233,35 +274,30 @@
             }
         }
     }
+    _emitter.particleBirthRate = 0;
 }
 
 - (void)update:(NSTimeInterval)currentTime
 {
+    if (!_isDead) {
+        self.emitter.position = CGPointMake(_runner.position.x - _runner.size.width / 2.0, kGroundHeight + 2.0);
+        if (_runner.physicsBody.velocity.dy >= 0.005) {
+            _emitter.particleBirthRate = 0;
+        }
+        if (_runner.position.y < kGroundHeight + self.runner.size.height / 2.0 + 3.0) {
+            _emitter.particleBirthRate = _particleBirthRate;
+        }
+    }
+    
     for (SKSpriteNode *node in self.children) {
         if (node.position.x < 0) {
             [node removeFromParent];
             if (!_isDead) {
                 //self.score++;
                 //self.scoreLabel.text = [NSString stringWithFormat:@"%d", self.score];
-                if ((int)_score % 10 == 0) {
+                /*if ((int)_score % 10 == 0) {
                     _difficulty++;
-                }
-                if ((int)_score == 500) {
-                    self.isRunning = NO;
-                    __weak GameScene *weakSelf = self;
-                    [self addTextArray:@[@"YOU", @"ARE", @"DOING", @"EXCELLENT!", @"KEEP", @"ON", @"GOING!!!"] completion:^{
-                        weakSelf.isRunning = YES;
-                        weakSelf.randomSpawnInterval = 0.2;
-                    } andInterval:.6];
-                }
-                if ((int)_score == 1000) {
-                    self.isRunning = NO;
-                    __weak GameScene *weakSelf = self;
-                    [self addTextArray:@[@"GO", @"GET", @"A", @"LIFE!:)", @"YOU", @"NEED", @"A", @"BREAK!"] completion:^{
-                        weakSelf.isRunning = YES;
-                        weakSelf.randomSpawnInterval = 0.2;
-                    } andInterval:.5];
-                }
+                }*/
             }
         } else {
             if ([node isKindOfClass:[GameObject class]]) {
@@ -286,11 +322,59 @@
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)timeSinceLast
 {
     if (_isRunning && !_isDead) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
             _score += (timeSinceLast * kRunnerSpeed) / 100.0;
+            if ([_runner.mood isEqualToString:kRunnerMoodMad]) {
+                _score += 0.1;
+            } else if ([_runner.mood isEqualToString:kRunnerMoodVeryMad]) {
+                _score += 0.2;
+            }
+            
+            if ((int)_score == 200) {
+                _score += 1;
+                //self.isRunning = NO;
+                _needABreak = YES;
+                __weak GameScene *weakSelf = self;
+                [self addTextArray:@[@"Not", @"bad"] completion:^{
+                    weakSelf.needABreak = NO;
+                    weakSelf.randomSpawnInterval = 0.2;
+                } andInterval:.6];
+            }
+            if ((int)_score == 500) {
+                _score += 1;
+                //self.isRunning = NO;
+                _needABreak = YES;
+                __weak GameScene *weakSelf = self;
+                [self addTextArray:@[@"Quite", @"Exquisite!"] completion:^{
+                    weakSelf.needABreak = NO;
+                    weakSelf.randomSpawnInterval = 0.2;
+                } andInterval:.6];
+            }
+            if ((int)_score == 1000) {
+                _score += 1;
+                //self.isRunning = NO;
+                _needABreak = YES;
+                __weak GameScene *weakSelf = self;
+                [self addTextArray:@[@"YOU", @"ARE", @"DOING", @"EXCELLENT!", @"KEEP", @"ON", @"GOING!!!"] completion:^{
+                    weakSelf.needABreak = NO;
+                    weakSelf.randomSpawnInterval = 0.2;
+                } andInterval:.6];
+            }
+            if ((int)_score == 2000) {
+                _score += 1;
+                //self.isRunning = NO;
+                _needABreak = YES;
+                __weak GameScene *weakSelf = self;
+                [self addTextArray:@[@"GO", @"GET", @"A", @"LIFE!:)", @"YOU", @"NEED", @"A", @"BREAK!"] completion:^{
+                    weakSelf.needABreak = NO;
+                    weakSelf.randomSpawnInterval = 0.2;
+                } andInterval:.5];
+            }
+            
             //if ((int)_score % 10 == 0) {
             self.scoreLabel.text = [NSString stringWithFormat:@"%dm", (int)_score];
             //}
+            //NSLog(@"Score: %d", (int)_score);
         });
     }
     _lastSpawnTimeInterval += timeSinceLast;
@@ -303,10 +387,10 @@
         self.runner.zRotation -= timeSinceLast * _rotationUnitPerSecond;
     }
     
-    if (_lastSpawnTimeInterval > _randomSpawnInterval && _isRunning) {
+    if (_lastSpawnTimeInterval > _randomSpawnInterval && _isRunning && !_needABreak) {
         _lastSpawnTimeInterval = 0;
         _randomSpawnInterval = [CommonTools getRandomFloatFromFloat:0.5 * _screenDiff toFloat:0.7 * _screenDiff];
-        //[self addBarrier];
+        [self addBarrier];
     }
     
 }
@@ -353,6 +437,12 @@
         //barrier.position = CGPointMake(self.size.width, self.size.height - 60.0 - barrier.size.height / 2.0);
     }
     
+    if ([_runner.mood isEqualToString:kRunnerMoodMad]) {
+        barrier.barrierSpeed -= 150;
+    } else if ([_runner.mood isEqualToString:kRunnerMoodVeryMad]) {
+        barrier.barrierSpeed -= 300;
+    }
+    
     barrier.physicsBody.velocity = CGVectorMake(barrier.barrierSpeed, 0);
     
     [self addChild:barrier];
@@ -365,21 +455,30 @@
 
 -(void)runnerLanded
 {
+    //NSLog(@"Before: JC: %d, DJC: %d, MJC: %d, VMJP: %d", _jumpCount, _doubleJumpCount, _madJumpCount, _veryMadJumpCount);
+    
     if (_jumpCount == kMaxJumpCount) {
         _doubleJumpCount++;
-        _madJumpCount++;
+        if ([_runner.mood isEqualToString:kRunnerMoodNormal]) {
+            _madJumpCount++;
+            _veryMadJumpCount++;
+        } else if ([_runner.mood isEqualToString:kRunnerMoodMad]) {
+            _veryMadJumpCount++;
+        }
     } else {
         _doubleJumpCount = 0;
         _madJumpCount = 0;
+        _veryMadJumpCount = 0;
     }
+    _runner.physicsBody.contactTestBitMask = kObjectCategoryBarrier;
     //_runner.isHitable = YES;
     _jumpCount = 0;
     _runner.isJumping = NO;
-    _emitter.particleBirthRate = 150;
+    _emitter.particleBirthRate = _particleBirthRate;
     _rotationUnitPerSecond = 0.0;
     _secondJumpHeight = 0.0;
     self.runner.zRotation = 0;
-
+    //NSLog(@"After: JC: %d, DJC: %d, MJC: %d, VMJP: %d", _jumpCount, _doubleJumpCount, _madJumpCount, _veryMadJumpCount);
 }
 
 -(void)barrierLanded:(Barrier *)barrier
