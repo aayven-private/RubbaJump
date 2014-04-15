@@ -37,6 +37,7 @@
 		B01ED88918EEDDE70062AB4A /* BoomEffect.sks in Resources */ = {isa = PBXBuildFile; fileRef = B01ED88818EEDDE70062AB4A /* BoomEffect.sks */; };
 		B02C695F18FC57DA00FF7F33 /* RainEffect.sks in Resources */ = {isa = PBXBuildFile; fileRef = B02C695E18FC57DA00FF7F33 /* RainEffect.sks */; };
 		B02C696118FC5CE500FF7F33 /* RainDropEffect.sks in Resources */ = {isa = PBXBuildFile; fileRef = B02C696018FC5CE500FF7F33 /* RainDropEffect.sks */; };
+		B05632DA18FD1602001348A0 /* GameOverScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B05632D918FD1602001348A0 /* GameOverScene.m */; };
 		B06802A518F7164E00DAE740 /* GameSceneController.m in Sources */ = {isa = PBXBuildFile; fileRef = B06802A418F7164E00DAE740 /* GameSceneController.m */; };
 		B06802A818F7184200DAE740 /* HighScoresController.m in Sources */ = {isa = PBXBuildFile; fileRef = B06802A718F7184200DAE740 /* HighScoresController.m */; };
 		B06802AD18F71C7000DAE740 /* HighScoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B06802AB18F71C7000DAE740 /* HighScoreCell.m */; };
@@ -109,6 +110,9 @@
 		B01ED88818EEDDE70062AB4A /* BoomEffect.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = BoomEffect.sks; sourceTree = "<group>"; };
 		B02C695E18FC57DA00FF7F33 /* RainEffect.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = RainEffect.sks; sourceTree = "<group>"; };
 		B02C696018FC5CE500FF7F33 /* RainDropEffect.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = RainDropEffect.sks; sourceTree = "<group>"; };
+		B05632D818FD1602001348A0 /* GameOverScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverScene.h; sourceTree = "<group>"; };
+		B05632D918FD1602001348A0 /* GameOverScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverScene.m; sourceTree = "<group>"; };
+		B05632DB18FD1844001348A0 /* GameOverSceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameOverSceneDelegate.h; sourceTree = "<group>"; };
 		B06802A318F7164E00DAE740 /* GameSceneController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameSceneController.h; sourceTree = "<group>"; };
 		B06802A418F7164E00DAE740 /* GameSceneController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameSceneController.m; sourceTree = "<group>"; };
 		B06802A618F7184200DAE740 /* HighScoresController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighScoresController.h; sourceTree = "<group>"; };
@@ -257,6 +261,8 @@
 			children = (
 				B00DB9AA18ED48EF00460930 /* GameScene.h */,
 				B00DB9AB18ED48EF00460930 /* GameScene.m */,
+				B05632D818FD1602001348A0 /* GameOverScene.h */,
+				B05632D918FD1602001348A0 /* GameOverScene.m */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -312,6 +318,7 @@
 			children = (
 				B01ED86918ED578A0062AB4A /* ContactManagerDelegate.h */,
 				B06802AF18F7211800DAE740 /* GameSceneHandlerDelegate.h */,
+				B05632DB18FD1844001348A0 /* GameOverSceneDelegate.h */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -498,6 +505,7 @@
 				B0FF194518F1DB8900560E5E /* HighScoreManager.m in Sources */,
 				B01ED85918ED4FD50062AB4A /* Barrier.m in Sources */,
 				B00DB9A918ED48EF00460930 /* MainScreenController.m in Sources */,
+				B05632DA18FD1602001348A0 /* GameOverScene.m in Sources */,
 				B0FF195018F1DBDA00560E5E /* DBAccessLayer.m in Sources */,
 				B01ED86718ED57370062AB4A /* ContactManager.m in Sources */,
 				B00DB9A318ED48EF00460930 /* AppDelegate.m in Sources */,

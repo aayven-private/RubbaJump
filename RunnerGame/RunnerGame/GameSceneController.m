@@ -9,6 +9,7 @@
 #import "GameSceneController.h"
 #import "GameScene.h"
 #import "HighScoreManager.h"
+#import "GameOverScene.h"
 
 @interface GameSceneController ()
 
@@ -89,7 +90,29 @@
         [[HighScoreManager sharedManager] addHighScore:scoreHelper];
     });
     
+    GameOverScene *gos = [[GameOverScene alloc] initWithSize:self.view.frame.size];
+    gos.delegate = self;
+    [((SKView *)self.view) presentScene:gos transition:[SKTransition flipHorizontalWithDuration:.5]];
+    
+}
+
+-(void)quit
+{
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(void)retry
+{
+    SKView * skView = (SKView *)self.view;
+    
+    // Create and configure the scene.
+    _gameScene = [GameScene sceneWithSize:skView.bounds.size];
+    _gameScene.scaleMode = SKSceneScaleModeAspectFill;
+    _gameScene.delegate = self;
+    
+    // Present the scene.
+    [skView presentScene:_gameScene transition:[SKTransition flipHorizontalWithDuration:.5]];
+    [_gameScene initEnvironment];
 }
 
 @end
