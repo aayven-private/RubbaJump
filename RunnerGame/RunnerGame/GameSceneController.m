@@ -32,6 +32,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [GameScene loadSharedAssets];
 }
 
 -(void)viewDidAppear:(BOOL)animated

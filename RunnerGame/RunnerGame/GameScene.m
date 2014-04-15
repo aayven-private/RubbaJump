@@ -66,9 +66,42 @@
 @property (nonatomic) NSString *runnerMood;
 @property (nonatomic) BOOL needABreak;
 
+@property (nonatomic) SKTexture *barrierTexture;
+
 @end
 
 @implementation GameScene
+
+static SKAction *sharedDeathSoundAction = nil;
+static SKAction *sharedJumpSoundAction = nil;
+static SKAction *sharedDoubleJumpSoundAction = nil;
+
+- (SKAction *)deathSoundAction
+{
+    return sharedDeathSoundAction;
+}
+
+-(SKAction *)jumpSoundAction
+{
+    return sharedJumpSoundAction;
+}
+
+-(SKAction *)doubleJumpSoundAction
+{
+    return sharedDoubleJumpSoundAction;
+}
+
++ (void)loadSharedAssets
+{
+    static dispatch_once_t onceToken;
+    
+    dispatch_once(&onceToken, ^
+                  {
+                      sharedDeathSoundAction = [SKAction playSoundFileNamed:@"DeathB1_05.mp3" waitForCompletion:NO];
+                      sharedJumpSoundAction = [SKAction playSoundFileNamed:@"Blop_A_01.wav" waitForCompletion:NO];
+                      sharedDoubleJumpSoundAction = [SKAction playSoundFileNamed:@"Blop_D_01.wav" waitForCompletion:NO];
+                  });
+}
 
 -(id)initWithSize:(CGSize)size {    
     if (self = [super initWithSize:size]) {
@@ -78,6 +111,7 @@
         //self.randomSpawnInterval = [CommonTools getRandomFloatFromFloat:1.8 toFloat:2.0];
         
         self.selectiveGravity = CGVectorMake(0, -9.8 * kPpm);
+        self.barrierTexture = [SKTexture textureWithImageNamed:@"square"];
     }
     return self;
 }
@@ -210,10 +244,10 @@
         }
         
         if (_jumpCount == 1) {
-            [self runAction:[SKAction playSoundFileNamed:@"Blop_A_01.wav" waitForCompletion:NO]];
+            [self runAction:[self jumpSoundAction]];
             _rotationUnitPerSecond = 0.0;//DeathB1_05
         } else {
-            [self runAction:[SKAction playSoundFileNamed:@"Blop_D_01.wav" waitForCompletion:NO]];
+            [self runAction:[self doubleJumpSoundAction]];
             _secondJumpHeight = self.runner.position.y - 5.0;
             
             _expectedLandingTime = 2.0 * (self.runner.physicsBody.velocity.dy / fabs(self.runner.suggestedGravity.dy));
@@ -397,7 +431,7 @@
 
 -(void)addBarrier
 {
-    Barrier *barrier = [[Barrier alloc] initWithTexture:[SKTexture textureWithImageNamed:@"square"]];
+    Barrier *barrier = [[Barrier alloc] initWithTexture:_barrierTexture];
     
     BOOL isBottom = (BOOL)[CommonTools getRandomNumberFromInt:0 toInt:1];
     
@@ -496,7 +530,7 @@
     
     if (self.runner.isHitable) {
         _isDead = YES;
-        [self runAction:[SKAction playSoundFileNamed:@"DeathB1_05.mp3" waitForCompletion:NO]];
+        [self runAction:[self deathSoundAction]];
         _rotationUnitPerSecond = 0.0;
         _emitter.particleBirthRate = 0;
         SKAction *boom = [SKAction runBlock:^{

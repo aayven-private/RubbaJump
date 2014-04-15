@@ -13,6 +13,8 @@
 
 @interface GameScene : SKScene <ContactManagerDelegate>
 
++ (void)loadSharedAssets;
+
 -(void)initEnvironment;
 
 @property (nonatomic, weak) id<GameSceneHandlerDelegate> delegate;
