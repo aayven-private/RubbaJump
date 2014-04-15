@@ -37,6 +37,8 @@
     // Do any additional setup after loading the view.
     self.scores = [[HighScoreManager sharedManager] getHighScores];
     [_highScoresTable reloadData];
+    
+    self.okButton.titleLabel.font = [UIFont fontWithName:@"ExpletusSans-Bold" size:25.0];
 }
 
 - (void)didReceiveMemoryWarning
@@ -59,12 +61,15 @@
                 break;
             }
         }
+        
+        cell.indexLabel.font = [UIFont fontWithName:@"ExpletusSans-Bold" size:20.0];
+        cell.scoreLabel.font = [UIFont fontWithName:@"ExpletusSans-Bold" size:20.0];
     }
     
     HighScoreHelper *cellData = [_scores objectAtIndex:indexPath.row];
     
-    cell.indexLabel.text = [NSString stringWithFormat:@"%d", indexPath.row + 1];
-    cell.scoreLabel.text = [NSString stringWithFormat:@"%dm", cellData.score.intValue];
+    cell.indexLabel.text = [NSString stringWithFormat:@"%d.", indexPath.row + 1];
+    cell.scoreLabel.text = [NSString stringWithFormat:@"%d m", cellData.score.intValue];
     
     return cell;
 }
@@ -77,6 +82,11 @@
 -(IBAction)okClicked:(id)sender
 {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 60.0;
 }
 
 /*

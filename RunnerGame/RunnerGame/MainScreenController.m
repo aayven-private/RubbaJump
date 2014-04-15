@@ -8,7 +8,6 @@
 
 #import "MainScreenController.h"
 #import "GameScene.h"
-#import "StatisticsManager.h"
 
 @interface MainScreenController()
 
@@ -28,9 +27,6 @@
     
     self.playButton.titleLabel.font = [UIFont fontWithName:@"ExpletusSans-Bold" size:20.0];
     self.highScoreButton.titleLabel.font = [UIFont fontWithName:@"ExpletusSans-Bold" size:20.0];
-    
-    StatisticsHelper *stat = [[StatisticsManager sharedInstance] getStatistics];
-    NSLog(@"E");
 }
 
 -(void)viewDidAppear:(BOOL)animated
