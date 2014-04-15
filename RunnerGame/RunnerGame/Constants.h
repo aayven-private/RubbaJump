@@ -26,3 +26,5 @@ static float kGroundHeight = 60;
 static int kTopLimit = 100;
 static int kBottomLimit = 4;
 static int kMovingLimit = 2;
+
+static float kRunnerSpeed = 600.0;

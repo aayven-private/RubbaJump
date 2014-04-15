@@ -14,7 +14,7 @@
 -(void)runnerJumped;
 -(void)runnerLanded;
 
--(void)barrierCollidedWithRunner;
+-(void)runnerCollidedWithBarrier:(Barrier *)barrier;
 
 -(void)barrierLanded:(Barrier *)barrier;
 

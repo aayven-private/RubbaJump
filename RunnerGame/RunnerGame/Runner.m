@@ -26,6 +26,7 @@
         self.physicsBody.restitution = 0.0;
         self.physicsBody.friction = 0.0;
         self.isJumping = NO;
+        self.isHitable = YES;
         self.hasOwnGravity = YES;
         self.suggestedGravity = CGVectorMake(0, -24 * kPpm * self.physicsBody.mass);
     }

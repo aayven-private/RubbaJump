@@ -26,14 +26,14 @@
             [_delegate runnerLanded];
         }
         if (contact.bodyB.categoryBitMask == kObjectCategoryBarrier) {
-            [_delegate barrierCollidedWithRunner];
+            [_delegate runnerCollidedWithBarrier:(Barrier *)contact.bodyB.node];
         }
     } else if (contact.bodyB.categoryBitMask == kObjectCategoryRunner) {
         if (contact.bodyA.categoryBitMask == kObjectCategoryGround) {
             [_delegate runnerLanded];
         }
         if (contact.bodyA.categoryBitMask == kObjectCategoryBarrier) {
-            [_delegate barrierCollidedWithRunner];
+            [_delegate runnerCollidedWithBarrier:(Barrier *)contact.bodyA.node];
         }
     } else if (contact.bodyA.categoryBitMask == kObjectCategoryBarrier) {
         if (contact.bodyB.categoryBitMask == kObjectCategoryGround) {

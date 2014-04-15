@@ -23,34 +23,38 @@
         self.backgroundColor = [UIColor whiteColor];
         
         SKLabelNode *gameOverLabel = [SKLabelNode labelNodeWithFontNamed:@"ExpletusSans-Bold"];
-        gameOverLabel.position = CGPointMake(size.width / 2.0, size.height / 2.0 + 50.0);
+        gameOverLabel.position = CGPointMake(size.width / 2.0, size.height / 2.0 + 80.0);
         gameOverLabel.fontSize = 30.0;
         gameOverLabel.fontColor = [UIColor blackColor];
         gameOverLabel.text = @"Game Over";
         [self addChild:gameOverLabel];
         
-        self.exitButton = [[SKSpriteNode alloc] initWithColor:[UIColor lightGrayColor] size:CGSizeMake(100, 50)];
-        self.exitButton.position = CGPointMake(self.size.width / 2.0, self.size.height / 2.0);
+        self.exitButton = [[SKSpriteNode alloc] initWithImageNamed:@"button.png"];
+        //self.exitButton.centerRect = CGRectMake(70.0 / 160.0, 32.0, 20.0, 10.0);
+        self.exitButton.size = CGSizeMake(160, 80);
+        self.exitButton.position = CGPointMake(self.size.width / 2.0, self.size.height / 2.0 + 10.0);
         self.exitButton.name = @"exit";
         [self addChild:self.exitButton];
         
-        SKLabelNode *exitLabel = [SKLabelNode labelNodeWithFontNamed:@"ExpletusSans-Regular"];
+        SKLabelNode *exitLabel = [SKLabelNode labelNodeWithFontNamed:@"ExpletusSans-Bold"];
         exitLabel.text = @"Menu";
-        exitLabel.fontColor = [UIColor blackColor];
+        exitLabel.fontColor = [UIColor whiteColor];
         exitLabel.fontSize = 20.0;
         exitLabel.verticalAlignmentMode = SKLabelVerticalAlignmentModeCenter;
         exitLabel.position = self.exitButton.position;
         exitLabel.name = @"exit";
         [self addChild:exitLabel];
         
-        self.retryButton = [[SKSpriteNode alloc] initWithColor:[UIColor lightGrayColor] size:CGSizeMake(100, 50)];
-        self.retryButton.position = CGPointMake(self.size.width / 2.0, self.size.height / 2.0 - 60.0);
+        self.retryButton = [[SKSpriteNode alloc] initWithImageNamed:@"button.png"];
+        //self.retryButton.centerRect = CGRectMake(70.0 / 160.0, 32.0, 20.0, 10.0);
+        self.retryButton.size = CGSizeMake(160, 80);
+        self.retryButton.position = CGPointMake(self.size.width / 2.0, self.size.height / 2.0 - 80.0);
         self.retryButton.name = @"retry";
         [self addChild:self.retryButton];
         
-        SKLabelNode *retryLabel = [SKLabelNode labelNodeWithFontNamed:@"ExpletusSans-Regular"];
+        SKLabelNode *retryLabel = [SKLabelNode labelNodeWithFontNamed:@"ExpletusSans-Bold"];
         retryLabel.text = @"Retry";
-        retryLabel.fontColor = [UIColor blackColor];
+        retryLabel.fontColor = [UIColor whiteColor];
         retryLabel.fontSize = 20.0;
         retryLabel.position = self.retryButton.position;
         retryLabel.verticalAlignmentMode = SKLabelVerticalAlignmentModeCenter;

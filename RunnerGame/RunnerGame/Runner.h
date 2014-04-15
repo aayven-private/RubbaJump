@@ -12,5 +12,6 @@
 @interface Runner : GameObject
 
 @property (nonatomic) BOOL isJumping;
+@property (nonatomic) BOOL isHitable;
 
 @end

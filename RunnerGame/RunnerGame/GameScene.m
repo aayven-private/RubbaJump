@@ -42,7 +42,7 @@
 @property (nonatomic) float secondJumpHeight;
 
 @property (nonatomic) int difficulty;
-@property (nonatomic) int score;
+@property (nonatomic) float score;
 
 @property (nonatomic) SKLabelNode *scoreLabel;
 
@@ -50,6 +50,7 @@
 
 @property (nonatomic) float screenDiff;
 @property (nonatomic) int doubleJumpCount;
+@property (nonatomic) int madJumpCount;
 
 @property (nonatomic) int topCount;
 @property (nonatomic) int bottomCount;
@@ -95,6 +96,7 @@
     
     self.jumpCount = 0;
     self.doubleJumpCount = 0;
+    self.madJumpCount = 0;
     
     self.screenDiff = 960.0 / (self.size.width * self.view.contentScaleFactor);
     //NSLog(@"W: %f", self.size.width * self.view.contentScaleFactor);
@@ -148,7 +150,7 @@
     self.scoreLabel.position = CGPointMake(self.size.width - 30.0, self.size.height - 30.0);
     self.scoreLabel.fontSize = 18.0;
     self.scoreLabel.fontColor = [UIColor blackColor];
-    self.scoreLabel.text = @"0";
+    self.scoreLabel.text = @"0m";
     [self addChild:self.scoreLabel];
     
     __weak GameScene *weakSelf = self;
@@ -184,7 +186,7 @@
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     _runner.isJumping = YES;
     _runner.physicsBody.contactTestBitMask = kObjectCategoryBarrier | kObjectCategoryGround;
-    if (_jumpCount < kMaxJumpCount) {
+    if (_jumpCount < kMaxJumpCount && !_isDead) {
         _jumpCount++;
         
         self.runner.physicsBody.velocity = CGVectorMake(0, 0);
@@ -199,24 +201,35 @@
         
         if (_jumpCount == 1) {
             [self runAction:[SKAction playSoundFileNamed:@"Blop_A_01.wav" waitForCompletion:NO]];
-            _rotationUnitPerSecond = 0.0;
+            _rotationUnitPerSecond = 0.0;//DeathB1_05
         } else {
             [self runAction:[SKAction playSoundFileNamed:@"Blop_D_01.wav" waitForCompletion:NO]];
             _secondJumpHeight = self.runner.position.y - 5.0;
             
             _expectedLandingTime = 2.0 * (self.runner.physicsBody.velocity.dy / fabs(self.runner.suggestedGravity.dy));
             
-            if (_doubleJumpCount == 2) {
-                _doubleJumpCount = -1;
+            if (_madJumpCount == 3) {
                 _rotationUnitPerSecond =  -M_PI / (_expectedLandingTime * 4.0);
-                SKAction *blend = [SKAction colorizeWithColor:[SKColor whiteColor] colorBlendFactor:1.0 duration:.1];
-                SKAction *bblend = [SKAction colorizeWithColorBlendFactor:0.0 duration:.1];
-                SKAction *blendAction = [SKAction sequence:@[blend, bblend]];
-                SKAction *scaleAction = [SKAction sequence:@[[SKAction scaleTo:.6 duration:.1], [SKAction scaleTo:1.0 duration:.1]]];
-                SKAction *blendScale = [SKAction group:@[blendAction, scaleAction]];
-                [self.runner runAction:blendScale];
+                SKAction *makeMad = [SKAction group:@[[SKAction scaleTo:1.5 duration:.1], [SKAction runBlock:^{
+                    _runner.texture = [SKTexture textureWithImageNamed:@"runner_mad"];
+                    _runner.isHitable = NO;
+                }]]];
+                SKAction *madAction = [SKAction sequence:@[makeMad, [SKAction scaleTo:1.0 duration:2.5], [SKAction runBlock:^{
+                    _runner.texture = [SKTexture textureWithImageNamed:@"runner"];
+                    _runner.isHitable =YES;
+                }]]];
+                
+                [_runner runAction:madAction];
+                _doubleJumpCount = -1;
             } else {
-                _rotationUnitPerSecond =  M_PI / (_expectedLandingTime * 4.0);
+                if (_doubleJumpCount == 2) {
+                    _doubleJumpCount = -1;
+                    _rotationUnitPerSecond =  -M_PI / (_expectedLandingTime * 4.0);
+                    SKAction *scaleAction = [SKAction sequence:@[[SKAction scaleTo:.6 duration:.1], [SKAction scaleTo:1.0 duration:.1]]];
+                    [self.runner runAction:scaleAction];
+                } else {
+                    _rotationUnitPerSecond =  M_PI / (_expectedLandingTime * 4.0);
+                }
             }
         }
     }
@@ -228,12 +241,12 @@
         if (node.position.x < 0) {
             [node removeFromParent];
             if (!_isDead) {
-                self.score++;
-                self.scoreLabel.text = [NSString stringWithFormat:@"%d", self.score];
-                if (_score % 10 == 0) {
+                //self.score++;
+                //self.scoreLabel.text = [NSString stringWithFormat:@"%d", self.score];
+                if ((int)_score % 10 == 0) {
                     _difficulty++;
                 }
-                if (_score == 500) {
+                if ((int)_score == 500) {
                     self.isRunning = NO;
                     __weak GameScene *weakSelf = self;
                     [self addTextArray:@[@"YOU", @"ARE", @"DOING", @"EXCELLENT!", @"KEEP", @"ON", @"GOING!!!"] completion:^{
@@ -241,7 +254,7 @@
                         weakSelf.randomSpawnInterval = 0.2;
                     } andInterval:.6];
                 }
-                if (_score == 1000) {
+                if ((int)_score == 1000) {
                     self.isRunning = NO;
                     __weak GameScene *weakSelf = self;
                     [self addTextArray:@[@"GO", @"GET", @"A", @"LIFE!:)", @"YOU", @"NEED", @"A", @"BREAK!"] completion:^{
@@ -272,6 +285,14 @@
 
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)timeSinceLast
 {
+    if (_isRunning && !_isDead) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            _score += (timeSinceLast * kRunnerSpeed) / 100.0;
+            //if ((int)_score % 10 == 0) {
+            self.scoreLabel.text = [NSString stringWithFormat:@"%dm", (int)_score];
+            //}
+        });
+    }
     _lastSpawnTimeInterval += timeSinceLast;
     if (_secondJumpHeight != 0.0 && _secondJumpHeight - 20.0 < _runner.position.y && _runner.position.y < _secondJumpHeight) {
         _runner.zRotation = 0.0;
@@ -285,7 +306,7 @@
     if (_lastSpawnTimeInterval > _randomSpawnInterval && _isRunning) {
         _lastSpawnTimeInterval = 0;
         _randomSpawnInterval = [CommonTools getRandomFloatFromFloat:0.5 * _screenDiff toFloat:0.7 * _screenDiff];
-        [self addBarrier];
+        //[self addBarrier];
     }
     
 }
@@ -346,10 +367,12 @@
 {
     if (_jumpCount == kMaxJumpCount) {
         _doubleJumpCount++;
+        _madJumpCount++;
     } else {
         _doubleJumpCount = 0;
+        _madJumpCount = 0;
     }
-    
+    //_runner.isHitable = YES;
     _jumpCount = 0;
     _runner.isJumping = NO;
     _emitter.particleBirthRate = 150;
@@ -366,22 +389,29 @@
     }
 }
 
--(void)barrierCollidedWithRunner
+-(void)runnerCollidedWithBarrier:(Barrier *)barrier
 {
-    _isDead = YES;
     NSString *boomPath = [[NSBundle mainBundle] pathForResource:@"BoomEffect" ofType:@"sks"];
     SKEmitterNode *emitter = [NSKeyedUnarchiver unarchiveObjectWithFile:boomPath];
     emitter.position = _runner.position;
-    [_runner removeFromParent];
-    _emitter.particleBirthRate = 0;
-    SKAction *boom = [SKAction runBlock:^{
-        [_runner removeFromParent];
-        [self addChild:emitter];
-    }];
     
-    [self runAction:[SKAction sequence:@[boom, [SKAction waitForDuration:2.0], [SKAction runBlock:^{
-        [_delegate gameOverWithScore:_score];
-    }]]]];
+    if (self.runner.isHitable) {
+        _isDead = YES;
+        [self runAction:[SKAction playSoundFileNamed:@"DeathB1_05.mp3" waitForCompletion:NO]];
+        _rotationUnitPerSecond = 0.0;
+        _emitter.particleBirthRate = 0;
+        SKAction *boom = [SKAction runBlock:^{
+            [_runner removeFromParent];
+            [self addChild:emitter];
+        }];
+        
+        [self runAction:[SKAction sequence:@[boom, [SKAction waitForDuration:2.0], [SKAction runBlock:^{
+            [_delegate gameOverWithScore:(int)_score];
+        }]]]];
+    } else {
+        [self addChild:emitter];
+        [barrier removeFromParent];
+    }
 }
 
 -(void)addTextArray:(NSArray *)textArray completion:(void(^)())completion andInterval:(float)interval

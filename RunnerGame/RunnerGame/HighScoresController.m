@@ -64,7 +64,7 @@
     HighScoreHelper *cellData = [_scores objectAtIndex:indexPath.row];
     
     cell.indexLabel.text = [NSString stringWithFormat:@"%d", indexPath.row + 1];
-    cell.scoreLabel.text = [NSString stringWithFormat:@"%d", cellData.score.intValue];
+    cell.scoreLabel.text = [NSString stringWithFormat:@"%dm", cellData.score.intValue];
     
     return cell;
 }
