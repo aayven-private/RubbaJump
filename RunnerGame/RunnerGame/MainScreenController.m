@@ -14,6 +14,7 @@
 
 @property (nonatomic, weak) IBOutlet UIButton *playButton;
 @property (nonatomic, weak) IBOutlet UIButton *highScoreButton;
+@property (nonatomic, weak) IBOutlet UIButton *statButton;
 
 @end
 
