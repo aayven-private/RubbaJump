@@ -32,3 +32,8 @@ static float kRunnerSpeed = 600.0;
 static NSString *kRunnerMoodNormal = @"normal";
 static NSString *kRunnerMoodMad = @"mad";
 static NSString *kRunnerMoodVeryMad = @"verymad";
+
+static NSString *kStatBarrierKey = @"weloux_runner_barrier_count";
+static NSString *kStatJumpKey = @"weloux_runner_jump_count";
+static NSString *kStatDoubleJumpKey = @"weloux_runner_doublejump_count";
+static NSString *kStatDistanceKey = @"weloux_runner_total_distance";

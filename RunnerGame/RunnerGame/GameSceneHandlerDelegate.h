@@ -7,9 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "StatisticsHelper.h"
 
 @protocol GameSceneHandlerDelegate <NSObject>
 
--(void)gameOverWithScore:(int)score;
+-(void)gameOverWithStatistics:(StatisticsHelper *)stat;
 
 @end

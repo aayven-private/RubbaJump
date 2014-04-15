@@ -10,6 +10,7 @@
 #import "GameScene.h"
 #import "HighScoreManager.h"
 #import "GameOverScene.h"
+#import "StatisticsManager.h"
 
 @interface GameSceneController ()
 
@@ -83,14 +84,9 @@
     }
 }
 
--(void)gameOverWithScore:(int)score
+-(void)gameOverWithStatistics:(StatisticsHelper *)stat
 {
-    HighScoreHelper *scoreHelper = [[HighScoreHelper alloc] init];
-    scoreHelper.score = [NSNumber numberWithInt:score];
-    scoreHelper.scoreDate = [NSDate date];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-        [[HighScoreManager sharedManager] addHighScore:scoreHelper];
-    });
+    [[StatisticsManager sharedInstance] saveStatistics:stat];
     
     GameOverScene *gos = [[GameOverScene alloc] initWithSize:self.view.frame.size];
     gos.delegate = self;

@@ -14,6 +14,7 @@
 #import "CommonTools.h"
 #import "HighScoreHelper.h"
 #import "HighScoreManager.h"
+#import "StatisticsHelper.h"
 
 @interface GameScene()
 
@@ -67,6 +68,10 @@
 @property (nonatomic) BOOL needABreak;
 
 @property (nonatomic) SKTexture *barrierTexture;
+
+@property (nonatomic) int globalJumpCount;
+@property (nonatomic) int globalDoubleJumpCount;
+@property (nonatomic) int globalBarriersAvoided;
 
 @end
 
@@ -131,6 +136,10 @@ static SKAction *sharedDoubleJumpSoundAction = nil;
     self.physicsBody.usesPreciseCollisionDetection = YES;
     self.scaleMode = SKSceneScaleModeAspectFill;
     self.isDead = NO;
+    
+    self.globalJumpCount = 0;
+    self.globalDoubleJumpCount = 0;
+    self.globalBarriersAvoided = 0;
     
     self.isRunning = NO;
     self.needABreak = NO;
@@ -245,9 +254,11 @@ static SKAction *sharedDoubleJumpSoundAction = nil;
         
         if (_jumpCount == 1) {
             [self runAction:[self jumpSoundAction]];
-            _rotationUnitPerSecond = 0.0;//DeathB1_05
+            _rotationUnitPerSecond = 0.0;
+            _globalJumpCount++;
         } else {
             [self runAction:[self doubleJumpSoundAction]];
+            _globalDoubleJumpCount++;
             _secondJumpHeight = self.runner.position.y - 5.0;
             
             _expectedLandingTime = 2.0 * (self.runner.physicsBody.velocity.dy / fabs(self.runner.suggestedGravity.dy));
@@ -327,6 +338,7 @@ static SKAction *sharedDoubleJumpSoundAction = nil;
         if (node.position.x < 0) {
             [node removeFromParent];
             if (!_isDead) {
+                _globalBarriersAvoided++;
                 //self.score++;
                 //self.scoreLabel.text = [NSString stringWithFormat:@"%d", self.score];
                 /*if ((int)_score % 10 == 0) {
@@ -539,7 +551,12 @@ static SKAction *sharedDoubleJumpSoundAction = nil;
         }];
         
         [self runAction:[SKAction sequence:@[boom, [SKAction waitForDuration:2.0], [SKAction runBlock:^{
-            [_delegate gameOverWithScore:(int)_score];
+            StatisticsHelper *stat = [[StatisticsHelper alloc] init];
+            stat.jumps = _globalJumpCount;
+            stat.doubleJumps = _globalDoubleJumpCount;
+            stat.distance = (int)_score;
+            stat.barriers = _globalBarriersAvoided;
+            [_delegate gameOverWithStatistics:stat];
         }]]]];
     } else {
         [self addChild:emitter];
