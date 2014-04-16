@@ -15,6 +15,7 @@
 #import "HighScoreHelper.h"
 #import "HighScoreManager.h"
 #import "StatisticsHelper.h"
+#import "HighScoreIndicator.h"
 
 @interface GameScene()
 
@@ -68,10 +69,17 @@
 @property (nonatomic) BOOL needABreak;
 
 @property (nonatomic) SKTexture *barrierTexture;
+@property (nonatomic) SKTexture *starTexture;
 
 @property (nonatomic) int globalJumpCount;
 @property (nonatomic) int globalDoubleJumpCount;
 @property (nonatomic) int globalBarriersAvoided;
+
+@property (nonatomic) NSMutableArray *highScores;
+
+@property (nonatomic) int lastHighScoreIndicator;
+
+@property (nonatomic) BOOL needsBarrier;
 
 @end
 
@@ -117,6 +125,18 @@ static SKAction *sharedDoubleJumpSoundAction = nil;
         
         self.selectiveGravity = CGVectorMake(0, -9.8 * kPpm);
         self.barrierTexture = [SKTexture textureWithImageNamed:@"square"];
+        self.starTexture = [SKTexture textureWithImageNamed:@"star"];
+        self.highScores = [NSMutableArray array];
+        self.needsBarrier = NO;
+        
+        NSArray *scores = [[HighScoreManager sharedManager] getHighScores];
+        for (HighScoreHelper *score in scores) {
+            [self.highScores addObject:score.score];
+        }
+        
+        /*for (int i=10; i<500; i+=10) {
+            [self.highScores addObject:[NSNumber numberWithInt:i]];
+        }*/
     }
     return self;
 }
@@ -140,6 +160,7 @@ static SKAction *sharedDoubleJumpSoundAction = nil;
     self.globalJumpCount = 0;
     self.globalDoubleJumpCount = 0;
     self.globalBarriersAvoided = 0;
+    self.lastHighScoreIndicator = 0;
     
     self.isRunning = NO;
     self.needABreak = NO;
@@ -336,15 +357,16 @@ static SKAction *sharedDoubleJumpSoundAction = nil;
     
     for (SKSpriteNode *node in self.children) {
         if (node.position.x < 0) {
-            [node removeFromParent];
-            if (!_isDead) {
+            if (!_isDead && [node isKindOfClass:[Barrier class]]) {
                 _globalBarriersAvoided++;
                 //self.score++;
                 //self.scoreLabel.text = [NSString stringWithFormat:@"%d", self.score];
                 /*if ((int)_score % 10 == 0) {
-                    _difficulty++;
-                }*/
+                 _difficulty++;
+                 }*/
             }
+            [node removeAllActions];
+            [node removeFromParent];
         } else {
             if ([node isKindOfClass:[GameObject class]]) {
                 if (((GameObject *)node).hasOwnGravity) {
@@ -352,6 +374,13 @@ static SKAction *sharedDoubleJumpSoundAction = nil;
                     [node.physicsBody applyForce:ownGravity];
                 } else if (((GameObject *)node).isAffectedBySelectiveGravity) {
                     [node.physicsBody applyForce:CGVectorMake(node.physicsBody.mass * _selectiveGravity.dx, node.physicsBody.mass * _selectiveGravity.dy)];
+                }
+            }
+            if ([node isKindOfClass:[HighScoreIndicator class]]) {
+                if (node.position.x < _runner.position.x + 15.0 && !_isDead) {
+                    SKAction *scaleFade = [SKAction group:@[[SKAction scaleTo:2.5 duration:.1], [SKAction fadeOutWithDuration:.1]]];
+                    [node runAction:scaleFade];
+                    _score = ((HighScoreIndicator *)node).score;
                 }
             }
         }
@@ -436,7 +465,8 @@ static SKAction *sharedDoubleJumpSoundAction = nil;
     if (_lastSpawnTimeInterval > _randomSpawnInterval && _isRunning && !_needABreak) {
         _lastSpawnTimeInterval = 0;
         _randomSpawnInterval = [CommonTools getRandomFloatFromFloat:0.5 * _screenDiff toFloat:0.7 * _screenDiff];
-        [self addBarrier];
+        //[self addBarrier];
+        _needsBarrier = YES;
     }
     
 }
@@ -595,6 +625,71 @@ static SKAction *sharedDoubleJumpSoundAction = nil;
     [textLabel runAction:countDown completion:completion];
     
     [self addChild:textLabel];
+}
+
+-(void)addHighScoreStarForPosition:(int)position withScore:(int)score
+{
+    HighScoreIndicator *indicator = [[HighScoreIndicator alloc] initWithTexture:_starTexture];
+    indicator.score = score;
+    float starSpeed = -1 * kRunnerSpeed;
+    
+    if ([_runner.mood isEqualToString:kRunnerMoodMad]) {
+        starSpeed -= 150;
+        indicator.score += 2;
+    } else if ([_runner.mood isEqualToString:kRunnerMoodVeryMad]) {
+        starSpeed -= 300;
+        indicator.score += 4;
+    }
+    
+    indicator.position = CGPointMake(self.size.width, kGroundHeight - indicator.size.height / 2.0 - 5.0);
+    indicator.physicsBody.velocity = CGVectorMake(starSpeed, 0);
+    
+    SKLabelNode *indexLabel = [SKLabelNode labelNodeWithFontNamed:@"ExpletusSans-Bold"];
+    indexLabel.fontColor = [UIColor blackColor];
+    indexLabel.fontSize = 16;
+    indexLabel.verticalAlignmentMode = SKLabelVerticalAlignmentModeCenter;
+    indexLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
+    //indexLabel.position = indicator.position;
+    indexLabel.text = [NSString stringWithFormat:@"%d", position];
+    
+    indexLabel.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:1.0];
+    indexLabel.physicsBody.velocity = indicator.physicsBody.velocity;
+    indexLabel.physicsBody.mass = 0;
+    indexLabel.physicsBody.friction = 0;
+    indexLabel.physicsBody.contactTestBitMask = 0;
+    indexLabel.physicsBody.collisionBitMask = 0;
+    indexLabel.physicsBody.dynamic = YES;
+    
+    [self addChild:indicator];
+    [indicator addChild:indexLabel];
+    
+    SKPhysicsJointFixed *labelJoint = [SKPhysicsJointFixed jointWithBodyA:indicator.physicsBody bodyB:indexLabel.physicsBody anchor:indicator.position];
+    [self.physicsWorld addJoint:labelJoint];
+    
+    if (position == 1) {
+        _needABreak = YES;
+        __weak GameScene *weakSelf = self;
+        [self addTextArray:@[@"New", @"High", @"Score!"] completion:^{
+            weakSelf.needABreak = NO;
+            weakSelf.randomSpawnInterval = 0.2;
+        } andInterval:.6];
+    }
+}
+
+-(void)didSimulatePhysics
+{
+    if (_isRunning) {
+        NSNumber *newScore = [NSNumber numberWithInt:(int)_score + 5];
+        if ([_highScores containsObject:newScore] && newScore.intValue != _lastHighScoreIndicator) {
+            _lastHighScoreIndicator = newScore.intValue;
+            int index = [_highScores indexOfObject:newScore] + 1;
+            [self addHighScoreStarForPosition:index withScore:newScore.intValue];
+        }
+    }
+    if (_needsBarrier) {
+        _needsBarrier = NO;
+        [self addBarrier];
+    }
 }
 
 @end

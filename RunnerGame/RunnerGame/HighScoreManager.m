@@ -34,7 +34,7 @@
         
         if (!error) {
             if (scores.count > 10) {
-                for (int i=scores.count - 1; i<scores.count; i++) {
+                for (NSUInteger i=scores.count - 1; i<scores.count; i++) {
                     HighScores *scoreToDelete = [scores objectAtIndex:i];
                     [context deleteObject:scoreToDelete];
                 }
