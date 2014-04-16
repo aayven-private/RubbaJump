@@ -13,5 +13,6 @@
 @property (nonatomic) NSNumber *score;
 @property (nonatomic) NSDate *scoreDate;
 @property (nonatomic) NSString *name;
+@property (nonatomic) NSNumber *distance;
 
 @end

@@ -12,5 +12,6 @@
 
 @property (nonatomic, weak) IBOutlet UILabel *indexLabel;
 @property (nonatomic, weak) IBOutlet UILabel *scoreLabel;
+@property (nonatomic, weak) IBOutlet UILabel *distanceLabel;
 
 @end

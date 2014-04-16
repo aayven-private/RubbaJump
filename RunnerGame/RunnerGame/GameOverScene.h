@@ -8,8 +8,11 @@
 
 #import <SpriteKit/SpriteKit.h>
 #import "GameOverSceneDelegate.h"
+#import "StatisticsHelper.h"
 
 @interface GameOverScene : SKScene
+
+-(id)initWithSize:(CGSize)size andStatistics:(StatisticsHelper *)stat;
 
 @property (nonatomic, weak) id<GameOverSceneDelegate> delegate;
 

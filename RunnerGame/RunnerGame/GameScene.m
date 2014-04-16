@@ -44,7 +44,8 @@
 @property (nonatomic) float secondJumpHeight;
 
 @property (nonatomic) int difficulty;
-@property (nonatomic) float score;
+@property (nonatomic) int score;
+@property (nonatomic) float distance;
 
 @property (nonatomic) SKLabelNode *scoreLabel;
 
@@ -80,6 +81,8 @@
 @property (nonatomic) int lastHighScoreIndicator;
 
 @property (nonatomic) BOOL needsBarrier;
+
+@property (nonatomic) int barrierCount;
 
 @end
 
@@ -130,8 +133,13 @@ static SKAction *sharedDoubleJumpSoundAction = nil;
         self.needsBarrier = NO;
         
         NSArray *scores = [[HighScoreManager sharedManager] getHighScores];
-        for (HighScoreHelper *score in scores) {
+        /*for (HighScoreHelper *score in scores) {
             [self.highScores addObject:score.score];
+        }*/
+        
+        if (scores.count > 0) {
+            HighScoreHelper *hs = [scores objectAtIndex:0];
+            [self.highScores addObject:hs.score];
         }
         
         /*for (int i=10; i<500; i+=10) {
@@ -161,6 +169,7 @@ static SKAction *sharedDoubleJumpSoundAction = nil;
     self.globalDoubleJumpCount = 0;
     self.globalBarriersAvoided = 0;
     self.lastHighScoreIndicator = 0;
+    self.barrierCount = 0;
     
     self.isRunning = NO;
     self.needABreak = NO;
@@ -175,6 +184,7 @@ static SKAction *sharedDoubleJumpSoundAction = nil;
     
     self.score = 0;
     self.difficulty = 1;
+    self.distance = 0;
     
     self.rotationUnitPerSecond = 0.0;
     self.secondJumpHeight = 0.0;
@@ -224,7 +234,7 @@ static SKAction *sharedDoubleJumpSoundAction = nil;
     self.scoreLabel.position = CGPointMake(self.size.width - 30.0, self.size.height - 30.0);
     self.scoreLabel.fontSize = 18.0;
     self.scoreLabel.fontColor = [UIColor blackColor];
-    self.scoreLabel.text = @"0m";
+    self.scoreLabel.text = @"0";
     [self addChild:self.scoreLabel];
     
     __weak GameScene *weakSelf = self;
@@ -359,6 +369,8 @@ static SKAction *sharedDoubleJumpSoundAction = nil;
         if (node.position.x < 0) {
             if (!_isDead && [node isKindOfClass:[Barrier class]]) {
                 _globalBarriersAvoided++;
+                _score += ((Barrier *)node).score;
+                self.scoreLabel.text = [NSString stringWithFormat:@"%d", self.score];
                 //self.score++;
                 //self.scoreLabel.text = [NSString stringWithFormat:@"%d", self.score];
                 /*if ((int)_score % 10 == 0) {
@@ -381,6 +393,7 @@ static SKAction *sharedDoubleJumpSoundAction = nil;
                     SKAction *scaleFade = [SKAction group:@[[SKAction scaleTo:2.5 duration:.1], [SKAction fadeOutWithDuration:.1]]];
                     [node runAction:scaleFade];
                     _score = ((HighScoreIndicator *)node).score;
+                    self.scoreLabel.text = [NSString stringWithFormat:@"%d", self.score];
                 }
             }
         }
@@ -398,11 +411,11 @@ static SKAction *sharedDoubleJumpSoundAction = nil;
 {
     if (_isRunning && !_isDead) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-            _score += (timeSinceLast * kRunnerSpeed) / 100.0;
+            _distance += (timeSinceLast * kRunnerSpeed) / 100.0;
             if ([_runner.mood isEqualToString:kRunnerMoodMad]) {
-                _score += 0.1;
+                _distance += 0.1;
             } else if ([_runner.mood isEqualToString:kRunnerMoodVeryMad]) {
-                _score += 0.2;
+                _distance += 0.2;
             }
             
             if ((int)_score == 200) {
@@ -447,7 +460,7 @@ static SKAction *sharedDoubleJumpSoundAction = nil;
             }
             
             //if ((int)_score % 10 == 0) {
-            self.scoreLabel.text = [NSString stringWithFormat:@"%dm", (int)_score];
+            //self.scoreLabel.text = [NSString stringWithFormat:@"%dm", (int)_score];
             //}
             //NSLog(@"Score: %d", (int)_score);
         });
@@ -474,7 +487,8 @@ static SKAction *sharedDoubleJumpSoundAction = nil;
 -(void)addBarrier
 {
     Barrier *barrier = [[Barrier alloc] initWithTexture:_barrierTexture];
-    
+    barrier.score = 1;
+    _barrierCount++;
     BOOL isBottom = (BOOL)[CommonTools getRandomNumberFromInt:0 toInt:1];
     
     if (_bottomCount == kBottomLimit) {
@@ -520,6 +534,23 @@ static SKAction *sharedDoubleJumpSoundAction = nil;
     }
     
     barrier.physicsBody.velocity = CGVectorMake(barrier.barrierSpeed, 0);
+    
+    NSNumber *barrierScore = [NSNumber numberWithInt:_barrierCount];
+    if ([_highScores containsObject:barrierScore] && !_isDead) {
+        barrier.score = 0;
+        int barrierIndex = [_highScores indexOfObject:barrierScore];
+        HighScoreIndicator *indicator = [self getHighScoreStarForPosition:barrierIndex + 1 withScore:barrierScore.intValue];
+        indicator.position = CGPointMake(barrier.position.x, kGroundHeight - indicator.size.height / 2.0 - 5.0);
+        indicator.physicsBody.velocity = CGVectorMake(barrier.barrierSpeed, 0);
+        [self addChild:indicator];
+        
+        /*indicator.attachedLabel.physicsBody.velocity = indicator.physicsBody.velocity;
+        
+        [indicator addChild:indicator.attachedLabel];
+        
+        SKPhysicsJointFixed *labelJoint = [SKPhysicsJointFixed jointWithBodyA:indicator.physicsBody bodyB:indicator.attachedLabel.physicsBody anchor:indicator.position];
+        [self.physicsWorld addJoint:labelJoint];*/
+    }
     
     [self addChild:barrier];
 }
@@ -584,11 +615,13 @@ static SKAction *sharedDoubleJumpSoundAction = nil;
             StatisticsHelper *stat = [[StatisticsHelper alloc] init];
             stat.jumps = _globalJumpCount;
             stat.doubleJumps = _globalDoubleJumpCount;
-            stat.distance = (int)_score;
+            stat.distance = (int)_distance;
             stat.barriers = _globalBarriersAvoided;
             [_delegate gameOverWithStatistics:stat];
         }]]]];
     } else {
+        _score++;
+        self.scoreLabel.text = [NSString stringWithFormat:@"%d", self.score];
         [self addChild:emitter];
         [barrier removeFromParent];
     }
@@ -627,24 +660,21 @@ static SKAction *sharedDoubleJumpSoundAction = nil;
     [self addChild:textLabel];
 }
 
--(void)addHighScoreStarForPosition:(int)position withScore:(int)score
+-(HighScoreIndicator *)getHighScoreStarForPosition:(int)position withScore:(int)score
 {
     HighScoreIndicator *indicator = [[HighScoreIndicator alloc] initWithTexture:_starTexture];
     indicator.score = score;
-    float starSpeed = -1 * kRunnerSpeed;
+    /*float starSpeed = -1 * kRunnerSpeed;
     
     if ([_runner.mood isEqualToString:kRunnerMoodMad]) {
         starSpeed -= 150;
-        indicator.score += 2;
+        //indicator.score += 2;
     } else if ([_runner.mood isEqualToString:kRunnerMoodVeryMad]) {
         starSpeed -= 300;
-        indicator.score += 4;
-    }
+        //indicator.score += 4;
+    }*/
     
-    indicator.position = CGPointMake(self.size.width, kGroundHeight - indicator.size.height / 2.0 - 5.0);
-    indicator.physicsBody.velocity = CGVectorMake(starSpeed, 0);
-    
-    SKLabelNode *indexLabel = [SKLabelNode labelNodeWithFontNamed:@"ExpletusSans-Bold"];
+    /*SKLabelNode *indexLabel = [SKLabelNode labelNodeWithFontNamed:@"ExpletusSans-Bold"];
     indexLabel.fontColor = [UIColor blackColor];
     indexLabel.fontSize = 16;
     indexLabel.verticalAlignmentMode = SKLabelVerticalAlignmentModeCenter;
@@ -653,39 +683,36 @@ static SKAction *sharedDoubleJumpSoundAction = nil;
     indexLabel.text = [NSString stringWithFormat:@"%d", position];
     
     indexLabel.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:1.0];
-    indexLabel.physicsBody.velocity = indicator.physicsBody.velocity;
     indexLabel.physicsBody.mass = 0;
     indexLabel.physicsBody.friction = 0;
     indexLabel.physicsBody.contactTestBitMask = 0;
     indexLabel.physicsBody.collisionBitMask = 0;
     indexLabel.physicsBody.dynamic = YES;
     
-    [self addChild:indicator];
-    [indicator addChild:indexLabel];
+    indicator.attachedLabel = indexLabel;*/
     
-    SKPhysicsJointFixed *labelJoint = [SKPhysicsJointFixed jointWithBodyA:indicator.physicsBody bodyB:indexLabel.physicsBody anchor:indicator.position];
-    [self.physicsWorld addJoint:labelJoint];
-    
-    if (position == 1) {
+    /*if (position == 1) {
         _needABreak = YES;
         __weak GameScene *weakSelf = self;
         [self addTextArray:@[@"New", @"High", @"Score!"] completion:^{
             weakSelf.needABreak = NO;
             weakSelf.randomSpawnInterval = 0.2;
         } andInterval:.6];
-    }
+    }*/
+    
+    return indicator;
 }
 
 -(void)didSimulatePhysics
 {
-    if (_isRunning) {
+    /*if (_isRunning) {
         NSNumber *newScore = [NSNumber numberWithInt:(int)_score + 5];
         if ([_highScores containsObject:newScore] && newScore.intValue != _lastHighScoreIndicator) {
             _lastHighScoreIndicator = newScore.intValue;
             int index = [_highScores indexOfObject:newScore] + 1;
             [self addHighScoreStarForPosition:index withScore:newScore.intValue];
         }
-    }
+    }*/
     if (_needsBarrier) {
         _needsBarrier = NO;
         [self addBarrier];

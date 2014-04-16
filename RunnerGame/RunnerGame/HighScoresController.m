@@ -64,12 +64,14 @@
         
         cell.indexLabel.font = [UIFont fontWithName:@"ExpletusSans-Bold" size:20.0];
         cell.scoreLabel.font = [UIFont fontWithName:@"ExpletusSans-Bold" size:20.0];
+        cell.distanceLabel.font = [UIFont fontWithName:@"ExpletusSans-Bold" size:15.0];
     }
     
     HighScoreHelper *cellData = [_scores objectAtIndex:indexPath.row];
     
     cell.indexLabel.text = [NSString stringWithFormat:@"%d.", indexPath.row + 1];
-    cell.scoreLabel.text = [NSString stringWithFormat:@"%d m", cellData.score.intValue];
+    cell.scoreLabel.text = [NSString stringWithFormat:@"%d", cellData.score.intValue];
+    cell.distanceLabel.text = [NSString stringWithFormat:@"%d m", cellData.distance.intValue];
     
     return cell;
 }

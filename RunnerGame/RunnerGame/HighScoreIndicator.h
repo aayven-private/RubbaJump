@@ -11,5 +11,6 @@
 @interface HighScoreIndicator : GameObject
 
 @property (nonatomic) int score;
+@property (nonatomic) SKLabelNode *attachedLabel;
 
 @end

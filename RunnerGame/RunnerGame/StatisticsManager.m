@@ -33,7 +33,8 @@
 -(void)saveStatistics:(StatisticsHelper *)stat
 {
     HighScoreHelper *scoreHelper = [[HighScoreHelper alloc] init];
-    scoreHelper.score = [NSNumber numberWithInt:stat.distance];
+    scoreHelper.score = [NSNumber numberWithInt:stat.barriers];
+    scoreHelper.distance = [NSNumber numberWithInt:stat.distance];
     scoreHelper.scoreDate = [NSDate date];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{

@@ -88,7 +88,7 @@
 {
     [[StatisticsManager sharedInstance] saveStatistics:stat];
     
-    GameOverScene *gos = [[GameOverScene alloc] initWithSize:self.view.frame.size];
+    GameOverScene *gos = [[GameOverScene alloc] initWithSize:self.view.frame.size andStatistics:stat];
     gos.delegate = self;
     [((SKView *)self.view) presentScene:gos transition:[SKTransition flipHorizontalWithDuration:.5]];
     

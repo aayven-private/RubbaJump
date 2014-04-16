@@ -14,5 +14,6 @@
 @property (nonatomic) BOOL isJumper;
 @property (nonatomic) float impulse;
 @property (nonatomic) float barrierSpeed;
+@property (nonatomic) int score;
 
 @end

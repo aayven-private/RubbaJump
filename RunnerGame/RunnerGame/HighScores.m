@@ -14,5 +14,6 @@
 @dynamic score;
 @dynamic scoreDate;
 @dynamic name;
+@dynamic distance;
 
 @end

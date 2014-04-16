@@ -74,6 +74,7 @@
             newScore.score = scoreHelper.score;
             newScore.scoreDate = scoreHelper.scoreDate;
             newScore.name = scoreHelper.name;
+            newScore.distance = scoreHelper.distance;
             if ([context hasChanges]) {
                 [DBAccessLayer saveContext:context async:NO];
             }
@@ -135,6 +136,7 @@
     scoreHelper.score = score.score;
     scoreHelper.scoreDate = score.scoreDate;
     scoreHelper.name = score.name;
+    scoreHelper.distance = score.distance;
     return scoreHelper;
 }
 
