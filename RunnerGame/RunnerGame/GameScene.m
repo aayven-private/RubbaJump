@@ -53,8 +53,8 @@
 
 @property (nonatomic) float screenDiff;
 @property (nonatomic) int doubleJumpCount;
-@property (nonatomic) int madJumpCount;
-@property (nonatomic) int veryMadJumpCount;
+//@property (nonatomic) int madJumpCount;
+//@property (nonatomic) int veryMadJumpCount;
 
 @property (nonatomic) int topCount;
 @property (nonatomic) int bottomCount;
@@ -176,8 +176,8 @@ static SKAction *sharedDoubleJumpSoundAction = nil;
     
     self.jumpCount = 0;
     self.doubleJumpCount = 0;
-    self.madJumpCount = 0;
-    self.veryMadJumpCount = 0;
+    //self.madJumpCount = 0;
+    //self.veryMadJumpCount = 0;
     
     self.screenDiff = 960.0 / (self.size.width * self.view.contentScaleFactor);
     //NSLog(@"W: %f", self.size.width * self.view.contentScaleFactor);
@@ -293,7 +293,7 @@ static SKAction *sharedDoubleJumpSoundAction = nil;
             _secondJumpHeight = self.runner.position.y - 5.0;
             
             _expectedLandingTime = 2.0 * (self.runner.physicsBody.velocity.dy / fabs(self.runner.suggestedGravity.dy));
-            if (_veryMadJumpCount == 8) {
+            /*if (_veryMadJumpCount == 8) {
                 [_runner removeAllActions];
                 [self addTextArray:@[@"INSANE!!!"] completion:nil andInterval:.4];
                 _runner.mood = kRunnerMoodVeryMad;
@@ -338,7 +338,7 @@ static SKAction *sharedDoubleJumpSoundAction = nil;
                 [_runner runAction:madAction];
                 _doubleJumpCount = -1;
                 _madJumpCount = -1;
-            } else {
+            } else {*/
                 if (_doubleJumpCount == 2) {
                     _doubleJumpCount = -1;
                     _rotationUnitPerSecond =  -M_PI / (_expectedLandingTime * 4.0);
@@ -347,7 +347,7 @@ static SKAction *sharedDoubleJumpSoundAction = nil;
                 } else {
                     _rotationUnitPerSecond =  M_PI / (_expectedLandingTime * 4.0);
                 }
-            }
+            //}
         }
     }
     _emitter.particleBirthRate = 0;
@@ -538,7 +538,7 @@ static SKAction *sharedDoubleJumpSoundAction = nil;
     NSNumber *barrierScore = [NSNumber numberWithInt:_barrierCount];
     if ([_highScores containsObject:barrierScore] && !_isDead) {
         barrier.score = 0;
-        int barrierIndex = [_highScores indexOfObject:barrierScore];
+        NSUInteger barrierIndex = [_highScores indexOfObject:barrierScore];
         HighScoreIndicator *indicator = [self getHighScoreStarForPosition:barrierIndex + 1 withScore:barrierScore.intValue];
         indicator.position = CGPointMake(barrier.position.x, kGroundHeight - indicator.size.height / 2.0 - 5.0);
         indicator.physicsBody.velocity = CGVectorMake(barrier.barrierSpeed, 0);
@@ -566,16 +566,16 @@ static SKAction *sharedDoubleJumpSoundAction = nil;
     
     if (_jumpCount == kMaxJumpCount) {
         _doubleJumpCount++;
-        if ([_runner.mood isEqualToString:kRunnerMoodNormal]) {
+        /*if ([_runner.mood isEqualToString:kRunnerMoodNormal]) {
             _madJumpCount++;
             _veryMadJumpCount++;
         } else if ([_runner.mood isEqualToString:kRunnerMoodMad]) {
             _veryMadJumpCount++;
-        }
+        }*/
     } else {
         _doubleJumpCount = 0;
-        _madJumpCount = 0;
-        _veryMadJumpCount = 0;
+        //_madJumpCount = 0;
+        //_veryMadJumpCount = 0;
     }
     _runner.physicsBody.contactTestBitMask = kObjectCategoryBarrier;
     //_runner.isHitable = YES;
