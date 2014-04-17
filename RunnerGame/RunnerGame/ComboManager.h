@@ -10,4 +10,7 @@
 
 @interface ComboManager : NSObject
 
++(id)sharedManager;
+-(NSSet *)actionTaken:(NSString *)action;
+
 @end

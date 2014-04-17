@@ -35,8 +35,6 @@
 		B01ED87C18EEB1030062AB4A /* square.png in Resources */ = {isa = PBXBuildFile; fileRef = B01ED87B18EEB1030062AB4A /* square.png */; };
 		B01ED88018EEB6D40062AB4A /* CommonTools.m in Sources */ = {isa = PBXBuildFile; fileRef = B01ED87F18EEB6D40062AB4A /* CommonTools.m */; };
 		B01ED88918EEDDE70062AB4A /* BoomEffect.sks in Resources */ = {isa = PBXBuildFile; fileRef = B01ED88818EEDDE70062AB4A /* BoomEffect.sks */; };
-		B02C695F18FC57DA00FF7F33 /* RainEffect.sks in Resources */ = {isa = PBXBuildFile; fileRef = B02C695E18FC57DA00FF7F33 /* RainEffect.sks */; };
-		B02C696118FC5CE500FF7F33 /* RainDropEffect.sks in Resources */ = {isa = PBXBuildFile; fileRef = B02C696018FC5CE500FF7F33 /* RainDropEffect.sks */; };
 		B05632DA18FD1602001348A0 /* GameOverScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B05632D918FD1602001348A0 /* GameOverScene.m */; };
 		B05632E618FD2285001348A0 /* ExpletusSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B05632DD18FD2285001348A0 /* ExpletusSans-Bold.ttf */; };
 		B05632E718FD2285001348A0 /* ExpletusSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B05632DE18FD2285001348A0 /* ExpletusSans-BoldItalic.ttf */; };
@@ -128,8 +126,6 @@
 		B01ED87E18EEB6D40062AB4A /* CommonTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonTools.h; sourceTree = "<group>"; };
 		B01ED87F18EEB6D40062AB4A /* CommonTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonTools.m; sourceTree = "<group>"; };
 		B01ED88818EEDDE70062AB4A /* BoomEffect.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = BoomEffect.sks; sourceTree = "<group>"; };
-		B02C695E18FC57DA00FF7F33 /* RainEffect.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = RainEffect.sks; sourceTree = "<group>"; };
-		B02C696018FC5CE500FF7F33 /* RainDropEffect.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = RainDropEffect.sks; sourceTree = "<group>"; };
 		B05632D818FD1602001348A0 /* GameOverScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverScene.h; sourceTree = "<group>"; };
 		B05632D918FD1602001348A0 /* GameOverScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverScene.m; sourceTree = "<group>"; };
 		B05632DB18FD1844001348A0 /* GameOverSceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameOverSceneDelegate.h; sourceTree = "<group>"; };
@@ -356,8 +352,6 @@
 				B01ED87418EDB7480062AB4A /* SliderEffect.sks */,
 				B01ED87518EDB7480062AB4A /* spark.png */,
 				B01ED88818EEDDE70062AB4A /* BoomEffect.sks */,
-				B02C695E18FC57DA00FF7F33 /* RainEffect.sks */,
-				B02C696018FC5CE500FF7F33 /* RainDropEffect.sks */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -559,7 +553,6 @@
 				B01ED87718EDB7480062AB4A /* spark.png in Resources */,
 				B05632E718FD2285001348A0 /* ExpletusSans-BoldItalic.ttf in Resources */,
 				B05632F018FD5D5C001348A0 /* DeathB1_05.mp3 in Resources */,
-				B02C695F18FC57DA00FF7F33 /* RainEffect.sks in Resources */,
 				B05632FC18FE62FE001348A0 /* star@2x.png in Resources */,
 				B05632ED18FD2285001348A0 /* ExpletusSans-SemiBoldItalic.ttf in Resources */,
 				B06802AE18F71C7000DAE740 /* HighScoreCell.xib in Resources */,
@@ -579,7 +572,6 @@
 				B00DB9A618ED48EF00460930 /* Main.storyboard in Resources */,
 				B05632E818FD2285001348A0 /* ExpletusSans-Italic.ttf in Resources */,
 				B05632EB18FD2285001348A0 /* ExpletusSans-Regular.ttf in Resources */,
-				B02C696118FC5CE500FF7F33 /* RainDropEffect.sks in Resources */,
 				B05632EC18FD2285001348A0 /* ExpletusSans-SemiBold.ttf in Resources */,
 				B05632E918FD2285001348A0 /* ExpletusSans-Medium.ttf in Resources */,
 				B084644518F8AB2E00892252 /* RJ_MusicLoop_A_v02-85195.mp3 in Resources */,

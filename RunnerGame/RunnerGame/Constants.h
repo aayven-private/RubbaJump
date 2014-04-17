@@ -25,7 +25,7 @@ static int kMaxJumpCount = 2;
 
 static float kGroundHeight = 60;
 
-static int kTopLimit = 100;
+static int kTopLimit = 10;
 static int kBottomLimit = 4;
 static int kMovingLimit = 2;
 
@@ -39,3 +39,8 @@ static NSString *kStatBarrierKey = @"weloux_runner_barrier_count";
 static NSString *kStatJumpKey = @"weloux_runner_jump_count";
 static NSString *kStatDoubleJumpKey = @"weloux_runner_doublejump_count";
 static NSString *kStatDistanceKey = @"weloux_runner_total_distance";
+
+static NSString *kComboPatternMad = @"dddd";
+static NSString *kComboPatternVeryMad = @"dddddddd";
+static NSString *kComboPatternTriple = @"ddd";
+static NSString *kComboPatternUpDown = @"jdjdjd";
