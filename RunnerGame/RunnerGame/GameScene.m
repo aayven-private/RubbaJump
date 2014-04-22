@@ -17,6 +17,7 @@
 #import "StatisticsHelper.h"
 #import "HighScoreIndicator.h"
 #import "ComboManager.h"
+#import "ParallaxBG.h"
 
 static BOOL kAddBarriers = YES;
 
@@ -82,6 +83,9 @@ static BOOL kAddBarriers = YES;
 
 @property (nonatomic) int barrierCount;
 
+@property (nonatomic) ParallaxBG *parallaxBackground;
+@property (nonatomic) ParallaxBG *parallaxBackground_bottom;
+
 @end
 
 @implementation GameScene
@@ -123,7 +127,7 @@ static SKAction *sharedDoubleJumpSoundAction = nil;
         self.backgroundColor = [SKColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
         
         self.selectiveGravity = CGVectorMake(0, -9.8 * kPpm);
-        self.barrierTexture = [SKTexture textureWithImageNamed:@"square"];
+        self.barrierTexture = [SKTexture textureWithImageNamed:@"object"];
         self.starTexture = [SKTexture textureWithImageNamed:@"star"];
         self.highScores = [NSMutableArray array];
         self.needsBarrier = NO;
@@ -141,6 +145,13 @@ static SKAction *sharedDoubleJumpSoundAction = nil;
 -(void)initEnvironment
 {
     [self removeAllChildren];
+    
+    NSArray * imageNames = @[@"background"];
+    ParallaxBG * parallax = [[ParallaxBG alloc] initWithBackgrounds:imageNames size:self.size direction:kPBParallaxBackgroundDirectionLeft fastestSpeed:kParallaxBGSpeed_gameScene andSpeedDecrease:kPBParallaxBackgroundDefaultSpeedDifferential];
+    parallax.showBgStatus = NO;
+    self.parallaxBackground = parallax;
+    [self addChild:parallax];
+    
     self.contactManager = [[ContactManager alloc] initWithDelegate:self];
     self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
     self.physicsWorld.gravity = CGVectorMake(0, 0);
@@ -184,30 +195,29 @@ static SKAction *sharedDoubleJumpSoundAction = nil;
     
     //NSLog(@"Frame: %@", NSStringFromCGRect(self.frame));
     
-    SKShapeNode *groundLine = [SKShapeNode node];
+    /*SKShapeNode *groundLine = [SKShapeNode node];
     CGMutablePathRef pathToDraw = CGPathCreateMutable();
     CGPathMoveToPoint(pathToDraw, NULL, 0.0, kGroundHeight);
     CGPathAddLineToPoint(pathToDraw, NULL, self.size.width, kGroundHeight);
     groundLine.path = pathToDraw;
     [groundLine setStrokeColor:[UIColor blackColor]];
     [self addChild:groundLine];
-    CGPathRelease(pathToDraw);
+    CGPathRelease(pathToDraw);*/
     
-    SKShapeNode *topLine = [SKShapeNode node];
+    /*SKShapeNode *topLine = [SKShapeNode node];
     CGMutablePathRef pathToDraw_top = CGPathCreateMutable();
     CGPathMoveToPoint(pathToDraw_top, NULL, 0.0, self.size.height - 60.0);
     CGPathAddLineToPoint(pathToDraw_top, NULL, self.size.width, self.size.height - 60.0);
     topLine.path = pathToDraw_top;
     [topLine setStrokeColor:[UIColor blackColor]];
     [self addChild:topLine];
-    CGPathRelease(pathToDraw_top);
+    CGPathRelease(pathToDraw_top);*/
     
-    self.runner = [[Runner alloc] initWithTexture:[SKTexture textureWithImageNamed:@"runner"]];
+    self.runner = [[Runner alloc] initWithTexture:[SKTexture textureWithImageNamed:@"character"]];
     self.ground = [[Ground alloc] initWithSize:CGSizeMake(self.size.width * self.view.contentScaleFactor + 50.0, kGroundHeight * self.view.contentScaleFactor)];
     
     self.runner.position = CGPointMake(80 + self.runner.size.width / 2.0, kGroundHeight + self.runner.size.height / 2.0);
     self.ground.position = CGPointMake(0, 0);
-    
     
     NSString *emitterPath = [[NSBundle mainBundle] pathForResource:@"SliderEffect" ofType:@"sks"];
     self.emitter = [NSKeyedUnarchiver unarchiveObjectWithFile:emitterPath];
@@ -239,6 +249,13 @@ static SKAction *sharedDoubleJumpSoundAction = nil;
     [self.backgroundMusicPlayer play];
     
     [self addChild:self.ground];
+    
+    imageNames = @[@"ground"];
+    ParallaxBG * parallax_ground = [[ParallaxBG alloc] initWithBackgrounds:imageNames size:self.size direction:kPBParallaxBackgroundDirectionLeft fastestSpeed:4 * kParallaxBGSpeed_gameScene andSpeedDecrease:kPBParallaxBackgroundDefaultSpeedDifferential];
+    parallax_ground.showBgStatus = NO;
+    self.parallaxBackground_bottom = parallax_ground;
+    self.parallaxBackground_bottom.position = CGPointMake(self.size.width / 2.0, kGroundHeight);
+    [self addChild:parallax_ground];
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -326,6 +343,9 @@ static SKAction *sharedDoubleJumpSoundAction = nil;
     }
     _lastUpdateTimeInterval = currentTime;
     [self updateWithTimeSinceLastUpdate:timeSinceLast];
+    
+    [self.parallaxBackground update:currentTime];
+    [self.parallaxBackground_bottom update:currentTime];
 }
 
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)timeSinceLast

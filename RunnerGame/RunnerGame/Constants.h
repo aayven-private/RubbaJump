@@ -44,3 +44,5 @@ static NSString *kComboPatternMad = @"dddd";
 static NSString *kComboPatternVeryMad = @"dddddddd";
 static NSString *kComboPatternTriple = @"ddd";
 static NSString *kComboPatternUpDown = @"jdjdjd";
+
+static float kParallaxBGSpeed_gameScene = 2.2;
