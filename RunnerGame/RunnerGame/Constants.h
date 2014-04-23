@@ -23,7 +23,7 @@ static float kPpm = 150.0;
 
 static int kMaxJumpCount = 2;
 
-static float kGroundHeight = 60;
+static float kGroundHeight = 15;
 
 static int kTopLimit = 10;
 static int kBottomLimit = 4;

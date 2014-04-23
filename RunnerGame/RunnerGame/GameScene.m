@@ -86,6 +86,8 @@ static BOOL kAddBarriers = YES;
 @property (nonatomic) ParallaxBG *parallaxBackground;
 @property (nonatomic) ParallaxBG *parallaxBackground_bottom;
 
+@property (nonatomic) ParallaxBG *fixedBg;
+
 @end
 
 @implementation GameScene
@@ -127,7 +129,7 @@ static SKAction *sharedDoubleJumpSoundAction = nil;
         self.backgroundColor = [SKColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
         
         self.selectiveGravity = CGVectorMake(0, -9.8 * kPpm);
-        self.barrierTexture = [SKTexture textureWithImageNamed:@"object"];
+        self.barrierTexture = [SKTexture textureWithImageNamed:@"eyemonster"];
         self.starTexture = [SKTexture textureWithImageNamed:@"star"];
         self.highScores = [NSMutableArray array];
         self.needsBarrier = NO;
@@ -146,10 +148,16 @@ static SKAction *sharedDoubleJumpSoundAction = nil;
 {
     [self removeAllChildren];
     
-    NSArray * imageNames = @[@"background"];
+    NSArray *imageNames = @[@"backgroundfixed"];
+    self.fixedBg = [[ParallaxBG alloc] initWithBackgrounds:imageNames size:self.size direction:kPBParallaxBackgroundDirectionLeft fastestSpeed:kParallaxBGSpeed_gameScene andSpeedDecrease:kPBParallaxBackgroundDefaultSpeedDifferential];
+    self.fixedBg.showBgStatus = NO;
+    [self addChild:self.fixedBg];
+    
+    imageNames = @[@"mountains"];
     ParallaxBG * parallax = [[ParallaxBG alloc] initWithBackgrounds:imageNames size:self.size direction:kPBParallaxBackgroundDirectionLeft fastestSpeed:kParallaxBGSpeed_gameScene andSpeedDecrease:kPBParallaxBackgroundDefaultSpeedDifferential];
     parallax.showBgStatus = NO;
     self.parallaxBackground = parallax;
+    self.parallaxBackground.position = CGPointMake(self.size.width / 2.0, self.size.height / 2.0 + kGroundHeight + 15);
     [self addChild:parallax];
     
     self.contactManager = [[ContactManager alloc] initWithDelegate:self];
@@ -250,7 +258,7 @@ static SKAction *sharedDoubleJumpSoundAction = nil;
     
     [self addChild:self.ground];
     
-    imageNames = @[@"ground"];
+    imageNames = @[@"desertroad"];
     ParallaxBG * parallax_ground = [[ParallaxBG alloc] initWithBackgrounds:imageNames size:self.size direction:kPBParallaxBackgroundDirectionLeft fastestSpeed:4 * kParallaxBGSpeed_gameScene andSpeedDecrease:kPBParallaxBackgroundDefaultSpeedDifferential];
     parallax_ground.showBgStatus = NO;
     self.parallaxBackground_bottom = parallax_ground;
