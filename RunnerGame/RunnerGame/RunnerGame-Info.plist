@@ -2,17 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>UIAppFonts</key>
-	<array>
-		<string>ExpletusSans-Bold.ttf</string>
-		<string>ExpletusSans-BoldItalic.ttf</string>
-		<string>ExpletusSans-Italic.ttf</string>
-		<string>ExpletusSans-Medium.ttf</string>
-		<string>ExpletusSans-MediumItalic.ttf</string>
-		<string>ExpletusSans-Regular.ttf</string>
-		<string>ExpletusSans-SemiBold.ttf</string>
-		<string>ExpletusSans-SemiBoldItalic.ttf</string>
-	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -32,9 +21,20 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1.0</string>
+	<string>1.1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>ExpletusSans-Bold.ttf</string>
+		<string>ExpletusSans-BoldItalic.ttf</string>
+		<string>ExpletusSans-Italic.ttf</string>
+		<string>ExpletusSans-Medium.ttf</string>
+		<string>ExpletusSans-MediumItalic.ttf</string>
+		<string>ExpletusSans-Regular.ttf</string>
+		<string>ExpletusSans-SemiBold.ttf</string>
+		<string>ExpletusSans-SemiBoldItalic.ttf</string>
+	</array>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UIRequiredDeviceCapabilities</key>

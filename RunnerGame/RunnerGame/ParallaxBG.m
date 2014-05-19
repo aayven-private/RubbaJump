@@ -36,7 +36,7 @@ static inline CGFloat roundFloatToTwoDecimalPlaces(CGFloat num) { return floorf(
 
 @implementation ParallaxBG
 
-- (id) initWithBackgrounds: (NSArray *) backgrounds size: (CGSize) size direction: (PBParallaxBackgroundDirection) direction fastestSpeed: (CGFloat) speed andSpeedDecrease: (CGFloat) differential {
+- (id) initWithBackgrounds: (NSArray *) backgrounds size: (CGSize) size direction: (PBParallaxBackgroundDirection) direction fastestSpeed: (CGFloat) speed andSpeedDecrease: (CGFloat) differential andYOffsets:(NSArray *)offsets andCustomSpeeds:(NSArray *)speeds {
     self = [super init];
     if (self) {
         // initialization
@@ -70,9 +70,15 @@ static inline CGFloat roundFloatToTwoDecimalPlaces(CGFloat num) { return floorf(
                 node = (SKSpriteNode *) obj;
             } else continue;
             
+            int bgIndex = [backgrounds indexOfObject:obj];
+            NSNumber *yOffset = [offsets objectAtIndex:bgIndex];
+            if (!yOffset) {
+                yOffset = @0;
+            }
+            
             // create the duplicate and insert both at their proper locations.
             node.zPosition = self.zPosition - (zPos + (zPos * bgNumber));
-            node.position = CGPointMake(0, self.size.height);
+            node.position = CGPointMake(0, self.size.height - yOffset.floatValue);
             SKSpriteNode * clonedNode = [node copy];
             CGFloat clonedPosX = node.position.x, clonedPosY = node.position.y;
             switch (direction) { // calculate clone's position
@@ -97,8 +103,14 @@ static inline CGFloat roundFloatToTwoDecimalPlaces(CGFloat num) { return floorf(
             [bgs addObject:node];
             [cBgs addObject:clonedNode];
             
+            NSNumber *alternateSpeed = [speeds objectAtIndex:bgIndex];
+            float newSpeed = currentSpeed;
+            if (alternateSpeed && alternateSpeed.floatValue > 0) {
+                newSpeed = alternateSpeed.floatValue;
+            }
+            
             // add the velocity for this node and adjust the next current velocity.
-            [spds addObject:[NSNumber numberWithFloat:currentSpeed]];
+            [spds addObject:[NSNumber numberWithFloat:newSpeed]];
             currentSpeed = roundFloatToTwoDecimalPlaces(currentSpeed / (1 + differential));
             
             // add to the scene
