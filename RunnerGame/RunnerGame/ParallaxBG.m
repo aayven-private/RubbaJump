@@ -126,7 +126,10 @@ static inline CGFloat roundFloatToTwoDecimalPlaces(CGFloat num) { return floorf(
             self.backgrounds = [bgs copy];
             self.clonedBackgrounds = [cBgs copy];
             self.speeds = [spds copy];
-        } else { NSLog(@"Unable to find any valid backgrounds for parallax scrolling."); return nil; }
+        } else {
+            NSLog(@"Unable to find any valid backgrounds for parallax scrolling.");
+            return nil;
+        }
         
     }
     
