@@ -22,9 +22,14 @@
     if (self = [super initWithSize:size]) {
         //self.backgroundColor = [UIColor whiteColor];
         //self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"gameover_bg.png"]];
+        
         SKSpriteNode *bgNode = [[SKSpriteNode alloc] initWithImageNamed:@"gameover_bg"];
         bgNode.position = CGPointMake(self.size.width / 2.0, self.size.height / 2.0);
         [self addChild:bgNode];
+        
+        SKSpriteNode *boxNode = [[SKSpriteNode alloc] initWithColor:[UIColor colorWithRed:.5 green:.5 blue:.5 alpha:.8] size:CGSizeMake(180, 95)];
+        boxNode.position = CGPointMake(size.width / 2.0, size.height / 2.0 + 95);
+        [self addChild:boxNode];
         
         SKLabelNode *gameOverLabel = [SKLabelNode labelNodeWithFontNamed:@"ExpletusSans-Bold"];
         gameOverLabel.position = CGPointMake(size.width / 2.0, size.height / 2.0 + 110.0);
