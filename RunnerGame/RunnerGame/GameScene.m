@@ -148,14 +148,19 @@ static SKAction *sharedDoubleJumpSoundAction = nil;
 {
     [self removeAllChildren];
     
-    /*NSArray *imageNames = @[@"backgroundfixed"];
-    self.fixedBg = [[ParallaxBG alloc] initWithBackgrounds:imageNames size:self.size direction:kPBParallaxBackgroundDirectionLeft fastestSpeed:kParallaxBGSpeed_gameScene andSpeedDecrease:kPBParallaxBackgroundDefaultSpeedDifferential];
+    NSArray *imageNames = @[@"background3_es"];
+    self.fixedBg = [[ParallaxBG alloc] initWithBackgrounds:imageNames size:self.size direction:kPBParallaxBackgroundDirectionLeft fastestSpeed:kParallaxBGSpeed_gameScene andSpeedDecrease:kPBParallaxBackgroundDefaultSpeedDifferential andYOffsets:nil andCustomSpeeds:nil];
     self.fixedBg.showBgStatus = NO;
-    [self addChild:self.fixedBg];*/
+    [self addChild:self.fixedBg];
+    /*SKSpriteNode *fixedBg = [[SKSpriteNode alloc] initWithTexture:[SKTexture textureWithImageNamed:@"background3_es"]];
+    fixedBg.position = CGPointMake(self.size.width / 2.0, self.size.height / 2.0);
+    [self addChild:fixedBg];*/
     
-    NSArray *imageNames = @[@"ground", @"bg2_a1", @"bg3_a1", @"bg1_a1"];
+    
+    //NSArray *imageNames = @[@"ground", @"bg2_a1", @"bg3_a1", @"bg1_a1"];
     //NSArray *imageNames = @[@"background"];
-    ParallaxBG * parallax = [[ParallaxBG alloc] initWithBackgrounds:imageNames size:self.size direction:kPBParallaxBackgroundDirectionLeft fastestSpeed:kParallaxBGSpeed_gameScene andSpeedDecrease:kPBParallaxBackgroundDefaultSpeedDifferential andYOffsets:@[[NSNumber numberWithFloat:kGroundHeight - 15], @0, @0, @0] andCustomSpeeds:@[[NSNumber numberWithFloat:4 * kParallaxBGSpeed_gameScene], @0, @0, @0]];
+    imageNames = @[@"ground", @"background1_es", @"background2_es"];
+    ParallaxBG * parallax = [[ParallaxBG alloc] initWithBackgrounds:imageNames size:self.size direction:kPBParallaxBackgroundDirectionLeft fastestSpeed:kParallaxBGSpeed_gameScene andSpeedDecrease:kPBParallaxBackgroundDefaultSpeedDifferential andYOffsets:@[[NSNumber numberWithFloat:kGroundHeight - 15], [NSNumber numberWithFloat:-kGroundHeight], [NSNumber numberWithFloat:-kGroundHeight]] andCustomSpeeds:@[[NSNumber numberWithFloat:4 * kParallaxBGSpeed_gameScene], @0, @0]];
     parallax.showBgStatus = NO;
     self.parallaxBackground = parallax;
     //self.parallaxBackground.position = CGPointMake(self.size.width / 2.0, self.size.height / 2.0 + kGroundHeight + 15);
