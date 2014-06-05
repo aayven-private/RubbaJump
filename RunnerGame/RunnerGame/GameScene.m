@@ -88,6 +88,8 @@ static BOOL kAddBarriers = YES;
 
 @property (nonatomic) ParallaxBG *fixedBg;
 
+@property (nonatomic) BOOL isSoundEnabled;
+
 @end
 
 @implementation GameScene
@@ -98,16 +100,25 @@ static SKAction *sharedDoubleJumpSoundAction = nil;
 
 - (SKAction *)deathSoundAction
 {
+    if (!_isSoundEnabled) {
+        return nil;
+    }
     return sharedDeathSoundAction;
 }
 
 -(SKAction *)jumpSoundAction
 {
+    if (!_isSoundEnabled) {
+        return nil;
+    }
     return sharedJumpSoundAction;
 }
 
 -(SKAction *)doubleJumpSoundAction
 {
+    if (!_isSoundEnabled) {
+        return nil;
+    }
     return sharedDoubleJumpSoundAction;
 }
 
@@ -129,7 +140,7 @@ static SKAction *sharedDoubleJumpSoundAction = nil;
         self.backgroundColor = [SKColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
         
         self.selectiveGravity = CGVectorMake(0, -9.8 * kPpm);
-        self.barrierTexture = [SKTexture textureWithImageNamed:@"object_a1"];
+        self.barrierTexture = [SKTexture textureWithImageNamed:@"barrier"];
         self.starTexture = [SKTexture textureWithImageNamed:@"star"];
         self.highScores = [NSMutableArray array];
         self.needsBarrier = NO;
@@ -140,6 +151,9 @@ static SKAction *sharedDoubleJumpSoundAction = nil;
             HighScoreHelper *hs = [scores objectAtIndex:0];
             [self.highScores addObject:hs.score];
         }
+        
+        NSNumber *soundEnabled = [[NSUserDefaults standardUserDefaults] objectForKey:kSoundEnabledKey];
+        _isSoundEnabled = soundEnabled.boolValue;
     }
     return self;
 }
@@ -148,7 +162,7 @@ static SKAction *sharedDoubleJumpSoundAction = nil;
 {
     [self removeAllChildren];
     
-    NSArray *imageNames = @[@"bg0_a1"];
+    NSArray *imageNames = @[@"bg0"];
     self.fixedBg = [[ParallaxBG alloc] initWithBackgrounds:imageNames size:self.size direction:kPBParallaxBackgroundDirectionLeft fastestSpeed:kParallaxBGSpeed_gameScene andSpeedDecrease:kPBParallaxBackgroundDefaultSpeedDifferential andYOffsets:nil andCustomSpeeds:nil];
     self.fixedBg.showBgStatus = NO;
     [self addChild:self.fixedBg];
@@ -158,7 +172,7 @@ static SKAction *sharedDoubleJumpSoundAction = nil;
     [self addChild:fixedBg];*/
     
     
-    imageNames = @[@"ground", @"bg2_a1", @"bg3_a1", @"bg1_a1"];
+    imageNames = @[@"road", @"bg2_a1", @"bg3_a1", @"bg1_a1"];
     //NSArray *imageNames = @[@"background"];
     //imageNames = @[@"ground", @"background1_es", @"background2_es"];
     ParallaxBG * parallax = [[ParallaxBG alloc] initWithBackgrounds:imageNames size:self.size direction:kPBParallaxBackgroundDirectionLeft fastestSpeed:kParallaxBGSpeed_gameScene andSpeedDecrease:kPBParallaxBackgroundDefaultSpeedDifferential andYOffsets:@[[NSNumber numberWithFloat:kGroundHeight - 15], @0, @0, @0] andCustomSpeeds:@[[NSNumber numberWithFloat:4 * kParallaxBGSpeed_gameScene], @0, @0, @0]];
@@ -228,7 +242,7 @@ static SKAction *sharedDoubleJumpSoundAction = nil;
     [self addChild:topLine];
     CGPathRelease(pathToDraw_top);*/
     
-    self.runner = [[Runner alloc] initWithTexture:[SKTexture textureWithImageNamed:@"character_a1"]];
+    self.runner = [[Runner alloc] initWithTexture:[SKTexture textureWithImageNamed:@"bandit"]];
     self.ground = [[Ground alloc] initWithSize:CGSizeMake(self.size.width * self.view.contentScaleFactor + 50.0, kGroundHeight * self.view.contentScaleFactor)];
     
     self.runner.position = CGPointMake(80 + self.runner.size.width / 2.0, kGroundHeight + self.runner.size.height / 2.0);
@@ -256,12 +270,14 @@ static SKAction *sharedDoubleJumpSoundAction = nil;
         weakSelf.randomSpawnInterval = 0.2;
     } andInterval:.3];
     
-    NSError *error;
-    NSURL * backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"RJ_MusicLoop_A_v02-85195" withExtension:@"mp3"];
-    self.backgroundMusicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:backgroundMusicURL error:&error];
-    self.backgroundMusicPlayer.numberOfLoops = -1;
-    [self.backgroundMusicPlayer prepareToPlay];
-    [self.backgroundMusicPlayer play];
+    if (_isSoundEnabled) {
+        NSError *error;
+        NSURL * backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"RJ_MusicLoop_A_v02-85195" withExtension:@"mp3"];
+        self.backgroundMusicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:backgroundMusicURL error:&error];
+        self.backgroundMusicPlayer.numberOfLoops = -1;
+        [self.backgroundMusicPlayer prepareToPlay];
+        [self.backgroundMusicPlayer play];
+    }
     
     [self addChild:self.ground];
     
@@ -409,7 +425,7 @@ static SKAction *sharedDoubleJumpSoundAction = nil;
                 //self.isRunning = NO;
                 _needABreak = YES;
                 __weak GameScene *weakSelf = self;
-                [self addTextArray:@[@"GO", @"GET", @"A", @"LIFE!:)", @"YOU", @"NEED", @"A", @"BREAK!"] completion:^{
+                [self addTextArray:@[@"That's CRAZY:)))", @"YOU", @"NEED", @"A", @"BREAK!"] completion:^{
                     weakSelf.needABreak = NO;
                     weakSelf.randomSpawnInterval = 0.2;
                 } andInterval:.5];

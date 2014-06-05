@@ -53,10 +53,10 @@
         distanceLabel.text = [NSString stringWithFormat:@"Distance: %d m", stat.distance];
         [self addChild:distanceLabel];
         
-        self.exitButton = [[SKSpriteNode alloc] initWithImageNamed:@"menu_off.png"];
+        self.exitButton = [[SKSpriteNode alloc] initWithImageNamed:@"menu.png"];
         //self.exitButton.centerRect = CGRectMake(70.0 / 160.0, 32.0, 20.0, 10.0);
-        self.exitButton.size = CGSizeMake(160, 80);
-        self.exitButton.position = CGPointMake(self.size.width / 2.0, self.size.height / 2.0);
+        self.exitButton.size = CGSizeMake(205, 90);
+        self.exitButton.position = CGPointMake(self.size.width / 2.0, self.size.height / 2.0 - 10);
         self.exitButton.name = @"exit";
         [self addChild:self.exitButton];
         
@@ -69,10 +69,10 @@
         exitLabel.name = @"exit";
         [self addChild:exitLabel];*/
         
-        self.retryButton = [[SKSpriteNode alloc] initWithImageNamed:@"retry_off.png"];
+        self.retryButton = [[SKSpriteNode alloc] initWithImageNamed:@"retry.png"];
         //self.retryButton.centerRect = CGRectMake(70.0 / 160.0, 32.0, 20.0, 10.0);
-        self.retryButton.size = CGSizeMake(160, 80);
-        self.retryButton.position = CGPointMake(self.size.width / 2.0, self.size.height / 2.0 - 90.0);
+        self.retryButton.size = CGSizeMake(205, 90);
+        self.retryButton.position = CGPointMake(self.size.width / 2.0, self.size.height / 2.0 - 80.0);
         self.retryButton.name = @"retry";
         [self addChild:self.retryButton];
         
@@ -103,8 +103,8 @@
 
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    _exitButton.texture = [SKTexture textureWithImageNamed:@"menu_off"];
-    _retryButton.texture = [SKTexture textureWithImageNamed:@"retry_off"];
+    _exitButton.texture = [SKTexture textureWithImageNamed:@"menu"];
+    _retryButton.texture = [SKTexture textureWithImageNamed:@"retry"];
     
     UITouch *touch = [touches anyObject];
     CGPoint location = [touch locationInNode:self];
