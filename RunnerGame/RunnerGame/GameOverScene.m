@@ -53,7 +53,7 @@
         distanceLabel.text = [NSString stringWithFormat:@"Distance: %d m", stat.distance];
         [self addChild:distanceLabel];
         
-        self.exitButton = [[SKSpriteNode alloc] initWithImageNamed:@"menu.png"];
+        self.exitButton = [[SKSpriteNode alloc] initWithImageNamed:@"menu_a3.png"];
         //self.exitButton.centerRect = CGRectMake(70.0 / 160.0, 32.0, 20.0, 10.0);
         self.exitButton.size = CGSizeMake(205, 90);
         self.exitButton.position = CGPointMake(self.size.width / 2.0, self.size.height / 2.0 - 10);
@@ -69,7 +69,7 @@
         exitLabel.name = @"exit";
         [self addChild:exitLabel];*/
         
-        self.retryButton = [[SKSpriteNode alloc] initWithImageNamed:@"retry.png"];
+        self.retryButton = [[SKSpriteNode alloc] initWithImageNamed:@"retry_a3.png"];
         //self.retryButton.centerRect = CGRectMake(70.0 / 160.0, 32.0, 20.0, 10.0);
         self.retryButton.size = CGSizeMake(205, 90);
         self.retryButton.position = CGPointMake(self.size.width / 2.0, self.size.height / 2.0 - 80.0);
@@ -95,16 +95,16 @@
     SKNode *node = [self nodeAtPoint:location];
     
     if ([node.name isEqualToString:@"exit"]) {
-        _exitButton.texture = [SKTexture textureWithImageNamed:@"menu_on"];
+        _exitButton.texture = [SKTexture textureWithImageNamed:@"menu_on_a3"];
     } else if ([node.name isEqualToString:@"retry"]) {
-        _retryButton.texture = [SKTexture textureWithImageNamed:@"retry_on"];
+        _retryButton.texture = [SKTexture textureWithImageNamed:@"retry_on_a3"];
     }
 }
 
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    _exitButton.texture = [SKTexture textureWithImageNamed:@"menu"];
-    _retryButton.texture = [SKTexture textureWithImageNamed:@"retry"];
+    _exitButton.texture = [SKTexture textureWithImageNamed:@"menu_a3"];
+    _retryButton.texture = [SKTexture textureWithImageNamed:@"retry_a3"];
     
     UITouch *touch = [touches anyObject];
     CGPoint location = [touch locationInNode:self];

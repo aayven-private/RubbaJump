@@ -140,7 +140,7 @@ static SKAction *sharedDoubleJumpSoundAction = nil;
         self.backgroundColor = [SKColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
         
         self.selectiveGravity = CGVectorMake(0, -9.8 * kPpm);
-        self.barrierTexture = [SKTexture textureWithImageNamed:@"barrier"];
+        self.barrierTexture = [SKTexture textureWithImageNamed:@"akadaly"];
         self.starTexture = [SKTexture textureWithImageNamed:@"star"];
         self.highScores = [NSMutableArray array];
         self.needsBarrier = NO;
@@ -172,7 +172,7 @@ static SKAction *sharedDoubleJumpSoundAction = nil;
     [self addChild:fixedBg];*/
     
     
-    imageNames = @[@"road", @"bg2_a1", @"bg3_a1", @"bg1_a1"];
+    imageNames = @[@"ut", @"felhok", @"testek", @"bg0_a3"];
     //NSArray *imageNames = @[@"background"];
     //imageNames = @[@"ground", @"background1_es", @"background2_es"];
     ParallaxBG * parallax = [[ParallaxBG alloc] initWithBackgrounds:imageNames size:self.size direction:kPBParallaxBackgroundDirectionLeft fastestSpeed:kParallaxBGSpeed_gameScene andSpeedDecrease:kPBParallaxBackgroundDefaultSpeedDifferential andYOffsets:@[[NSNumber numberWithFloat:kGroundHeight - 15], @0, @0, @0] andCustomSpeeds:@[[NSNumber numberWithFloat:4 * kParallaxBGSpeed_gameScene], @0, @0, @0]];
@@ -242,7 +242,7 @@ static SKAction *sharedDoubleJumpSoundAction = nil;
     [self addChild:topLine];
     CGPathRelease(pathToDraw_top);*/
     
-    self.runner = [[Runner alloc] initWithTexture:[SKTexture textureWithImageNamed:@"bandit"]];
+    self.runner = [[Runner alloc] initWithTexture:[SKTexture textureWithImageNamed:@"figura"]];
     self.ground = [[Ground alloc] initWithSize:CGSizeMake(self.size.width * self.view.contentScaleFactor + 50.0, kGroundHeight * self.view.contentScaleFactor)];
     
     self.runner.position = CGPointMake(80 + self.runner.size.width / 2.0, kGroundHeight + self.runner.size.height / 2.0);

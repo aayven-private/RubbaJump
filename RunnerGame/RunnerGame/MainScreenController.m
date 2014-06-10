@@ -10,6 +10,8 @@
 #import "GameScene.h"
 #import "Constants.h"
 
+#define IS_PHONEPOD5() ([UIScreen mainScreen].bounds.size.height == 568.0f && [UIScreen mainScreen].scale == 2.f && UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+
 @interface MainScreenController()
 
 @property (nonatomic, weak) IBOutlet UIButton *playButton;
@@ -18,6 +20,7 @@
 @property (nonatomic, weak) IBOutlet UIButton *soundButton;
 @property (nonatomic, weak) IBOutlet UIButton *welouxButton;
 @property (nonatomic, weak) IBOutlet UIButton *fbButton;
+@property (nonatomic, weak) IBOutlet UIImageView *bgView;
 
 @property (nonatomic) BOOL isSoundEnabled;
 
@@ -42,7 +45,13 @@
     }
     _isSoundEnabled = soundEnabled.boolValue;
     if (!_isSoundEnabled) {
-        [_soundButton setImage:[UIImage imageNamed:@"sound_off.png"] forState:UIControlStateNormal];
+        [_soundButton setImage:[UIImage imageNamed:@"sound_off_a3.png"] forState:UIControlStateNormal];
+    }
+    
+    if (IS_PHONEPOD5()) {
+        self.bgView.image = [UIImage imageNamed:@"main_bg-568h.png"];
+    } else {
+        self.bgView.image = [UIImage imageNamed:@"main_bg.png"];
     }
 }
 
@@ -88,11 +97,11 @@
 -(IBAction)soundClicked:(id)sender
 {
     if (_isSoundEnabled) {
-        [_soundButton setImage:[UIImage imageNamed:@"sound_off.png"] forState:UIControlStateNormal];
+        [_soundButton setImage:[UIImage imageNamed:@"sound_off_a3.png"] forState:UIControlStateNormal];
         _isSoundEnabled = NO;
         [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:NO] forKey:kSoundEnabledKey];
     } else {
-        [_soundButton setImage:[UIImage imageNamed:@"sound_on.png"] forState:UIControlStateNormal];
+        [_soundButton setImage:[UIImage imageNamed:@"sound_on_a3.png"] forState:UIControlStateNormal];
         _isSoundEnabled = YES;
         [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:kSoundEnabledKey];
     }
