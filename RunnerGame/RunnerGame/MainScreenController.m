@@ -49,9 +49,9 @@
     }
     
     if (IS_PHONEPOD5()) {
-        self.bgView.image = [UIImage imageNamed:@"main_bg-568h.png"];
+        self.bgView.image = [UIImage imageNamed:@"main_bg_a4-568h.png"];
     } else {
-        self.bgView.image = [UIImage imageNamed:@"main_bg.png"];
+        self.bgView.image = [UIImage imageNamed:@"main_bg_a4.png"];
     }
 }
 

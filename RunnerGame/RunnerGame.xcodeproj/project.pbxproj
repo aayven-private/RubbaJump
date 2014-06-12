@@ -69,6 +69,8 @@
 		B04FC1E2194991040092233F /* jump.wav in Resources */ = {isa = PBXBuildFile; fileRef = B04FC1DE194991040092233F /* jump.wav */; };
 		B04FC1E3194991040092233F /* main_theme.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B04FC1DF194991040092233F /* main_theme.mp3 */; };
 		B04FC1E4194991040092233F /* reward.wav in Resources */ = {isa = PBXBuildFile; fileRef = B04FC1E0194991040092233F /* reward.wav */; };
+		B04FC1E71949D2920092233F /* main_bg_a4-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B04FC1E51949D2920092233F /* main_bg_a4-568h@2x.png */; };
+		B04FC1E81949D2920092233F /* main_bg_a4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B04FC1E61949D2920092233F /* main_bg_a4@2x.png */; };
 		B05632DA18FD1602001348A0 /* GameOverScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B05632D918FD1602001348A0 /* GameOverScene.m */; };
 		B05632E618FD2285001348A0 /* ExpletusSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B05632DD18FD2285001348A0 /* ExpletusSans-Bold.ttf */; };
 		B05632E718FD2285001348A0 /* ExpletusSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B05632DE18FD2285001348A0 /* ExpletusSans-BoldItalic.ttf */; };
@@ -244,6 +246,8 @@
 		B04FC1DE194991040092233F /* jump.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = jump.wav; sourceTree = "<group>"; };
 		B04FC1DF194991040092233F /* main_theme.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = main_theme.mp3; sourceTree = "<group>"; };
 		B04FC1E0194991040092233F /* reward.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = reward.wav; sourceTree = "<group>"; };
+		B04FC1E51949D2920092233F /* main_bg_a4-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "main_bg_a4-568h@2x.png"; sourceTree = "<group>"; };
+		B04FC1E61949D2920092233F /* main_bg_a4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "main_bg_a4@2x.png"; sourceTree = "<group>"; };
 		B05632D818FD1602001348A0 /* GameOverScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverScene.h; sourceTree = "<group>"; };
 		B05632D918FD1602001348A0 /* GameOverScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverScene.m; sourceTree = "<group>"; };
 		B05632DB18FD1844001348A0 /* GameOverSceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameOverSceneDelegate.h; sourceTree = "<group>"; };
@@ -599,6 +603,8 @@
 		B04FC1B9194989BA0092233F /* A4 */ = {
 			isa = PBXGroup;
 			children = (
+				B04FC1E51949D2920092233F /* main_bg_a4-568h@2x.png */,
+				B04FC1E61949D2920092233F /* main_bg_a4@2x.png */,
 				B04FC1BA194989E30092233F /* akadaly_a4@2x.png */,
 				B04FC1BB194989E30092233F /* fb_a4@2x.png */,
 				B04FC1BC194989E30092233F /* felhok_a4@2x.png */,
@@ -953,8 +959,10 @@
 				B01E667D192A035100C62543 /* object_a1@2x.png in Resources */,
 				B0AF83C219409C66008C09D7 /* play@2x.png in Resources */,
 				B05632EB18FD2285001348A0 /* ExpletusSans-Regular.ttf in Resources */,
+				B04FC1E71949D2920092233F /* main_bg_a4-568h@2x.png in Resources */,
 				B04FC1D3194989E30092233F /* play_a4@2x.png in Resources */,
 				B0AF83AF1940932F008C09D7 /* sound_on@2x.png in Resources */,
+				B04FC1E81949D2920092233F /* main_bg_a4@2x.png in Resources */,
 				B04FC1CB194989E30092233F /* akadaly_a4@2x.png in Resources */,
 				B04FC1CC194989E30092233F /* fb_a4@2x.png in Resources */,
 				B04FC1E2194991040092233F /* jump.wav in Resources */,
