@@ -97,6 +97,7 @@ static BOOL kAddBarriers = YES;
 static SKAction *sharedDeathSoundAction = nil;
 static SKAction *sharedJumpSoundAction = nil;
 static SKAction *sharedDoubleJumpSoundAction = nil;
+static SKAction *sharedRewardSoundAction = nil;
 
 - (SKAction *)deathSoundAction
 {
@@ -122,15 +123,24 @@ static SKAction *sharedDoubleJumpSoundAction = nil;
     return sharedDoubleJumpSoundAction;
 }
 
+-(SKAction *)rewardSoundAction
+{
+    if (!_isSoundEnabled) {
+        return nil;
+    }
+    return sharedRewardSoundAction;
+}
+
 + (void)loadSharedAssets
 {
     static dispatch_once_t onceToken;
     
     dispatch_once(&onceToken, ^
                   {
-                      sharedDeathSoundAction = [SKAction playSoundFileNamed:@"DeathB1_05.mp3" waitForCompletion:NO];
-                      sharedJumpSoundAction = [SKAction playSoundFileNamed:@"Blop_A_01.wav" waitForCompletion:NO];
+                      sharedDeathSoundAction = [SKAction playSoundFileNamed:@"death.mp3" waitForCompletion:NO];
+                      sharedJumpSoundAction = [SKAction playSoundFileNamed:@"jump.wav" waitForCompletion:NO];
                       sharedDoubleJumpSoundAction = [SKAction playSoundFileNamed:@"Blop_D_01.wav" waitForCompletion:NO];
+                      sharedRewardSoundAction = [SKAction playSoundFileNamed:@"reward.wav" waitForCompletion:NO];
                   });
 }
 
@@ -140,7 +150,7 @@ static SKAction *sharedDoubleJumpSoundAction = nil;
         self.backgroundColor = [SKColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
         
         self.selectiveGravity = CGVectorMake(0, -9.8 * kPpm);
-        self.barrierTexture = [SKTexture textureWithImageNamed:@"akadaly"];
+        self.barrierTexture = [SKTexture textureWithImageNamed:@"akadaly_a4"];
         self.starTexture = [SKTexture textureWithImageNamed:@"star"];
         self.highScores = [NSMutableArray array];
         self.needsBarrier = NO;
@@ -162,17 +172,17 @@ static SKAction *sharedDoubleJumpSoundAction = nil;
 {
     [self removeAllChildren];
     
-    NSArray *imageNames = @[@"bg0"];
-    self.fixedBg = [[ParallaxBG alloc] initWithBackgrounds:imageNames size:self.size direction:kPBParallaxBackgroundDirectionLeft fastestSpeed:kParallaxBGSpeed_gameScene andSpeedDecrease:kPBParallaxBackgroundDefaultSpeedDifferential andYOffsets:nil andCustomSpeeds:nil];
+    NSArray *imageNames = @[@"hatter_a4"];
+    /*self.fixedBg = [[ParallaxBG alloc] initWithBackgrounds:imageNames size:self.size direction:kPBParallaxBackgroundDirectionLeft fastestSpeed:kParallaxBGSpeed_gameScene andSpeedDecrease:kPBParallaxBackgroundDefaultSpeedDifferential andYOffsets:nil andCustomSpeeds:nil];
     self.fixedBg.showBgStatus = NO;
-    [self addChild:self.fixedBg];
+    [self addChild:self.fixedBg];*/
     
     /*SKSpriteNode *fixedBg = [[SKSpriteNode alloc] initWithTexture:[SKTexture textureWithImageNamed:@"background3_es"]];
     fixedBg.position = CGPointMake(self.size.width / 2.0, self.size.height / 2.0);
     [self addChild:fixedBg];*/
     
     
-    imageNames = @[@"ut", @"felhok", @"testek", @"bg0_a3"];
+    imageNames = @[@"ut_a4", @"felhok_a4", @"testek_a4", @"hatter_a4"];
     //NSArray *imageNames = @[@"background"];
     //imageNames = @[@"ground", @"background1_es", @"background2_es"];
     ParallaxBG * parallax = [[ParallaxBG alloc] initWithBackgrounds:imageNames size:self.size direction:kPBParallaxBackgroundDirectionLeft fastestSpeed:kParallaxBGSpeed_gameScene andSpeedDecrease:kPBParallaxBackgroundDefaultSpeedDifferential andYOffsets:@[[NSNumber numberWithFloat:kGroundHeight - 15], @0, @0, @0] andCustomSpeeds:@[[NSNumber numberWithFloat:4 * kParallaxBGSpeed_gameScene], @0, @0, @0]];
@@ -272,7 +282,7 @@ static SKAction *sharedDoubleJumpSoundAction = nil;
     
     if (_isSoundEnabled) {
         NSError *error;
-        NSURL * backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"RJ_MusicLoop_A_v02-85195" withExtension:@"mp3"];
+        NSURL * backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"main_theme" withExtension:@"mp3"];
         self.backgroundMusicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:backgroundMusicURL error:&error];
         self.backgroundMusicPlayer.numberOfLoops = -1;
         [self.backgroundMusicPlayer prepareToPlay];

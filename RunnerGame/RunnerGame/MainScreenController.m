@@ -45,7 +45,7 @@
     }
     _isSoundEnabled = soundEnabled.boolValue;
     if (!_isSoundEnabled) {
-        [_soundButton setImage:[UIImage imageNamed:@"sound_off_a3.png"] forState:UIControlStateNormal];
+        [_soundButton setImage:[UIImage imageNamed:@"sound_off_a4.png"] forState:UIControlStateNormal];
     }
     
     if (IS_PHONEPOD5()) {
@@ -97,11 +97,11 @@
 -(IBAction)soundClicked:(id)sender
 {
     if (_isSoundEnabled) {
-        [_soundButton setImage:[UIImage imageNamed:@"sound_off_a3.png"] forState:UIControlStateNormal];
+        [_soundButton setImage:[UIImage imageNamed:@"sound_off_a4.png"] forState:UIControlStateNormal];
         _isSoundEnabled = NO;
         [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:NO] forKey:kSoundEnabledKey];
     } else {
-        [_soundButton setImage:[UIImage imageNamed:@"sound_on_a3.png"] forState:UIControlStateNormal];
+        [_soundButton setImage:[UIImage imageNamed:@"sound_on_a4.png"] forState:UIControlStateNormal];
         _isSoundEnabled = YES;
         [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:kSoundEnabledKey];
     }

@@ -19,7 +19,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="eVb-Ra-0zU">
                                 <rect key="frame" x="182" y="136" width="205" height="90"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
-                                <state key="normal" image="play_a3.png">
+                                <state key="normal" image="play_a4.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -30,7 +30,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="36H-9K-taY">
                                 <rect key="frame" x="182" y="204" width="205" height="90"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
-                                <state key="normal" image="score_a3.png">
+                                <state key="normal" image="score_a4.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -38,10 +38,10 @@
                                     <segue destination="fLJ-uv-iBN" kind="push" id="tp0-IE-A9z"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="C7c-m9-gph">
-                                <rect key="frame" x="488" y="20" width="60" height="60"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="C7c-m9-gph">
+                                <rect key="frame" x="493" y="24" width="51" height="51"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <state key="normal" backgroundImage="statistics_a3.png">
+                                <state key="normal" image="statistic_a4.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -51,7 +51,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="BZv-qW-qsA">
                                 <rect key="frame" x="488" y="88" width="60" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="sound_on_a3.png">
+                                <state key="normal" image="sound_on_a4.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -61,7 +61,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="S2o-J2-m9t">
                                 <rect key="frame" x="20" y="20" width="60" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="weloux_a3.png">
+                                <state key="normal" image="home_a4.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -69,9 +69,9 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="i7X-Bm-wyX">
-                                <rect key="frame" x="20" y="88" width="60" height="60"/>
+                                <rect key="frame" x="25" y="92" width="51" height="51"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <state key="normal" backgroundImage="fb_bg.png">
+                                <state key="normal" image="fb_a4.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -245,13 +245,13 @@
         </scene>
     </scenes>
     <resources>
-        <image name="fb_bg.png" width="60" height="60"/>
+        <image name="fb_a4.png" width="51" height="51"/>
+        <image name="home_a4.png" width="51" height="51"/>
         <image name="main_bg.png" width="480" height="320"/>
-        <image name="play_a3.png" width="205" height="89"/>
-        <image name="score_a3.png" width="205" height="89"/>
-        <image name="sound_on_a3.png" width="61" height="61"/>
-        <image name="statistics_a3.png" width="61" height="61"/>
-        <image name="weloux_a3.png" width="61" height="61"/>
+        <image name="play_a4.png" width="165" height="55"/>
+        <image name="score_a4.png" width="165" height="55"/>
+        <image name="sound_on_a4.png" width="51" height="51"/>
+        <image name="statistic_a4.png" width="51" height="51"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <nil key="statusBar"/>
