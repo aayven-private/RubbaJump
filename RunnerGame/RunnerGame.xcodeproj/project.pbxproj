@@ -72,6 +72,8 @@
 		B04FC1E71949D2920092233F /* main_bg_a4-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B04FC1E51949D2920092233F /* main_bg_a4-568h@2x.png */; };
 		B04FC1E81949D2920092233F /* main_bg_a4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B04FC1E61949D2920092233F /* main_bg_a4@2x.png */; };
 		B04FC1EA1949FDC00092233F /* high_score_a4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B04FC1E91949FDC00092233F /* high_score_a4@2x.png */; };
+		B04FC1ED194A0D7D0092233F /* PoetsenOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B04FC1EC194A0B7C0092233F /* PoetsenOne-Regular.ttf */; };
+		B04FC1EF194A12BB0092233F /* square_a4.png in Resources */ = {isa = PBXBuildFile; fileRef = B04FC1EE194A12BB0092233F /* square_a4.png */; };
 		B05632DA18FD1602001348A0 /* GameOverScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B05632D918FD1602001348A0 /* GameOverScene.m */; };
 		B05632E618FD2285001348A0 /* ExpletusSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B05632DD18FD2285001348A0 /* ExpletusSans-Bold.ttf */; };
 		B05632E718FD2285001348A0 /* ExpletusSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B05632DE18FD2285001348A0 /* ExpletusSans-BoldItalic.ttf */; };
@@ -250,6 +252,8 @@
 		B04FC1E51949D2920092233F /* main_bg_a4-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "main_bg_a4-568h@2x.png"; sourceTree = "<group>"; };
 		B04FC1E61949D2920092233F /* main_bg_a4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "main_bg_a4@2x.png"; sourceTree = "<group>"; };
 		B04FC1E91949FDC00092233F /* high_score_a4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "high_score_a4@2x.png"; sourceTree = "<group>"; };
+		B04FC1EC194A0B7C0092233F /* PoetsenOne-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PoetsenOne-Regular.ttf"; sourceTree = "<group>"; };
+		B04FC1EE194A12BB0092233F /* square_a4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = square_a4.png; sourceTree = "<group>"; };
 		B05632D818FD1602001348A0 /* GameOverScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverScene.h; sourceTree = "<group>"; };
 		B05632D918FD1602001348A0 /* GameOverScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverScene.m; sourceTree = "<group>"; };
 		B05632DB18FD1844001348A0 /* GameOverSceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameOverSceneDelegate.h; sourceTree = "<group>"; };
@@ -605,6 +609,8 @@
 		B04FC1B9194989BA0092233F /* A4 */ = {
 			isa = PBXGroup;
 			children = (
+				B04FC1EE194A12BB0092233F /* square_a4.png */,
+				B04FC1EB194A0B6D0092233F /* Fonts */,
 				B04FC1E91949FDC00092233F /* high_score_a4@2x.png */,
 				B04FC1E51949D2920092233F /* main_bg_a4-568h@2x.png */,
 				B04FC1E61949D2920092233F /* main_bg_a4@2x.png */,
@@ -638,6 +644,14 @@
 				B04FC1E0194991040092233F /* reward.wav */,
 			);
 			name = Sounds;
+			sourceTree = "<group>";
+		};
+		B04FC1EB194A0B6D0092233F /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				B04FC1EC194A0B7C0092233F /* PoetsenOne-Regular.ttf */,
+			);
+			name = Fonts;
 			sourceTree = "<group>";
 		};
 		B05632DC18FD2285001348A0 /* expletus_sans */ = {
@@ -890,6 +904,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B04FC1ED194A0D7D0092233F /* PoetsenOne-Regular.ttf in Resources */,
 				B01E669F192A20F400C62543 /* main_bg__@2x.png in Resources */,
 				B00DB99D18ED48EF00460930 /* InfoPlist.strings in Resources */,
 				B04FC1D4194989E30092233F /* retry_a4@2x.png in Resources */,
@@ -994,6 +1009,7 @@
 				B0AF83AB1940932F008C09D7 /* retry@2x.png in Resources */,
 				B0AF83E31947479A008C09D7 /* figura@2x.png in Resources */,
 				B0AF83B01940932F008C09D7 /* weloux_on@2x.png in Resources */,
+				B04FC1EF194A12BB0092233F /* square_a4.png in Resources */,
 				B0AF83EF194748A0008C09D7 /* menu_a3@2x.png in Resources */,
 				B0AF83AE1940932F008C09D7 /* sound_off@2x.png in Resources */,
 				B0AF83C01940970F008C09D7 /* barrier@2x.png in Resources */,

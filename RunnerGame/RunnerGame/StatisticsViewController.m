@@ -38,13 +38,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.statLabel.font = [UIFont fontWithName:@"ExpletusSans-Bold" size:25.0];
-    self.distanceLabel.font = [UIFont fontWithName:@"ExpletusSans-Bold" size:20.0];
-    self.jumpLabel.font = [UIFont fontWithName:@"ExpletusSans-Bold" size:20.0];
-    self.doubleJumpLabel.font = [UIFont fontWithName:@"ExpletusSans-Bold" size:20.0];
-    self.barrierLabel.font = [UIFont fontWithName:@"ExpletusSans-Bold" size:20.0];
+    self.statLabel.font = [UIFont fontWithName:@"PoetsenOne-Regular" size:25.0];
+    self.distanceLabel.font = [UIFont fontWithName:@"PoetsenOne-Regular" size:20.0];
+    self.jumpLabel.font = [UIFont fontWithName:@"PoetsenOne-Regular" size:20.0];
+    self.doubleJumpLabel.font = [UIFont fontWithName:@"PoetsenOne-Regular" size:20.0];
+    self.barrierLabel.font = [UIFont fontWithName:@"PoetsenOne-Regular" size:20.0];
     
-    self.okButton.titleLabel.font = [UIFont fontWithName:@"ExpletusSans-Bold" size:25.0];
+    self.okButton.titleLabel.font = [UIFont fontWithName:@"PoetsenOne-Regular" size:25.0];
     
     StatisticsHelper *stat = [[StatisticsManager sharedInstance] getStatistics];
     

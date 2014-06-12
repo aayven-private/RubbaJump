@@ -34,8 +34,8 @@
     
     self.navigationController.navigationBarHidden = YES;
     
-    self.playButton.titleLabel.font = [UIFont fontWithName:@"ExpletusSans-Bold" size:20.0];
-    self.highScoreButton.titleLabel.font = [UIFont fontWithName:@"ExpletusSans-Bold" size:20.0];
+    self.playButton.titleLabel.font = [UIFont fontWithName:@"PoetsenOne-Regular" size:20.0];
+    self.highScoreButton.titleLabel.font = [UIFont fontWithName:@"PoetsenOne-Regular" size:20.0];
     
     NSNumber *soundEnabled = [[NSUserDefaults standardUserDefaults] objectForKey:kSoundEnabledKey];
     if (!soundEnabled) {

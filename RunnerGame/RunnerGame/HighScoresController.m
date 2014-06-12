@@ -38,7 +38,7 @@
     self.scores = [[HighScoreManager sharedManager] getHighScores];
     [_highScoresTable reloadData];
     
-    self.okButton.titleLabel.font = [UIFont fontWithName:@"ExpletusSans-Bold" size:25.0];
+    self.okButton.titleLabel.font = [UIFont fontWithName:@"PoetsenOne-Regular" size:25.0];
 }
 
 - (void)didReceiveMemoryWarning
@@ -62,9 +62,9 @@
             }
         }
         
-        cell.indexLabel.font = [UIFont fontWithName:@"ExpletusSans-Bold" size:20.0];
-        cell.scoreLabel.font = [UIFont fontWithName:@"ExpletusSans-Bold" size:20.0];
-        cell.distanceLabel.font = [UIFont fontWithName:@"ExpletusSans-Bold" size:15.0];
+        cell.indexLabel.font = [UIFont fontWithName:@"PoetsenOne-Regular" size:20.0];
+        cell.scoreLabel.font = [UIFont fontWithName:@"PoetsenOne-Regular" size:20.0];
+        cell.distanceLabel.font = [UIFont fontWithName:@"PoetsenOne-Regular" size:15.0];
     }
     
     HighScoreHelper *cellData = [_scores objectAtIndex:indexPath.row];

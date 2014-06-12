@@ -266,7 +266,7 @@ static SKAction *sharedRewardSoundAction = nil;
     [self addChild:self.runner];
     [self addChild:self.emitter];
     
-    self.scoreLabel = [SKLabelNode labelNodeWithFontNamed:@"ExpletusSans-Bold"];
+    self.scoreLabel = [SKLabelNode labelNodeWithFontNamed:@"PoetsenOne-Regular"];
     self.scoreLabel.position = CGPointMake(self.size.width - 30.0, self.size.height - 35.0);
     self.scoreLabel.fontSize = 18.0;
     self.scoreLabel.fontColor = [UIColor blackColor];
@@ -600,7 +600,7 @@ static SKAction *sharedRewardSoundAction = nil;
 
 -(void)addTextArray:(NSArray *)textArray completion:(void(^)())completion andInterval:(float)interval
 {
-    SKLabelNode *textLabel = [SKLabelNode labelNodeWithFontNamed:@"ExpletusSans-Bold"];
+    SKLabelNode *textLabel = [SKLabelNode labelNodeWithFontNamed:@"PoetsenOne-Regular"];
     textLabel.fontColor = [UIColor blackColor];
     textLabel.fontSize = 25;
     

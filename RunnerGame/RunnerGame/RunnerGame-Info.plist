@@ -26,6 +26,7 @@
 	<true/>
 	<key>UIAppFonts</key>
 	<array>
+		<string>PoetsenOne-Regular.ttf</string>
 		<string>ExpletusSans-Bold.ttf</string>
 		<string>ExpletusSans-BoldItalic.ttf</string>
 		<string>ExpletusSans-Italic.ttf</string>
