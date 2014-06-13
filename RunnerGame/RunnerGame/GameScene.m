@@ -168,10 +168,14 @@ static SKAction *sharedRewardSoundAction = nil;
     return self;
 }
 
+-(void)didMoveToView:(SKView *)view
+{
+    
+}
+
 -(void)initEnvironment
 {
     [self removeAllChildren];
-    
     NSArray *imageNames = @[@"hatter_a4"];
     /*self.fixedBg = [[ParallaxBG alloc] initWithBackgrounds:imageNames size:self.size direction:kPBParallaxBackgroundDirectionLeft fastestSpeed:kParallaxBGSpeed_gameScene andSpeedDecrease:kPBParallaxBackgroundDefaultSpeedDifferential andYOffsets:nil andCustomSpeeds:nil];
     self.fixedBg.showBgStatus = NO;
