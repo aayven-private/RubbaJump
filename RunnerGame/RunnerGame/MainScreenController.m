@@ -10,8 +10,6 @@
 #import "GameScene.h"
 #import "Constants.h"
 
-#define IS_PHONEPOD5() ([UIScreen mainScreen].bounds.size.height == 568.0f && [UIScreen mainScreen].scale == 2.f && UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-
 @interface MainScreenController()
 
 @property (nonatomic, weak) IBOutlet UIButton *playButton;
@@ -53,6 +51,8 @@
     } else {
         self.bgView.image = [UIImage imageNamed:@"main_bg_a4.png"];
     }
+    
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
 }
 
 -(void)viewDidAppear:(BOOL)animated

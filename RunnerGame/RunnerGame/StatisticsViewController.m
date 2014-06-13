@@ -8,17 +8,21 @@
 
 #import "StatisticsViewController.h"
 #import "StatisticsManager.h"
+#import "Constants.h"
+#import "StrokeLabel.h"
 
 @interface StatisticsViewController ()
 
 @property (nonatomic, weak) IBOutlet UILabel *statLabel;
 
-@property (nonatomic, weak) IBOutlet UILabel *distanceLabel;
-@property (nonatomic, weak) IBOutlet UILabel *jumpLabel;
-@property (nonatomic, weak) IBOutlet UILabel *doubleJumpLabel;
-@property (nonatomic, weak) IBOutlet UILabel *barrierLabel;
+@property (nonatomic, weak) IBOutlet StrokeLabel *distanceLabel;
+@property (nonatomic, weak) IBOutlet StrokeLabel *jumpLabel;
+@property (nonatomic, weak) IBOutlet StrokeLabel *doubleJumpLabel;
+@property (nonatomic, weak) IBOutlet StrokeLabel *barrierLabel;
 
 @property (nonatomic, weak) IBOutlet UIButton *okButton;
+
+@property (nonatomic, weak) IBOutlet UIImageView *bgView;
 
 @end
 
@@ -42,7 +46,7 @@
     self.distanceLabel.font = [UIFont fontWithName:@"PoetsenOne-Regular" size:20.0];
     self.jumpLabel.font = [UIFont fontWithName:@"PoetsenOne-Regular" size:20.0];
     self.doubleJumpLabel.font = [UIFont fontWithName:@"PoetsenOne-Regular" size:20.0];
-    self.barrierLabel.font = [UIFont fontWithName:@"PoetsenOne-Regular" size:20.0];
+    self.barrierLabel.font = [UIFont fontWithName:@"PoetsenOne-Regular" size:30.0];
     
     self.okButton.titleLabel.font = [UIFont fontWithName:@"PoetsenOne-Regular" size:25.0];
     
@@ -51,7 +55,15 @@
     self.distanceLabel.text = [NSString stringWithFormat:@"Total distance: %d meters", stat.distance];
     self.jumpLabel.text = [NSString stringWithFormat:@"Total jumps: %d", stat.jumps];
     self.doubleJumpLabel.text = [NSString stringWithFormat:@"Total double jumps: %d", stat.doubleJumps];
-    self.barrierLabel.text = [NSString stringWithFormat:@"Total barriers avoided: %d", stat.barriers];
+    self.barrierLabel.text = [NSString stringWithFormat:@"Total Score: %d", stat.barriers];
+    
+    self.barrierLabel.strokeColor = [UIColor redColor];
+    
+    if (IS_PHONEPOD5()) {
+        self.bgView.image = [UIImage imageNamed:@"statistics_bg_a4-568h"];
+    } else {
+        self.bgView.image = [UIImage imageNamed:@"statistics_bg_a4"];
+    }
 }
 
 - (void)didReceiveMemoryWarning

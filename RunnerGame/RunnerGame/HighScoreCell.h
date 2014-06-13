@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "StrokeLabel.h"
 
 @interface HighScoreCell : UITableViewCell
 
-@property (nonatomic, weak) IBOutlet UILabel *indexLabel;
-@property (nonatomic, weak) IBOutlet UILabel *scoreLabel;
-@property (nonatomic, weak) IBOutlet UILabel *distanceLabel;
+@property (nonatomic, weak) IBOutlet StrokeLabel *indexLabel;
+@property (nonatomic, weak) IBOutlet StrokeLabel *scoreLabel;
+@property (nonatomic, weak) IBOutlet StrokeLabel *distanceLabel;
 
 @end

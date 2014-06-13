@@ -267,8 +267,8 @@ static SKAction *sharedRewardSoundAction = nil;
     [self addChild:self.emitter];
     
     self.scoreLabel = [SKLabelNode labelNodeWithFontNamed:@"PoetsenOne-Regular"];
-    self.scoreLabel.position = CGPointMake(self.size.width - 30.0, self.size.height - 35.0);
-    self.scoreLabel.fontSize = 18.0;
+    self.scoreLabel.position = CGPointMake(self.size.width - 30.0, self.size.height - 40.0);
+    self.scoreLabel.fontSize = 28.0;
     self.scoreLabel.fontColor = [UIColor blackColor];
     self.scoreLabel.text = @"0";
     [self addChild:self.scoreLabel];

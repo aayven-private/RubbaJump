@@ -8,6 +8,9 @@
 
 #import <SpriteKit/SpriteKit.h>
 
+
+#define IS_PHONEPOD5() ([UIScreen mainScreen].bounds.size.height == 568.0f && [UIScreen mainScreen].scale == 2.f && UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+
 static NSString *kObjectTypeRunner = @"runner";
 static NSString *kObjectTypeBarrier = @"barrier";
 static NSString *kObjectTypeGround = @"ground";

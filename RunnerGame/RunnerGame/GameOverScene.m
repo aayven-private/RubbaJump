@@ -7,6 +7,7 @@
 //
 
 #import "GameOverScene.h"
+#import "Constants.h"
 
 @interface GameOverScene()
 
@@ -23,7 +24,14 @@
         //self.backgroundColor = [UIColor whiteColor];
         //self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"gameover_bg.png"]];
         
-        SKSpriteNode *bgNode = [[SKSpriteNode alloc] initWithImageNamed:@"gameover_bg"];
+        NSString *bgFileName;
+        if (IS_PHONEPOD5()) {
+            bgFileName = @"game_over_bg_a4-568h";
+        } else {
+            bgFileName = @"game_over_bg_a4";
+        }
+        
+        SKSpriteNode *bgNode = [[SKSpriteNode alloc] initWithImageNamed:bgFileName];
         bgNode.position = CGPointMake(self.size.width / 2.0, self.size.height / 2.0);
         [self addChild:bgNode];
         
@@ -31,24 +39,24 @@
         boxNode.position = CGPointMake(size.width / 2.0, size.height / 2.0 + 95);
         [self addChild:boxNode];*/
         
-        SKShapeNode* tile = [SKShapeNode node];
+        /*SKShapeNode* tile = [SKShapeNode node];
         [tile setPath:CGPathCreateWithRoundedRect(CGRectMake(size.width / 2.0 - 100, size.height / 2.0 + 45, 200, 95), 4, 4, nil)];
         tile.strokeColor = tile.fillColor = [UIColor colorWithRed:.5 green:.5 blue:.5 alpha:.8];
-        [self addChild:tile];
+        [self addChild:tile];*/
         
         SKLabelNode *gameOverLabel = [SKLabelNode labelNodeWithFontNamed:@"PoetsenOne-Regular"];
         gameOverLabel.position = CGPointMake(size.width / 2.0, size.height / 2.0 + 110.0);
         gameOverLabel.fontSize = 30.0;
-        gameOverLabel.fontColor = [UIColor whiteColor];
+        gameOverLabel.fontColor = [UIColor blackColor];
         gameOverLabel.text = @"Game Over";
         [self addChild:gameOverLabel];
         
         
         SKLabelNode *scoreLabel = [SKLabelNode labelNodeWithFontNamed:@"PoetsenOne-Regular"];
-        scoreLabel.position = CGPointMake(size.width / 2.0, size.height / 2.0 + 62.0);
+        scoreLabel.position = CGPointMake(size.width / 2.0, size.height / 2.0 + 65.0);
         scoreLabel.fontSize = 36.0;
-        scoreLabel.fontColor = [UIColor whiteColor];
-        scoreLabel.text = [NSString stringWithFormat:@"Score: %d", /*stat.barriers*/ 199];
+        scoreLabel.fontColor = [UIColor blackColor];
+        scoreLabel.text = [NSString stringWithFormat:@"Score: %d", stat.barriers];
         [self addChild:scoreLabel];
         
         /*SKLabelNode *distanceLabel = [SKLabelNode labelNodeWithFontNamed:@"PoetsenOne-Regular"];
@@ -61,7 +69,7 @@
         self.exitButton = [[SKSpriteNode alloc] initWithImageNamed:@"menu_a4.png"];
         //self.exitButton.centerRect = CGRectMake(70.0 / 160.0, 32.0, 20.0, 10.0);
         self.exitButton.size = CGSizeMake(160, 60);
-        self.exitButton.position = CGPointMake(self.size.width / 2.0, self.size.height / 2.0 - 10);
+        self.exitButton.position = CGPointMake(self.size.width / 2.0, self.size.height / 2.0 - 20);
         self.exitButton.name = @"exit";
         [self addChild:self.exitButton];
         
@@ -77,7 +85,7 @@
         self.retryButton = [[SKSpriteNode alloc] initWithImageNamed:@"retry_a4.png"];
         //self.retryButton.centerRect = CGRectMake(70.0 / 160.0, 32.0, 20.0, 10.0);
         self.retryButton.size = CGSizeMake(160, 60);
-        self.retryButton.position = CGPointMake(self.size.width / 2.0, self.size.height / 2.0 - 80.0);
+        self.retryButton.position = CGPointMake(self.size.width / 2.0, self.size.height / 2.0 - 90.0);
         self.retryButton.name = @"retry";
         [self addChild:self.retryButton];
         

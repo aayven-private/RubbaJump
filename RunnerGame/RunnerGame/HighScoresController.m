@@ -9,12 +9,14 @@
 #import "HighScoresController.h"
 #import "HighScoreManager.h"
 #import "HighScoreCell.h"
+#import "Constants.h"
 
 @interface HighScoresController ()
 
 @property (nonatomic, weak) IBOutlet UIButton *okButton;
 
 @property (nonatomic, weak) IBOutlet UITableView *highScoresTable;
+@property (nonatomic, weak) IBOutlet UIImageView *bgView;
 
 @property (nonatomic) NSArray *scores;
 
@@ -39,6 +41,12 @@
     [_highScoresTable reloadData];
     
     self.okButton.titleLabel.font = [UIFont fontWithName:@"PoetsenOne-Regular" size:25.0];
+    
+    if (IS_PHONEPOD5()) {
+        self.bgView.image = [UIImage imageNamed:@"high_score_bg_a4-568h"];
+    } else {
+        self.bgView.image = [UIImage imageNamed:@"high_score_bg_a4"];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -62,8 +70,8 @@
             }
         }
         
-        cell.indexLabel.font = [UIFont fontWithName:@"PoetsenOne-Regular" size:20.0];
-        cell.scoreLabel.font = [UIFont fontWithName:@"PoetsenOne-Regular" size:20.0];
+        cell.indexLabel.font = [UIFont fontWithName:@"PoetsenOne-Regular" size:30.0];
+        cell.scoreLabel.font = [UIFont fontWithName:@"PoetsenOne-Regular" size:30.0];
         cell.distanceLabel.font = [UIFont fontWithName:@"PoetsenOne-Regular" size:15.0];
     }
     
