@@ -32,9 +32,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
     // Do any additional setup after loading the view.
-    
-    [GameScene loadSharedAssets];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        [GameScene loadSharedAssets];
+    });
 }
 
 -(void)viewDidAppear:(BOOL)animated

@@ -154,6 +154,7 @@ static SKAction *sharedRewardSoundAction = nil;
         self.starTexture = [SKTexture textureWithImageNamed:@"star"];
         self.highScores = [NSMutableArray array];
         self.needsBarrier = NO;
+        self.backgroundColor = [UIColor blackColor];
         
         NSArray *scores = [[HighScoreManager sharedManager] getHighScores];
         
@@ -294,6 +295,8 @@ static SKAction *sharedRewardSoundAction = nil;
     }
     
     [self addChild:self.ground];
+    
+    self.backgroundColor = [UIColor whiteColor];
     
     /*imageNames = @[@"ground"];
     ParallaxBG * parallax_ground = [[ParallaxBG alloc] initWithBackgrounds:imageNames size:self.size direction:kPBParallaxBackgroundDirectionLeft fastestSpeed:4 * kParallaxBGSpeed_gameScene andSpeedDecrease:kPBParallaxBackgroundDefaultSpeedDifferential];
@@ -592,6 +595,7 @@ static SKAction *sharedRewardSoundAction = nil;
             stat.doubleJumps = _globalDoubleJumpCount;
             stat.distance = (int)_distance;
             stat.barriers = _globalBarriersAvoided;
+            [_backgroundMusicPlayer stop];
             [_delegate gameOverWithStatistics:stat];
         }]]]];
     } else {

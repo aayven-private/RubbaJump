@@ -68,7 +68,7 @@
         
         self.exitButton = [[SKSpriteNode alloc] initWithImageNamed:@"menu_a4.png"];
         //self.exitButton.centerRect = CGRectMake(70.0 / 160.0, 32.0, 20.0, 10.0);
-        self.exitButton.size = CGSizeMake(160, 60);
+        self.exitButton.size = CGSizeMake(160, 55);
         self.exitButton.position = CGPointMake(self.size.width / 2.0, self.size.height / 2.0 - 20);
         self.exitButton.name = @"exit";
         [self addChild:self.exitButton];
@@ -84,7 +84,7 @@
         
         self.retryButton = [[SKSpriteNode alloc] initWithImageNamed:@"retry_a4.png"];
         //self.retryButton.centerRect = CGRectMake(70.0 / 160.0, 32.0, 20.0, 10.0);
-        self.retryButton.size = CGSizeMake(160, 60);
+        self.retryButton.size = CGSizeMake(160, 55);
         self.retryButton.position = CGPointMake(self.size.width / 2.0, self.size.height / 2.0 - 90.0);
         self.retryButton.name = @"retry";
         [self addChild:self.retryButton];

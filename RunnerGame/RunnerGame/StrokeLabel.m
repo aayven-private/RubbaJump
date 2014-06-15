@@ -35,7 +35,7 @@
     UIColor *textColor = self.textColor;
     
     CGContextRef c = UIGraphicsGetCurrentContext();
-    CGContextSetLineWidth(c, 2);
+    CGContextSetLineWidth(c, 3);
     CGContextSetLineJoin(c, kCGLineJoinRound);
     
     CGContextSetTextDrawingMode(c, kCGTextStroke);

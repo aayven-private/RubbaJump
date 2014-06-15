@@ -10,6 +10,7 @@
 #import "HighScoreManager.h"
 #import "HighScoreCell.h"
 #import "Constants.h"
+#import "StrokeLabel.h"
 
 @interface HighScoresController ()
 
@@ -77,7 +78,7 @@
     
     HighScoreHelper *cellData = [_scores objectAtIndex:indexPath.row];
     
-    cell.indexLabel.text = [NSString stringWithFormat:@"%d.", indexPath.row + 1];
+    cell.indexLabel.text = [NSString stringWithFormat:@"%ld.", indexPath.row + 1];
     cell.scoreLabel.text = [NSString stringWithFormat:@"%d", cellData.score.intValue];
     cell.distanceLabel.text = [NSString stringWithFormat:@"%d m", cellData.distance.intValue];
     
