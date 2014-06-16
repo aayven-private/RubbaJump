@@ -84,14 +84,14 @@
 -(IBAction)fbClicked:(id)sender
 {
     [self playButtonSound];
-    NSURL *url = [NSURL URLWithString:@"fb://profile/<id>"];
+    NSURL *url = [NSURL URLWithString:@"fb://profile/202042746673250"];
     [[UIApplication sharedApplication] openURL:url];
     if ([[UIApplication sharedApplication] canOpenURL:url]){
         [[UIApplication sharedApplication] openURL:url];
     }
     else {
         //Open the url as usual
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.daledietrich.com"]];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.facebook.com/pages/Weloux/202042746673250"]];
     }
 
 }
