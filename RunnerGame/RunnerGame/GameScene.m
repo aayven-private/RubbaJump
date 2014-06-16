@@ -169,11 +169,6 @@ static SKAction *sharedRewardSoundAction = nil;
     return self;
 }
 
--(void)didMoveToView:(SKView *)view
-{
-    
-}
-
 -(void)initEnvironment
 {
     [self removeAllChildren];

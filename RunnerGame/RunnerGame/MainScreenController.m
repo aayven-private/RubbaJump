@@ -113,4 +113,9 @@
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.weloux.com"]];
 }
 
+-(IBAction)buttonClicked:(id)sender
+{
+    NSLog(@"POTATO!");
+}
+
 @end
