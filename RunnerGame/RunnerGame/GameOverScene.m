@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Weloux. All rights reserved.
 //
 
+#import <AudioToolbox/AudioToolbox.h>
 #import "GameOverScene.h"
 #import "Constants.h"
 
@@ -13,6 +14,7 @@
 
 @property (nonatomic) SKSpriteNode *exitButton;
 @property (nonatomic) SKSpriteNode *retryButton;
+@property (nonatomic) BOOL isSoundEnabled;
 
 @end
 
@@ -23,6 +25,14 @@
     if (self = [super initWithSize:size]) {
         //self.backgroundColor = [UIColor whiteColor];
         //self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"gameover_bg.png"]];
+        
+        NSNumber *soundEnabled = [[NSUserDefaults standardUserDefaults] objectForKey:kSoundEnabledKey];
+        if (!soundEnabled) {
+            soundEnabled = [NSNumber numberWithBool:YES];
+            [[NSUserDefaults standardUserDefaults] setObject:soundEnabled forKey:kSoundEnabledKey];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+        _isSoundEnabled = soundEnabled.boolValue;
         
         NSString *bgFileName;
         if (IS_PHONEPOD5()) {
@@ -124,9 +134,24 @@
     SKNode *node = [self nodeAtPoint:location];
     
     if ([node.name isEqualToString:@"exit"]) {
+        [self playButtonSound];
         [_delegate quit];
     } else if ([node.name isEqualToString:@"retry"]) {
+        [self playButtonSound];
         [_delegate retry];
+    }
+}
+
+-(void)playButtonSound
+{
+    if (_isSoundEnabled) {
+        SystemSoundID soundID;
+        
+        NSString *soundPath = [[NSBundle mainBundle] pathForResource:@"buttonClick_B-01" ofType:@"wav"];
+        NSURL *soundUrl = [NSURL fileURLWithPath:soundPath];
+        
+        AudioServicesCreateSystemSoundID ((__bridge CFURLRef)soundUrl, &soundID);
+        AudioServicesPlaySystemSound(soundID);
     }
 }
 

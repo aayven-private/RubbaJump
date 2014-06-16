@@ -36,6 +36,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
+                                    <action selector="buttonClicked:" destination="LVB-YS-i5n" eventType="touchUpInside" id="bN7-qt-Miy"/>
                                     <segue destination="fLJ-uv-iBN" kind="push" id="tp0-IE-A9z"/>
                                 </connections>
                             </button>
@@ -46,6 +47,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
+                                    <action selector="buttonClicked:" destination="LVB-YS-i5n" eventType="touchUpInside" id="anT-Nv-SPx"/>
                                     <segue destination="Ax6-0o-hxt" kind="push" id="jR6-IL-B8Q"/>
                                 </connections>
                             </button>

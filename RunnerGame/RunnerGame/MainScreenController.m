@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Weloux. All rights reserved.
 //
 
+#import <AudioToolbox/AudioToolbox.h>
 #import "MainScreenController.h"
 #import "GameScene.h"
 #import "Constants.h"
@@ -82,6 +83,7 @@
 
 -(IBAction)fbClicked:(id)sender
 {
+    [self playButtonSound];
     NSURL *url = [NSURL URLWithString:@"fb://profile/<id>"];
     [[UIApplication sharedApplication] openURL:url];
     if ([[UIApplication sharedApplication] canOpenURL:url]){
@@ -103,6 +105,7 @@
     } else {
         [_soundButton setImage:[UIImage imageNamed:@"sound_on_a4.png"] forState:UIControlStateNormal];
         _isSoundEnabled = YES;
+        [self playButtonSound];
         [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:kSoundEnabledKey];
     }
     [[NSUserDefaults standardUserDefaults] synchronize];
@@ -110,12 +113,26 @@
 
 -(IBAction)welouxClicked:(id)sender
 {
+    [self playButtonSound];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.weloux.com"]];
 }
 
 -(IBAction)buttonClicked:(id)sender
 {
-    NSLog(@"POTATO!");
+    [self playButtonSound];
+}
+
+-(void)playButtonSound
+{
+    if (_isSoundEnabled) {
+        SystemSoundID soundID;
+        
+        NSString *soundPath = [[NSBundle mainBundle] pathForResource:@"buttonClick_B-01" ofType:@"wav"];
+        NSURL *soundUrl = [NSURL fileURLWithPath:soundPath];
+        
+        AudioServicesCreateSystemSoundID ((__bridge CFURLRef)soundUrl, &soundID);
+        AudioServicesPlaySystemSound(soundID);
+    }
 }
 
 @end
