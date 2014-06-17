@@ -85,6 +85,7 @@
 		B06802A818F7184200DAE740 /* HighScoresController.m in Sources */ = {isa = PBXBuildFile; fileRef = B06802A718F7184200DAE740 /* HighScoresController.m */; };
 		B06802AD18F71C7000DAE740 /* HighScoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B06802AB18F71C7000DAE740 /* HighScoreCell.m */; };
 		B06802AE18F71C7000DAE740 /* HighScoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B06802AC18F71C7000DAE740 /* HighScoreCell.xib */; };
+		B0703E79195018D800BB27A6 /* RunnerDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B0703E76195018D800BB27A6 /* RunnerDataModel.xcdatamodeld */; };
 		B09E2A77194B336C00C8E966 /* bizbasz@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B09E2A76194B336C00C8E966 /* bizbasz@2x.png */; };
 		B09E2A7A194B34C300C8E966 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B09E2A78194B34C300C8E966 /* Default-568h@2x.png */; };
 		B09E2A7B194B34C300C8E966 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B09E2A79194B34C300C8E966 /* Default@2x.png */; };
@@ -112,7 +113,6 @@
 		B0FF194918F1DBAB00560E5E /* HighScoreHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FF194818F1DBAB00560E5E /* HighScoreHelper.m */; };
 		B0FF194D18F1DBD000560E5E /* HighScores.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FF194C18F1DBD000560E5E /* HighScores.m */; };
 		B0FF195018F1DBDA00560E5E /* DBAccessLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FF194F18F1DBDA00560E5E /* DBAccessLayer.m */; };
-		B0FF195218F1DBF700560E5E /* RunnerDataModel.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = B0FF195118F1DBF700560E5E /* RunnerDataModel.xcdatamodel */; };
 		B0FF197218F524EA00560E5E /* Blop_D_01.wav in Resources */ = {isa = PBXBuildFile; fileRef = B0FF197118F524EA00560E5E /* Blop_D_01.wav */; };
 /* End PBXBuildFile section */
 
@@ -229,6 +229,8 @@
 		B06802AB18F71C7000DAE740 /* HighScoreCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HighScoreCell.m; sourceTree = "<group>"; };
 		B06802AC18F71C7000DAE740 /* HighScoreCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HighScoreCell.xib; sourceTree = "<group>"; };
 		B06802AF18F7211800DAE740 /* GameSceneHandlerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameSceneHandlerDelegate.h; sourceTree = "<group>"; };
+		B0703E77195018D800BB27A6 /* RunnerDataModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "RunnerDataModel 2.xcdatamodel"; sourceTree = "<group>"; };
+		B0703E78195018D800BB27A6 /* RunnerDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RunnerDataModel.xcdatamodel; sourceTree = "<group>"; };
 		B09E2A76194B336C00C8E966 /* bizbasz@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bizbasz@2x.png"; sourceTree = "<group>"; };
 		B09E2A78194B34C300C8E966 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		B09E2A79194B34C300C8E966 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
@@ -263,7 +265,6 @@
 		B0FF194C18F1DBD000560E5E /* HighScores.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HighScores.m; sourceTree = "<group>"; };
 		B0FF194E18F1DBDA00560E5E /* DBAccessLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBAccessLayer.h; sourceTree = "<group>"; };
 		B0FF194F18F1DBDA00560E5E /* DBAccessLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBAccessLayer.m; sourceTree = "<group>"; };
-		B0FF195118F1DBF700560E5E /* RunnerDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RunnerDataModel.xcdatamodel; sourceTree = "<group>"; };
 		B0FF197118F524EA00560E5E /* Blop_D_01.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Blop_D_01.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -631,7 +632,7 @@
 		B0FF194118F1DB5200560E5E /* DBAccessLayer */ = {
 			isa = PBXGroup;
 			children = (
-				B0FF195118F1DBF700560E5E /* RunnerDataModel.xcdatamodel */,
+				B0703E76195018D800BB27A6 /* RunnerDataModel.xcdatamodeld */,
 				B0FF194E18F1DBDA00560E5E /* DBAccessLayer.h */,
 				B0FF194F18F1DBDA00560E5E /* DBAccessLayer.m */,
 				B0FF194A18F1DBBF00560E5E /* Entities */,
@@ -841,7 +842,6 @@
 				B06802A518F7164E00DAE740 /* GameSceneController.m in Sources */,
 				B01ED85F18ED4FF90062AB4A /* GameObject.m in Sources */,
 				B01ED87A18EEAEDC0062AB4A /* ParallaxBG.m in Sources */,
-				B0FF195218F1DBF700560E5E /* RunnerDataModel.xcdatamodel in Sources */,
 				B0A8E70F18FDCFAE00EB6D17 /* StatisticsHelper.m in Sources */,
 				B00DB9AC18ED48EF00460930 /* GameScene.m in Sources */,
 				B06802A818F7184200DAE740 /* HighScoresController.m in Sources */,
@@ -857,6 +857,7 @@
 				B01ED86718ED57370062AB4A /* ContactManager.m in Sources */,
 				B00DB9A318ED48EF00460930 /* AppDelegate.m in Sources */,
 				B00DB99F18ED48EF00460930 /* main.m in Sources */,
+				B0703E79195018D800BB27A6 /* RunnerDataModel.xcdatamodeld in Sources */,
 				B01ED85618ED4FAB0062AB4A /* Runner.m in Sources */,
 				B0A8E71618FDD98B00EB6D17 /* StatisticsViewController.m in Sources */,
 				B06802AD18F71C7000DAE740 /* HighScoreCell.m in Sources */,
@@ -1089,6 +1090,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		B0703E76195018D800BB27A6 /* RunnerDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				B0703E77195018D800BB27A6 /* RunnerDataModel 2.xcdatamodel */,
+				B0703E78195018D800BB27A6 /* RunnerDataModel.xcdatamodel */,
+			);
+			currentVersion = B0703E77195018D800BB27A6 /* RunnerDataModel 2.xcdatamodel */;
+			path = RunnerDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = B00DB98518ED48EE00460930 /* Project object */;
 }
