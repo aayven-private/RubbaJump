@@ -32,6 +32,14 @@
         GameOverScene *gos = [[GameOverScene alloc] initWithSize:CGSizeZero];
     });
     
+    __block NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSNumber *dirtyScore = [defaults objectForKey:kDirtyScoreKey];
+    if (dirtyScore) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            [[HighScoreManager sharedManager] uploadHighscore:dirtyScore.intValue];
+        });
+    }
+    
     // Override point for customization after application launch.
     return YES;
 }

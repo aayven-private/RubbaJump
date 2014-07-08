@@ -68,9 +68,17 @@
         if (!connectionError) {
             NSDictionary *resultDict = [NSDictionary dictionaryWithObjectsAndKeys:data, @"data", [NSNumber numberWithInteger:[(NSHTTPURLResponse *)response statusCode]], @"code", nil];
             result.responseDict = resultDict;
-            result.isSuccessful = YES;
-            result.responseCode = [(NSHTTPURLResponse *)response statusCode];
-            successBlock(result);
+            NSString *errorMessage = [resultDict objectForKey:@"error"];
+            if (errorMessage && ![errorMessage isEqualToString:@""]) {
+                result.isSuccessful = NO;
+                result.responseCode = [(NSHTTPURLResponse *)response statusCode];
+                result.userInfo = [NSDictionary dictionaryWithObject:errorMessage forKey:@"errorMessage"];
+                failBlock(result);
+            } else {
+                result.isSuccessful = YES;
+                result.responseCode = [(NSHTTPURLResponse *)response statusCode];
+                successBlock(result);
+            }
         } else {
             result.isSuccessful = NO;
             result.responseCode = [(NSHTTPURLResponse *)response statusCode];

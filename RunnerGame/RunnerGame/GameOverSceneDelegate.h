@@ -12,5 +12,6 @@
 
 -(void)retry;
 -(void)quit;
+-(void)scoreUploadFailedWithError:(NSString *)error andScore:(int)score;
 
 @end

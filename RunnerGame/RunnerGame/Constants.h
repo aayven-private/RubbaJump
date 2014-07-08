@@ -55,3 +55,6 @@ static float kParallaxBGSpeed_gameScene = 2.2;
 static NSString *kSoundEnabledKey = @"RB_sound_enabled";
 
 static NSString *kWillResignActiveNotifName = @"RB_willResignActive";
+
+static NSString *kDirtyScoreKey = @"dirty_score";
+static NSString *kGlobalPositionKey = @"global_position";

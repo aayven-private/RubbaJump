@@ -115,4 +115,9 @@
     [_gameScene initEnvironment];
 }
 
+-(void)scoreUploadFailedWithError:(NSString *)error andScore:(int)score
+{
+    
+}
+
 @end

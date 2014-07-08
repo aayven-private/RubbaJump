@@ -19,6 +19,7 @@
 @property (nonatomic, weak) IBOutlet StrokeLabel *jumpLabel;
 @property (nonatomic, weak) IBOutlet StrokeLabel *doubleJumpLabel;
 @property (nonatomic, weak) IBOutlet StrokeLabel *barrierLabel;
+@property (nonatomic, weak) IBOutlet StrokeLabel *globalPositionLabel;
 
 @property (nonatomic, weak) IBOutlet UIButton *okButton;
 
@@ -47,6 +48,7 @@
     self.jumpLabel.font = [UIFont fontWithName:@"PoetsenOne-Regular" size:20.0];
     self.doubleJumpLabel.font = [UIFont fontWithName:@"PoetsenOne-Regular" size:20.0];
     self.barrierLabel.font = [UIFont fontWithName:@"PoetsenOne-Regular" size:30.0];
+    self.globalPositionLabel.font = [UIFont fontWithName:@"PoetsenOne-Regular" size:20.0];
     
     self.okButton.titleLabel.font = [UIFont fontWithName:@"PoetsenOne-Regular" size:25.0];
     
@@ -63,6 +65,13 @@
         self.bgView.image = [UIImage imageNamed:@"statistics_bg_a4-568h"];
     } else {
         self.bgView.image = [UIImage imageNamed:@"statistics_bg_a4"];
+    }
+    
+    NSNumber *globalPos = [[NSUserDefaults standardUserDefaults] objectForKey:kGlobalPositionKey];
+    if (globalPos) {
+        self.globalPositionLabel.text = [NSString stringWithFormat:@"Global position: %@", globalPos];
+    } else {
+        self.globalPositionLabel.hidden = YES;
     }
 }
 

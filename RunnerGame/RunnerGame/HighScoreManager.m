@@ -190,12 +190,27 @@
     request.requestUri = [NSString stringWithFormat:@"http://www.aayven.com/api/v1/postScore/%@/%d", [UIDevice currentDevice].identifierForVendor.UUIDString, score];
     request.requestMethod = @"POST";
     [manager performHttpRequest:request succesBlock:^(ResponseHelper *result) {
-        //NSLog(@"SUCCESS");
         NSData *responseData = [result.responseDict objectForKey:@"data"];
-        NSString *responseString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-        //NSLog(@"%@", responseString);
+        //NSString *responseString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+        
+        if (responseData) {
+            NSError *error;
+            NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&error];
+            if (!error) {
+                NSNumber *globalPos = [responseDict objectForKey:@"position"];
+                //NSLog(@"Global position: %@", globalPos);
+                if (globalPos) {
+                    [[NSUserDefaults standardUserDefaults] setObject:globalPos forKey:kGlobalPositionKey];
+                    [[NSUserDefaults standardUserDefaults] synchronize];
+                }
+            }
+        }
+        
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kDirtyScoreKey];
+        [[NSUserDefaults standardUserDefaults] synchronize];
     } andFailBlock:^(ResponseHelper *result) {
-        //NSLog(@"Fail: %@", result.error);
+        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:score] forKey:kDirtyScoreKey];
+        [[NSUserDefaults standardUserDefaults] synchronize];
     }];
     
     return YES;
