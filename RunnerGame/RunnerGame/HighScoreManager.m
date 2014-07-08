@@ -8,6 +8,9 @@
 
 #import "HighScoreManager.h"
 #import "HighScores.h"
+#import "NetworkManager.h"
+#import "CommonTools.h"
+#import "Constants.h"
 
 @implementation HighScoreManager
 
@@ -82,6 +85,54 @@
     }];
 }
 
+-(int)getMaximumHighScore
+{
+    __block int result = 0;
+    
+    NSManagedObjectContext *context = [DBAccessLayer createManagedObjectContext];
+    
+    [context performBlockAndWait:^{
+        NSFetchRequest *request = [[NSFetchRequest alloc] init];
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"HighScores" inManagedObjectContext:context];
+        [request setEntity:entity];
+        
+        // Specify that the request should return dictionaries.
+        [request setResultType:NSDictionaryResultType];
+        
+        // Create an expression for the key path.
+        NSExpression *keyPathExpression = [NSExpression expressionForKeyPath:@"score"];
+        
+        // Create an expression to represent the minimum value at the key path 'creationDate'
+        NSExpression *maxExpression = [NSExpression expressionForFunction:@"max:" arguments:[NSArray arrayWithObject:keyPathExpression]];
+        
+        // Create an expression description using the minExpression and returning a date.
+        NSExpressionDescription *expressionDescription = [[NSExpressionDescription alloc] init];
+        
+        // The name is the key that will be used in the dictionary for the return value.
+        [expressionDescription setName:@"score"];
+        [expressionDescription setExpression:maxExpression];
+        [expressionDescription setExpressionResultType:NSInteger16AttributeType];
+        
+        // Set the request's properties to fetch just the property represented by the expressions.
+        [request setPropertiesToFetch:[NSArray arrayWithObject:expressionDescription]];
+        
+        // Execute the fetch.
+        NSError *error = nil;
+        NSArray *objects = [context executeFetchRequest:request error:&error];
+        if (objects == nil) {
+            // Handle the error.
+        }
+        else {
+            if ([objects count] > 0) {
+                NSNumber *minScore = [[objects objectAtIndex:0] valueForKey:@"score"];
+                result = minScore.intValue;
+            }
+        }
+    }];
+    
+    return result;
+}
+
 -(int)getMinimumHighScore
 {
     __block int result = -1;
@@ -128,6 +179,26 @@
     }];
     
     return result;
+}
+
+-(BOOL)uploadHighscore:(int)score
+{
+    NSString *hmac = [CommonTools hmacForKey:kSecret andData:[NSString stringWithFormat:@"%@%d", [UIDevice currentDevice].identifierForVendor.UUIDString, score]];
+    NetworkManager *manager = [NetworkManager createNetworkManager];
+    RequestHelper *request = [[RequestHelper alloc] init];
+    request.customHeaders = [NSDictionary dictionaryWithObject:hmac forKey:@"hmac"];
+    request.requestUri = [NSString stringWithFormat:@"http://www.aayven.com/api/v1/postScore/%@/%d", [UIDevice currentDevice].identifierForVendor.UUIDString, score];
+    request.requestMethod = @"POST";
+    [manager performHttpRequest:request succesBlock:^(ResponseHelper *result) {
+        //NSLog(@"SUCCESS");
+        NSData *responseData = [result.responseDict objectForKey:@"data"];
+        NSString *responseString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+        //NSLog(@"%@", responseString);
+    } andFailBlock:^(ResponseHelper *result) {
+        //NSLog(@"Fail: %@", result.error);
+    }];
+    
+    return YES;
 }
 
 -(HighScoreHelper *)scoreEntityToHelper:(HighScores *)score

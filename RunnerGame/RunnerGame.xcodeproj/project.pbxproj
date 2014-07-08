@@ -86,6 +86,9 @@
 		B06802AD18F71C7000DAE740 /* HighScoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B06802AB18F71C7000DAE740 /* HighScoreCell.m */; };
 		B06802AE18F71C7000DAE740 /* HighScoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B06802AC18F71C7000DAE740 /* HighScoreCell.xib */; };
 		B0703E79195018D800BB27A6 /* RunnerDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B0703E76195018D800BB27A6 /* RunnerDataModel.xcdatamodeld */; };
+		B0703EEE196AA0DC00BB27A6 /* NetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B0703EED196AA0DC00BB27A6 /* NetworkManager.m */; };
+		B0703EF1196AA13100BB27A6 /* RequestHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B0703EF0196AA13100BB27A6 /* RequestHelper.m */; };
+		B0703EF4196AA13C00BB27A6 /* ResponseHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B0703EF3196AA13C00BB27A6 /* ResponseHelper.m */; };
 		B09E2A77194B336C00C8E966 /* bizbasz@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B09E2A76194B336C00C8E966 /* bizbasz@2x.png */; };
 		B09E2A7A194B34C300C8E966 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B09E2A78194B34C300C8E966 /* Default-568h@2x.png */; };
 		B09E2A7B194B34C300C8E966 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B09E2A79194B34C300C8E966 /* Default@2x.png */; };
@@ -231,6 +234,12 @@
 		B06802AF18F7211800DAE740 /* GameSceneHandlerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameSceneHandlerDelegate.h; sourceTree = "<group>"; };
 		B0703E77195018D800BB27A6 /* RunnerDataModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "RunnerDataModel 2.xcdatamodel"; sourceTree = "<group>"; };
 		B0703E78195018D800BB27A6 /* RunnerDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RunnerDataModel.xcdatamodel; sourceTree = "<group>"; };
+		B0703EEC196AA0DC00BB27A6 /* NetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkManager.h; sourceTree = "<group>"; };
+		B0703EED196AA0DC00BB27A6 /* NetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkManager.m; sourceTree = "<group>"; };
+		B0703EEF196AA13100BB27A6 /* RequestHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestHelper.h; sourceTree = "<group>"; };
+		B0703EF0196AA13100BB27A6 /* RequestHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestHelper.m; sourceTree = "<group>"; };
+		B0703EF2196AA13C00BB27A6 /* ResponseHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResponseHelper.h; sourceTree = "<group>"; };
+		B0703EF3196AA13C00BB27A6 /* ResponseHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResponseHelper.m; sourceTree = "<group>"; };
 		B09E2A76194B336C00C8E966 /* bizbasz@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bizbasz@2x.png"; sourceTree = "<group>"; };
 		B09E2A78194B34C300C8E966 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		B09E2A79194B34C300C8E966 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
@@ -327,6 +336,7 @@
 		B00DB99818ED48EF00460930 /* RunnerGame */ = {
 			isa = PBXGroup;
 			children = (
+				B0703EEB196AA0CA00BB27A6 /* NetworkManagement */,
 				B05632F718FE620A001348A0 /* ComboManagement */,
 				B0A8E71018FDD0CF00EB6D17 /* StatisticsManagement */,
 				B06802A918F71C5500DAE740 /* CustomControls */,
@@ -563,6 +573,19 @@
 				B04FC205194AF4410092233F /* StrokeLabel.m */,
 			);
 			name = CustomControls;
+			sourceTree = "<group>";
+		};
+		B0703EEB196AA0CA00BB27A6 /* NetworkManagement */ = {
+			isa = PBXGroup;
+			children = (
+				B0703EEC196AA0DC00BB27A6 /* NetworkManager.h */,
+				B0703EED196AA0DC00BB27A6 /* NetworkManager.m */,
+				B0703EEF196AA13100BB27A6 /* RequestHelper.h */,
+				B0703EF0196AA13100BB27A6 /* RequestHelper.m */,
+				B0703EF2196AA13C00BB27A6 /* ResponseHelper.h */,
+				B0703EF3196AA13C00BB27A6 /* ResponseHelper.m */,
+			);
+			name = NetworkManagement;
 			sourceTree = "<group>";
 		};
 		B0A8E71018FDD0CF00EB6D17 /* StatisticsManagement */ = {
@@ -845,10 +868,12 @@
 				B0A8E70F18FDCFAE00EB6D17 /* StatisticsHelper.m in Sources */,
 				B00DB9AC18ED48EF00460930 /* GameScene.m in Sources */,
 				B06802A818F7184200DAE740 /* HighScoresController.m in Sources */,
+				B0703EEE196AA0DC00BB27A6 /* NetworkManager.m in Sources */,
 				B0FF194518F1DB8900560E5E /* HighScoreManager.m in Sources */,
 				B01ED85918ED4FD50062AB4A /* Barrier.m in Sources */,
 				B04FC206194AF4410092233F /* StrokeLabel.m in Sources */,
 				B0A8E71318FDD0EF00EB6D17 /* StatisticsManager.m in Sources */,
+				B0703EF4196AA13C00BB27A6 /* ResponseHelper.m in Sources */,
 				B00DB9A918ED48EF00460930 /* MainScreenController.m in Sources */,
 				B05632FA18FE6221001348A0 /* ComboManager.m in Sources */,
 				B05632DA18FD1602001348A0 /* GameOverScene.m in Sources */,
@@ -856,6 +881,7 @@
 				B0FF195018F1DBDA00560E5E /* DBAccessLayer.m in Sources */,
 				B01ED86718ED57370062AB4A /* ContactManager.m in Sources */,
 				B00DB9A318ED48EF00460930 /* AppDelegate.m in Sources */,
+				B0703EF1196AA13100BB27A6 /* RequestHelper.m in Sources */,
 				B00DB99F18ED48EF00460930 /* main.m in Sources */,
 				B0703E79195018D800BB27A6 /* RunnerDataModel.xcdatamodeld in Sources */,
 				B01ED85618ED4FAB0062AB4A /* Runner.m in Sources */,

@@ -17,5 +17,7 @@
 -(NSArray *)getHighScores;
 -(void)addHighScore:(HighScoreHelper *)scoreHelper;
 -(int)getMinimumHighScore;
+-(int)getMaximumHighScore;
+-(BOOL)uploadHighscore:(int)score;
 
 @end

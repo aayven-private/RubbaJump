@@ -545,11 +545,11 @@ static SKAction *sharedRewardSoundAction = nil;
     if (_jumpCount == kMaxJumpCount) {
         _doubleJumpCount++;
         _globalDoubleJumpCount++;
-        //[[ComboManager sharedManager] actionTaken:@"d"];
+        [[ComboManager sharedManager] actionTaken:@"d"];
     } else {
         _doubleJumpCount = 0;
         _globalJumpCount++;
-        //[[ComboManager sharedManager] actionTaken:@"j"];
+        [[ComboManager sharedManager] actionTaken:@"j"];
     }
     _runner.physicsBody.contactTestBitMask = kObjectCategoryBarrier;
     //_runner.isHitable = YES;

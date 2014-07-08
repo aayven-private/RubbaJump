@@ -49,7 +49,19 @@
         [_combos setObject:comboIndex forKey:comboPattern];
     }
     
+    NSMutableArray *selectedCombos = [achievedCombos mutableCopy];
+    
     for (NSString *pattern in achievedCombos) {
+        NSArray *annulatedCombos = [_annulateDict objectForKey:pattern];
+        if (annulatedCombos) {
+            for (NSString *annulatedPattern in annulatedCombos) {
+                [selectedCombos removeObject:annulatedPattern];
+                [_combos setObject:@0 forKey:annulatedPattern];
+            }
+        }
+    }
+    
+    for (NSString *pattern in selectedCombos) {
         NSLog(@"Combo: %@", pattern);
     }
     

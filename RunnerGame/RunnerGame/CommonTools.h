@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Foundation/Foundation.h>
+#import <CommonCrypto/CommonHMAC.h>
 
 #define SYSTEM_VERSION_EQUAL_TO(v)                  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
 #define SYSTEM_VERSION_GREATER_THAN(v)              ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedDescending)
@@ -18,5 +20,6 @@
 
 +(int)getRandomNumberFromInt:(int)from toInt:(int)to;
 +(float)getRandomFloatFromFloat:(float)from toFloat:(float)to;
++(NSString *)hmacForKey:(NSString *)key andData:(NSString *)data;
 
 @end

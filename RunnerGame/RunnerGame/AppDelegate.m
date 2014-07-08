@@ -10,6 +10,8 @@
 #import "HighScoreManager.h"
 #import "GameScene.h"
 #import "GameOverScene.h"
+#import "NetworkManager.h"
+#import "CommonTools.h"
 
 @interface AppDelegate()
 

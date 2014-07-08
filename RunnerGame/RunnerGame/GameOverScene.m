@@ -9,6 +9,7 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import "GameOverScene.h"
 #import "Constants.h"
+#import "HighScoreManager.h"
 
 @interface GameOverScene()
 
@@ -25,6 +26,13 @@
     if (self = [super initWithSize:size]) {
         //self.backgroundColor = [UIColor whiteColor];
         //self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"gameover_bg.png"]];
+        
+        int maxHighscore = [[HighScoreManager sharedManager] getMaximumHighScore];
+        if (maxHighscore < stat.barriers) {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+                [[HighScoreManager sharedManager] uploadHighscore:stat.barriers];
+            });
+        }
         
         NSNumber *soundEnabled = [[NSUserDefaults standardUserDefaults] objectForKey:kSoundEnabledKey];
         if (!soundEnabled) {
