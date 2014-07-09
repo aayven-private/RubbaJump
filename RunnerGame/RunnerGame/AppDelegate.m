@@ -39,7 +39,7 @@
             [[HighScoreManager sharedManager] uploadHighscore:dirtyScore.intValue];
         });
     }
-    
+    [[HighScoreManager sharedManager] getSurroundings];
     // Override point for customization after application launch.
     return YES;
 }

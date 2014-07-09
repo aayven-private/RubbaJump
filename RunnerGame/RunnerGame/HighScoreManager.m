@@ -260,6 +260,41 @@
     }];
 }
 
+-(void)getSurroundings
+{
+    int highScore = [self getMaximumHighScore];
+    NSString *checkString = [NSString stringWithFormat:@"%@%d", [UIDevice currentDevice].identifierForVendor.UUIDString, highScore];
+    NSString *hmac = [CommonTools hmacForKey:kSecret andData:checkString];
+    NetworkManager *manager = [NetworkManager createNetworkManager];
+    RequestHelper *request = [[RequestHelper alloc] init];
+    NSMutableDictionary *customHeaders = [NSMutableDictionary dictionary];
+    [customHeaders setObject:hmac forKey:@"hmac"];
+    [customHeaders setObject:checkString forKey:@"checkString"];
+    request.customHeaders = customHeaders;
+    request.requestUri = [NSString stringWithFormat:@"%@/%@/%d", kServerBaseUrl, @"getSurroundingsForScore", highScore];
+    request.requestMethod = kHttpMethodGet;
+    [manager performHttpRequest:request succesBlock:^(ResponseHelper *result) {
+        NSData *responseData = [result.responseDict objectForKey:@"data"];
+        //NSString *responseString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+        
+        if (responseData) {
+            NSError *error;
+            NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&error];
+            if (!error) {
+                NSArray *more = [responseDict objectForKey:@"more"];
+                NSArray *less = [responseDict objectForKey:@"less"];
+                NSLog(@"MORE: %@, LESS: %@", more, less);
+            } else {
+
+            }
+        } else {
+
+        }
+    } andFailBlock:^(ResponseHelper *result) {
+
+    }];
+}
+
 -(HighScoreHelper *)scoreEntityToHelper:(HighScores *)score
 {
     HighScoreHelper *scoreHelper = [[HighScoreHelper alloc] init];

@@ -21,4 +21,6 @@
 -(BOOL)uploadHighscore:(int)score;
 -(void)getGlobalPositionFromServerWithCompletion:(void(^)(int result))completion andFail:(void(^)(void))fail;
 
+-(void)getSurroundings;
+
 @end
