@@ -81,6 +81,24 @@
                                     <action selector="fbClicked:" destination="LVB-YS-i5n" eventType="touchUpInside" id="A00-Zl-ox3"/>
                                 </connections>
                             </button>
+                            <button hidden="YES" opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Hj5-GZ-Nor">
+                                <rect key="frame" x="484" y="201" width="69" height="96"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="23"/>
+                                <inset key="titleEdgeInsets" minX="0.0" minY="-26" maxX="0.0" maxY="0.0"/>
+                                <size key="titleShadowOffset" width="1" height="1"/>
+                                <state key="normal" title="1" backgroundImage="badge.png">
+                                    <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="y16-SH-n4c" customClass="StrokeLabel">
+                                <rect key="frame" x="499" y="220" width="33" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -90,6 +108,8 @@
                     <connections>
                         <outlet property="bgView" destination="6SV-Sv-t24" id="J8l-Yz-V61"/>
                         <outlet property="fbButton" destination="i7X-Bm-wyX" id="Tfl-eP-aGR"/>
+                        <outlet property="globalHighscoreButton" destination="Hj5-GZ-Nor" id="9po-A1-iVf"/>
+                        <outlet property="globalPositionLabel" destination="y16-SH-n4c" id="8wt-E4-GiW"/>
                         <outlet property="highScoreButton" destination="36H-9K-taY" id="W3i-fG-yMc"/>
                         <outlet property="playButton" destination="eVb-Ra-0zU" id="K2Y-OK-fPS"/>
                         <outlet property="soundButton" destination="BZv-qW-qsA" id="1vN-ED-opp"/>
@@ -266,6 +286,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="badge.png" width="55" height="75"/>
         <image name="fb_a4.png" width="51" height="51"/>
         <image name="home_a4.png" width="51" height="51"/>
         <image name="play_a4.png" width="165" height="55"/>

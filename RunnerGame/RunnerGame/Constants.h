@@ -58,3 +58,10 @@ static NSString *kWillResignActiveNotifName = @"RB_willResignActive";
 
 static NSString *kDirtyScoreKey = @"dirty_score";
 static NSString *kGlobalPositionKey = @"global_position";
+
+static NSString *kServerBaseUrl = @"http://www.aayven.com/api/v1";
+static NSString *kPostScoreUrl = @"postScore";
+static NSString *kGetGlobalPositionUrl = @"getGlobalPosition";
+
+static NSString *kHttpMethodGet = @"GET";
+static NSString *kHttpMethodPost = @"POST";

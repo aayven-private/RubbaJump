@@ -10,6 +10,8 @@
 #import "MainScreenController.h"
 #import "GameScene.h"
 #import "Constants.h"
+#import "StrokeLabel.h"
+#import "HighScoreManager.h"
 
 @interface MainScreenController()
 
@@ -20,6 +22,8 @@
 @property (nonatomic, weak) IBOutlet UIButton *welouxButton;
 @property (nonatomic, weak) IBOutlet UIButton *fbButton;
 @property (nonatomic, weak) IBOutlet UIImageView *bgView;
+@property (nonatomic, weak) IBOutlet UIButton *globalHighscoreButton;
+@property (nonatomic, weak) IBOutlet StrokeLabel *globalPositionLabel;
 
 @property (nonatomic) BOOL isSoundEnabled;
 
@@ -30,6 +34,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    //_globalHighscoreButton.hidden = YES;
+    //_globalPositionLabel.hidden = YES;
     
     self.navigationController.navigationBarHidden = YES;
     
@@ -59,6 +66,37 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    [_globalHighscoreButton.layer removeAllAnimations];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        HighScoreManager *hsManager = [HighScoreManager sharedManager];
+        int maxScore = [hsManager getMaximumHighScore];
+        if (maxScore > 0) {
+            [hsManager getGlobalPositionFromServerWithCompletion:^(int result) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    _globalHighscoreButton.hidden = NO;
+                    _globalPositionLabel.hidden = NO;
+                    //_globalPositionLabel.font = [UIFont fontWithName:@"PoetsenOne-Regular" size:20.0];
+                    [_globalHighscoreButton setTitle:[NSString stringWithFormat:@"%d", result] forState:UIControlStateNormal];
+                    
+                    CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"transform"];
+                    anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+                    anim.duration = 0.725;
+                    anim.repeatCount = HUGE_VALF;
+                    anim.autoreverses = YES;
+                    anim.removedOnCompletion = YES;
+                    anim.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeScale(1.2, 1.2, 1.0)];
+                    [_globalHighscoreButton.layer addAnimation:anim forKey:@"global_button_pulse"];
+                    //[_globalPositionLabel.layer addAnimation:anim forKey:nil];
+                });
+            } andFail:^{
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    _globalHighscoreButton.hidden = YES;
+                    _globalPositionLabel.hidden = YES;
+                    [_globalHighscoreButton.layer removeAllAnimations];
+                });
+            }];
+        }
+    });
 }
 
 - (BOOL)shouldAutorotate

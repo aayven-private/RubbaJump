@@ -183,16 +183,18 @@
 
 -(BOOL)uploadHighscore:(int)score
 {
-    NSString *hmac = [CommonTools hmacForKey:kSecret andData:[NSString stringWithFormat:@"%@%d", [UIDevice currentDevice].identifierForVendor.UUIDString, score]];
+    NSString *checkString = [NSString stringWithFormat:@"%@%d", [UIDevice currentDevice].identifierForVendor.UUIDString, score];
+    NSString *hmac = [CommonTools hmacForKey:kSecret andData:checkString];
     NetworkManager *manager = [NetworkManager createNetworkManager];
     RequestHelper *request = [[RequestHelper alloc] init];
-    request.customHeaders = [NSDictionary dictionaryWithObject:hmac forKey:@"hmac"];
-    request.requestUri = [NSString stringWithFormat:@"http://www.aayven.com/api/v1/postScore/%@/%d", [UIDevice currentDevice].identifierForVendor.UUIDString, score];
-    request.requestMethod = @"POST";
+    NSMutableDictionary *customHeaders = [NSMutableDictionary dictionary];
+    [customHeaders setObject:hmac forKey:@"hmac"];
+    [customHeaders setObject:checkString forKey:@"checkString"];
+    request.customHeaders = customHeaders;
+    request.requestUri = [NSString stringWithFormat:@"%@/%@/%@/%d", kServerBaseUrl, kPostScoreUrl, [UIDevice currentDevice].identifierForVendor.UUIDString, score];
+    request.requestMethod = kHttpMethodPost;
     [manager performHttpRequest:request succesBlock:^(ResponseHelper *result) {
         NSData *responseData = [result.responseDict objectForKey:@"data"];
-        //NSString *responseString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-        
         if (responseData) {
             NSError *error;
             NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&error];
@@ -214,6 +216,48 @@
     }];
     
     return YES;
+}
+
+-(void)getGlobalPositionFromServerWithCompletion:(void(^)(int result))completion andFail:(void(^)(void))fail
+{
+    int highScore = [self getMaximumHighScore];
+    NSString *checkString = [NSString stringWithFormat:@"%@%d", [UIDevice currentDevice].identifierForVendor.UUIDString, highScore];
+    NSString *hmac = [CommonTools hmacForKey:kSecret andData:checkString];
+    NetworkManager *manager = [NetworkManager createNetworkManager];
+    RequestHelper *request = [[RequestHelper alloc] init];
+    NSMutableDictionary *customHeaders = [NSMutableDictionary dictionary];
+    [customHeaders setObject:hmac forKey:@"hmac"];
+    [customHeaders setObject:checkString forKey:@"checkString"];
+    request.customHeaders = customHeaders;
+    request.requestUri = [NSString stringWithFormat:@"%@/%@/%d", kServerBaseUrl, kGetGlobalPositionUrl, highScore];
+    request.requestMethod = kHttpMethodGet;
+    [manager performHttpRequest:request succesBlock:^(ResponseHelper *result) {
+        NSData *responseData = [result.responseDict objectForKey:@"data"];
+        //NSString *responseString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+        
+        if (responseData) {
+            NSError *error;
+            NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&error];
+            if (!error) {
+                NSNumber *globalPos = [responseDict objectForKey:@"position"];
+                //NSLog(@"Global position: %@", globalPos);
+                if (globalPos) {
+                    [[NSUserDefaults standardUserDefaults] setObject:globalPos forKey:kGlobalPositionKey];
+                    [[NSUserDefaults standardUserDefaults] synchronize];
+                    
+                    completion(globalPos.intValue);
+                } else {
+                    fail();
+                }
+            } else {
+                fail();
+            }
+        } else {
+            fail();
+        }
+    } andFailBlock:^(ResponseHelper *result) {
+        fail();
+    }];
 }
 
 -(HighScoreHelper *)scoreEntityToHelper:(HighScores *)score

@@ -10,6 +10,7 @@
 #import "StatisticsManager.h"
 #import "Constants.h"
 #import "StrokeLabel.h"
+#import "HighScoreManager.h"
 
 @interface StatisticsViewController ()
 
@@ -42,6 +43,19 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        HighScoreManager *manager = [HighScoreManager sharedManager];
+        [manager getGlobalPositionFromServerWithCompletion:^(int result) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.globalPositionLabel.hidden = NO;
+                self.globalPositionLabel.text = [NSString stringWithFormat:@"Global position: %d", result];
+                [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:result] forKey:kGlobalPositionKey];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+            });
+        } andFail:^{
+            
+        }];
+    });
     
     self.statLabel.font = [UIFont fontWithName:@"PoetsenOne-Regular" size:25.0];
     self.distanceLabel.font = [UIFont fontWithName:@"PoetsenOne-Regular" size:20.0];

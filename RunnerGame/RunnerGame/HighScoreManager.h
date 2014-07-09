@@ -19,5 +19,6 @@
 -(int)getMinimumHighScore;
 -(int)getMaximumHighScore;
 -(BOOL)uploadHighscore:(int)score;
+-(void)getGlobalPositionFromServerWithCompletion:(void(^)(int result))completion andFail:(void(^)(void))fail;
 
 @end
