@@ -11,6 +11,8 @@
 
 #define IS_PHONEPOD5() ([UIScreen mainScreen].bounds.size.height == 568.0f && [UIScreen mainScreen].scale == 2.f && UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 
+#define NULL_TO_NIL(obj) ({ __typeof__ (obj) __obj = (obj); __obj == [NSNull null] ? nil : obj; })
+
 static NSString *kSecret = @"kcU%$uP8vmE3zJvBHA";
 
 static NSString *kObjectTypeRunner = @"runner";
@@ -58,6 +60,7 @@ static NSString *kWillResignActiveNotifName = @"RB_willResignActive";
 
 static NSString *kDirtyScoreKey = @"dirty_score";
 static NSString *kGlobalPositionKey = @"global_position";
+static NSString *kLastUploadedScoreKey = @"last_uploaded_score";
 
 static NSString *kServerBaseUrl = @"http://www.aayven.com/api/v1";
 static NSString *kPostScoreUrl = @"postScore";

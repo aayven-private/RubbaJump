@@ -11,6 +11,7 @@
 #import "NetworkManager.h"
 #import "CommonTools.h"
 #import "Constants.h"
+#import "GlobalScores.h"
 
 @implementation HighScoreManager
 
@@ -61,11 +62,81 @@
     return result;
 }
 
+-(NSDictionary *)getGlobalScores
+{
+    __block NSMutableDictionary *result = [NSMutableDictionary dictionary];
+    NSManagedObjectContext *context = [DBAccessLayer createManagedObjectContext];
+    [context performBlockAndWait:^{
+        NSNumber *lastScore = [[NSUserDefaults standardUserDefaults] objectForKey:kLastUploadedScoreKey];
+        NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"GlobalScores"];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat: @"score > %@", lastScore];
+        [request setPredicate:predicate];
+        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"score" ascending:NO];
+        request.sortDescriptors = @[sortDescriptor];
+        
+        NSMutableArray *more = [NSMutableArray array];
+        NSMutableArray *less = [NSMutableArray array];
+        
+        NSError *error = nil;
+        NSArray *scores = [context executeFetchRequest:request error:&error];
+        
+        for (GlobalScores *score in scores) {
+            GlobalScoreHelper *scoreHelper = [self globalScoreEntityToHelper:score];
+            [more addObject:scoreHelper];
+        }
+        
+        request = [[NSFetchRequest alloc] initWithEntityName:@"GlobalScores"];
+        predicate = [NSPredicate predicateWithFormat: @"score < %@", lastScore];
+        [request setPredicate:predicate];
+        sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"score" ascending:NO];
+        request.sortDescriptors = @[sortDescriptor];
+        
+        scores = [context executeFetchRequest:request error:&error];
+        
+        for (GlobalScores *score in scores) {
+            GlobalScoreHelper *scoreHelper = [self globalScoreEntityToHelper:score];
+            [less addObject:scoreHelper];
+        }
+        
+        [result setObject:more forKey:@"more"];
+        [result setObject:less forKey:@"less"];
+    }];
+    
+    return result;
+}
+
+-(void)saveGlobalScores:(NSArray *)globalScores
+{
+    NSManagedObjectContext *context = [DBAccessLayer createManagedObjectContext];
+    
+    NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"GlobalScores"];
+    [context performBlockAndWait:^{
+        NSError *error = nil;
+        NSArray *scores = [context executeFetchRequest:request error:&error];
+        
+        for (HighScores *score in scores) {
+            [context deleteObject:score];
+        }
+        
+        for (GlobalScoreHelper *scoreHelper in globalScores) {
+            GlobalScores *globalScore = [NSEntityDescription insertNewObjectForEntityForName:@"GlobalScores" inManagedObjectContext:context];
+            globalScore.score = scoreHelper.score;
+            //globalScore.scoreDate = scoreHelper.scoreDate;
+            globalScore.userName = scoreHelper.userName;
+            globalScore.distance = scoreHelper.distance;
+            globalScore.position = scoreHelper.position;
+        }
+        if ([context hasChanges]) {
+            [DBAccessLayer saveContext:context async:NO];
+        }
+    }];
+}
+
 -(void)addHighScore:(HighScoreHelper *)scoreHelper
 {
     NSManagedObjectContext *context = [DBAccessLayer createManagedObjectContext];
     
-    [context performBlockAndWait:^{
+    [context performBlock:^{
         NSError *error = nil;
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"HighScores"];
         
@@ -200,7 +271,8 @@
             NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&error];
             if (!error) {
                 NSNumber *globalPos = [responseDict objectForKey:@"position"];
-                //NSLog(@"Global position: %@", globalPos);
+                [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:score] forKey:kLastUploadedScoreKey];
+                [[NSUserDefaults standardUserDefaults] synchronize];
                 if (globalPos) {
                     [[NSUserDefaults standardUserDefaults] setObject:globalPos forKey:kGlobalPositionKey];
                     [[NSUserDefaults standardUserDefaults] synchronize];
@@ -260,9 +332,16 @@
     }];
 }
 
--(void)getSurroundings
+-(void)downloadSurroundingsWithCompletion:(void(^)(NSDictionary *scores))completion andFail:(void(^)(void))fail
 {
     int highScore = [self getMaximumHighScore];
+    NSNumber *lastHighScore = [[NSUserDefaults standardUserDefaults] objectForKey:kLastUploadedScoreKey];
+    if (lastHighScore) {
+        if (highScore != lastHighScore.intValue) {
+            [self uploadHighscore:highScore];
+        }
+        highScore = lastHighScore.intValue;
+    }
     NSString *checkString = [NSString stringWithFormat:@"%@%d", [UIDevice currentDevice].identifierForVendor.UUIDString, highScore];
     NSString *hmac = [CommonTools hmacForKey:kSecret andData:checkString];
     NetworkManager *manager = [NetworkManager createNetworkManager];
@@ -283,15 +362,41 @@
             if (!error) {
                 NSArray *more = [responseDict objectForKey:@"more"];
                 NSArray *less = [responseDict objectForKey:@"less"];
-                NSLog(@"MORE: %@, LESS: %@", more, less);
+                NSMutableArray *resultArray = [NSMutableArray array];
+                NSMutableArray *moreArray = [NSMutableArray array];
+                NSMutableArray *lessArray = [NSMutableArray array];
+                
+                if (more) {
+                    for (NSDictionary *scoreDict in more) {
+                        GlobalScoreHelper *scoreHelper = [[GlobalScoreHelper alloc] init];
+                        scoreHelper.score = NULL_TO_NIL([scoreDict objectForKey:@"score"]);
+                        scoreHelper.scoreDate = NULL_TO_NIL([scoreDict objectForKey:@"timeStamp"]);
+                        scoreHelper.userName = NULL_TO_NIL([scoreDict objectForKey:@"userName"]);
+                        [resultArray addObject:scoreHelper];
+                        [moreArray addObject:scoreHelper];
+                    }
+                }
+                if (less) {
+                    for (NSDictionary *scoreDict in less) {
+                        GlobalScoreHelper *scoreHelper = [[GlobalScoreHelper alloc] init];
+                        scoreHelper.score = NULL_TO_NIL([scoreDict objectForKey:@"score"]);
+                        scoreHelper.scoreDate = NULL_TO_NIL([scoreDict objectForKey:@"timeStamp"]);
+                        scoreHelper.userName = NULL_TO_NIL([scoreDict objectForKey:@"userName"]);
+                        [resultArray addObject:scoreHelper];
+                        [lessArray addObject:scoreHelper];
+                    }
+                }
+                [self saveGlobalScores:resultArray];
+                
+                completion([NSDictionary dictionaryWithObjects:@[moreArray, lessArray] forKeys:@[@"more", @"less"]]);
             } else {
-
+                fail();
             }
         } else {
-
+            fail();
         }
     } andFailBlock:^(ResponseHelper *result) {
-
+        fail();
     }];
 }
 
@@ -302,6 +407,17 @@
     scoreHelper.scoreDate = score.scoreDate;
     scoreHelper.name = score.name;
     scoreHelper.distance = score.distance;
+    return scoreHelper;
+}
+
+-(GlobalScoreHelper *)globalScoreEntityToHelper:(GlobalScores *)score
+{
+    GlobalScoreHelper *scoreHelper = [[GlobalScoreHelper alloc] init];
+    scoreHelper.score = score.score;
+    //scoreHelper.scoreDate = score.scoreDate;
+    scoreHelper.userName = score.userName;
+    scoreHelper.distance = score.distance;
+    scoreHelper.position = score.position;
     return scoreHelper;
 }
 

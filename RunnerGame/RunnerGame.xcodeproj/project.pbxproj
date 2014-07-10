@@ -90,6 +90,9 @@
 		B0703EF1196AA13100BB27A6 /* RequestHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B0703EF0196AA13100BB27A6 /* RequestHelper.m */; };
 		B0703EF4196AA13C00BB27A6 /* ResponseHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B0703EF3196AA13C00BB27A6 /* ResponseHelper.m */; };
 		B0703EF6196D8CAF00BB27A6 /* badge@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B0703EF5196D8CAF00BB27A6 /* badge@2x.png */; };
+		B0703EFA196E991D00BB27A6 /* GlobalScores.m in Sources */ = {isa = PBXBuildFile; fileRef = B0703EF9196E991D00BB27A6 /* GlobalScores.m */; };
+		B0703EFD196E9AC900BB27A6 /* GlobalScoreHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B0703EFC196E9AC900BB27A6 /* GlobalScoreHelper.m */; };
+		B0703F00196EA6DE00BB27A6 /* GlobalScoresController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0703EFF196EA6DE00BB27A6 /* GlobalScoresController.m */; };
 		B09E2A77194B336C00C8E966 /* bizbasz@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B09E2A76194B336C00C8E966 /* bizbasz@2x.png */; };
 		B09E2A7A194B34C300C8E966 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B09E2A78194B34C300C8E966 /* Default-568h@2x.png */; };
 		B09E2A7B194B34C300C8E966 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B09E2A79194B34C300C8E966 /* Default@2x.png */; };
@@ -242,6 +245,13 @@
 		B0703EF2196AA13C00BB27A6 /* ResponseHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResponseHelper.h; sourceTree = "<group>"; };
 		B0703EF3196AA13C00BB27A6 /* ResponseHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResponseHelper.m; sourceTree = "<group>"; };
 		B0703EF5196D8CAF00BB27A6 /* badge@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "badge@2x.png"; sourceTree = "<group>"; };
+		B0703EF7196E988B00BB27A6 /* RunnerDataModel 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "RunnerDataModel 3.xcdatamodel"; sourceTree = "<group>"; };
+		B0703EF8196E991D00BB27A6 /* GlobalScores.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalScores.h; sourceTree = "<group>"; };
+		B0703EF9196E991D00BB27A6 /* GlobalScores.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalScores.m; sourceTree = "<group>"; };
+		B0703EFB196E9AC900BB27A6 /* GlobalScoreHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalScoreHelper.h; sourceTree = "<group>"; };
+		B0703EFC196E9AC900BB27A6 /* GlobalScoreHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalScoreHelper.m; sourceTree = "<group>"; };
+		B0703EFE196EA6DE00BB27A6 /* GlobalScoresController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalScoresController.h; sourceTree = "<group>"; };
+		B0703EFF196EA6DE00BB27A6 /* GlobalScoresController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalScoresController.m; sourceTree = "<group>"; };
 		B09E2A76194B336C00C8E966 /* bizbasz@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bizbasz@2x.png"; sourceTree = "<group>"; };
 		B09E2A78194B34C300C8E966 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		B09E2A79194B34C300C8E966 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
@@ -399,6 +409,8 @@
 				B06802A718F7184200DAE740 /* HighScoresController.m */,
 				B0A8E71418FDD98B00EB6D17 /* StatisticsViewController.h */,
 				B0A8E71518FDD98B00EB6D17 /* StatisticsViewController.m */,
+				B0703EFE196EA6DE00BB27A6 /* GlobalScoresController.h */,
+				B0703EFF196EA6DE00BB27A6 /* GlobalScoresController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -680,6 +692,8 @@
 		B0FF194618F1DB9900560E5E /* EntityHelpers */ = {
 			isa = PBXGroup;
 			children = (
+				B0703EFB196E9AC900BB27A6 /* GlobalScoreHelper.h */,
+				B0703EFC196E9AC900BB27A6 /* GlobalScoreHelper.m */,
 				B0FF194718F1DBAB00560E5E /* HighScoreHelper.h */,
 				B0FF194818F1DBAB00560E5E /* HighScoreHelper.m */,
 			);
@@ -691,6 +705,8 @@
 			children = (
 				B0FF194B18F1DBD000560E5E /* HighScores.h */,
 				B0FF194C18F1DBD000560E5E /* HighScores.m */,
+				B0703EF8196E991D00BB27A6 /* GlobalScores.h */,
+				B0703EF9196E991D00BB27A6 /* GlobalScores.m */,
 			);
 			name = Entities;
 			sourceTree = "<group>";
@@ -874,6 +890,7 @@
 				B06802A818F7184200DAE740 /* HighScoresController.m in Sources */,
 				B0703EEE196AA0DC00BB27A6 /* NetworkManager.m in Sources */,
 				B0FF194518F1DB8900560E5E /* HighScoreManager.m in Sources */,
+				B0703EFD196E9AC900BB27A6 /* GlobalScoreHelper.m in Sources */,
 				B01ED85918ED4FD50062AB4A /* Barrier.m in Sources */,
 				B04FC206194AF4410092233F /* StrokeLabel.m in Sources */,
 				B0A8E71318FDD0EF00EB6D17 /* StatisticsManager.m in Sources */,
@@ -887,11 +904,13 @@
 				B00DB9A318ED48EF00460930 /* AppDelegate.m in Sources */,
 				B0703EF1196AA13100BB27A6 /* RequestHelper.m in Sources */,
 				B00DB99F18ED48EF00460930 /* main.m in Sources */,
+				B0703F00196EA6DE00BB27A6 /* GlobalScoresController.m in Sources */,
 				B0703E79195018D800BB27A6 /* RunnerDataModel.xcdatamodeld in Sources */,
 				B01ED85618ED4FAB0062AB4A /* Runner.m in Sources */,
 				B0A8E71618FDD98B00EB6D17 /* StatisticsViewController.m in Sources */,
 				B06802AD18F71C7000DAE740 /* HighScoreCell.m in Sources */,
 				B0FF194918F1DBAB00560E5E /* HighScoreHelper.m in Sources */,
+				B0703EFA196E991D00BB27A6 /* GlobalScores.m in Sources */,
 				B0FF194D18F1DBD000560E5E /* HighScores.m in Sources */,
 				B01ED85C18ED4FE70062AB4A /* Ground.m in Sources */,
 			);
@@ -1125,10 +1144,11 @@
 		B0703E76195018D800BB27A6 /* RunnerDataModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				B0703EF7196E988B00BB27A6 /* RunnerDataModel 3.xcdatamodel */,
 				B0703E77195018D800BB27A6 /* RunnerDataModel 2.xcdatamodel */,
 				B0703E78195018D800BB27A6 /* RunnerDataModel.xcdatamodel */,
 			);
-			currentVersion = B0703E77195018D800BB27A6 /* RunnerDataModel 2.xcdatamodel */;
+			currentVersion = B0703EF7196E988B00BB27A6 /* RunnerDataModel 3.xcdatamodel */;
 			path = RunnerDataModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

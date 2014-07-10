@@ -91,6 +91,9 @@
                                     <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <segue destination="cUO-MV-P4i" kind="push" id="w2Z-X4-pN2"/>
+                                </connections>
                             </button>
                             <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="y16-SH-n4c" customClass="StrokeLabel">
                                 <rect key="frame" x="499" y="220" width="33" height="33"/>
@@ -263,6 +266,55 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MS7-eE-7UZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1157" y="655"/>
+        </scene>
+        <!--Global Scores Controller-->
+        <scene sceneID="Lrt-4p-EwM">
+            <objects>
+                <viewController id="cUO-MV-P4i" customClass="GlobalScoresController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="vj7-MG-a9k">
+                        <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="fYF-tZ-wXZ">
+                                <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="iFk-Jr-LHe">
+                                <rect key="frame" x="144" y="78" width="280" height="185"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="sectionIndexTrackingBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="cUO-MV-P4i" id="o8p-bw-OoG"/>
+                                    <outlet property="delegate" destination="cUO-MV-P4i" id="0yS-10-rRK"/>
+                                </connections>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="eEM-bi-5WC">
+                                <rect key="frame" x="259" y="265" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="OK">
+                                    <color key="titleColor" red="0.098039215690000001" green="0.90196078430000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="okClicked:" destination="cUO-MV-P4i" eventType="touchUpInside" id="kms-e6-9gK"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="axY-HL-YZN"/>
+                    <connections>
+                        <outlet property="bgView" destination="fYF-tZ-wXZ" id="1bt-JX-Ge7"/>
+                        <outlet property="highScoresTable" destination="iFk-Jr-LHe" id="fFn-lM-wzn"/>
+                        <outlet property="okButton" destination="eEM-bi-5WC" id="b8X-sc-pPC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dvz-Se-ZM8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1752" y="502"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="j9m-AZ-hyK">

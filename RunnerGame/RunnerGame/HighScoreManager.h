@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "DBAccessLayer.h"
 #import "HighScoreHelper.h"
+#import "GlobalScoreHelper.h"
 
 @interface HighScoreManager : NSObject
 
@@ -19,8 +20,8 @@
 -(int)getMinimumHighScore;
 -(int)getMaximumHighScore;
 -(BOOL)uploadHighscore:(int)score;
+-(NSDictionary *)getGlobalScores;
 -(void)getGlobalPositionFromServerWithCompletion:(void(^)(int result))completion andFail:(void(^)(void))fail;
-
--(void)getSurroundings;
+-(void)downloadSurroundingsWithCompletion:(void(^)(NSDictionary *scores))completion andFail:(void(^)(void))fail;
 
 @end

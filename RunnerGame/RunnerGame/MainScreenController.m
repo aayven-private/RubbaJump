@@ -70,6 +70,10 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
         HighScoreManager *hsManager = [HighScoreManager sharedManager];
         int maxScore = [hsManager getMaximumHighScore];
+        NSNumber *lastuploadedScore = [[NSUserDefaults standardUserDefaults] objectForKey:kLastUploadedScoreKey];
+        if (lastuploadedScore.intValue != maxScore) {
+            [hsManager uploadHighscore:maxScore];
+        }
         if (maxScore > 0) {
             [hsManager getGlobalPositionFromServerWithCompletion:^(int result) {
                 dispatch_async(dispatch_get_main_queue(), ^{

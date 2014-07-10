@@ -39,7 +39,7 @@
             [[HighScoreManager sharedManager] uploadHighscore:dirtyScore.intValue];
         });
     }
-    [[HighScoreManager sharedManager] getSurroundings];
+    //[[HighScoreManager sharedManager] getSurroundings];
     // Override point for customization after application launch.
     return YES;
 }
@@ -122,7 +122,7 @@
     if (_managedObjectModel != nil) {
         return _managedObjectModel;
     }
-    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"RunnerDataModel" withExtension:@"mom"];
+    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"RunnerDataModel" withExtension:@"momd"];
     _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
     return _managedObjectModel;
 }
