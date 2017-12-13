@@ -17,6 +17,6 @@
 
 -(void)initEnvironment;
 
-@property (nonatomic, weak) id<GameSceneHandlerDelegate> delegate;
+@property (nonatomic, weak) id<GameSceneHandlerDelegate> gameDelegate;
 
 @end

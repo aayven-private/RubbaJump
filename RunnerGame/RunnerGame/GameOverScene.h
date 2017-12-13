@@ -14,6 +14,6 @@
 
 -(id)initWithSize:(CGSize)size andStatistics:(StatisticsHelper *)stat;
 
-@property (nonatomic, weak) id<GameOverSceneDelegate> delegate;
+@property (nonatomic, weak) id<GameOverSceneDelegate> gameDelegate;
 
 @end

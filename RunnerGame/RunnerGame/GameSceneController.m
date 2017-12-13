@@ -79,7 +79,7 @@
         // Create and configure the scene.
         _gameScene = [GameScene sceneWithSize:skView.bounds.size];
         _gameScene.scaleMode = SKSceneScaleModeAspectFill;
-        _gameScene.delegate = self;
+        _gameScene.gameDelegate = self;
         
         // Present the scene.
         [skView presentScene:_gameScene];
@@ -91,7 +91,7 @@
     [[StatisticsManager sharedInstance] saveStatistics:stat];
     
     GameOverScene *gos = [[GameOverScene alloc] initWithSize:self.view.frame.size andStatistics:stat];
-    gos.delegate = self;
+    gos.gameDelegate = self;
     [((SKView *)self.view) presentScene:gos transition:[SKTransition flipHorizontalWithDuration:.5]];
     
 }
@@ -108,7 +108,7 @@
     // Create and configure the scene.
     _gameScene = [GameScene sceneWithSize:skView.bounds.size];
     _gameScene.scaleMode = SKSceneScaleModeAspectFill;
-    _gameScene.delegate = self;
+    _gameScene.gameDelegate = self;
     
     // Present the scene.
     [skView presentScene:_gameScene transition:[SKTransition flipHorizontalWithDuration:.5]];

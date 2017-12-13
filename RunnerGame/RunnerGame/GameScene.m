@@ -591,7 +591,7 @@ static SKAction *sharedRewardSoundAction = nil;
             stat.distance = (int)_distance;
             stat.barriers = _globalBarriersAvoided;
             [_backgroundMusicPlayer stop];
-            [_delegate gameOverWithStatistics:stat];
+            [_gameDelegate gameOverWithStatistics:stat];
         }]]]];
     } else {
         _score++;

@@ -143,10 +143,10 @@
     
     if ([node.name isEqualToString:@"exit"]) {
         [self playButtonSound];
-        [_delegate quit];
+        [_gameDelegate quit];
     } else if ([node.name isEqualToString:@"retry"]) {
         [self playButtonSound];
-        [_delegate retry];
+        [_gameDelegate retry];
     }
 }
 
